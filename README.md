@@ -1,9 +1,9 @@
-# bside_payload
+# Payload CMS
 
-This project was created using create-payload-app using the ts-blank template.
+## Current dev workflow
 
-## How to Use
+Just run `docker compose up`, it will install the dependencies and start dev server. You 
+don't even need to create a `.env` file since the compose file comes with the necessary
+environment variables 🚀
 
-`yarn dev` will start up your application and reload on any changes.
-
-If you have docker and docker-compose installed, you can run `docker-compose up`
+When docker containers are running, CMS is available under http://localhost:3000.
