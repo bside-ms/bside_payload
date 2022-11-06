@@ -1,4 +1,5 @@
 const OFF = 0;
+const WARNING = 1;
 const ERROR = 2;
 
 module.exports = {
@@ -378,8 +379,8 @@ module.exports = {
         '@typescript-eslint/no-unnecessary-type-assertion': ERROR,
         '@typescript-eslint/no-unsafe-assignment': ERROR,
         '@typescript-eslint/no-unsafe-argument': ERROR,
-        '@typescript-eslint/no-unsafe-call': ERROR,
-        '@typescript-eslint/no-unsafe-member-access': ERROR,
+        '@typescript-eslint/no-unsafe-call': WARNING,
+        '@typescript-eslint/no-unsafe-member-access': WARNING,
         '@typescript-eslint/no-unsafe-return': ERROR,
         '@typescript-eslint/no-unused-expressions': ERROR,
         '@typescript-eslint/no-unused-vars': OFF, // unused-imports plugin takes care of this
