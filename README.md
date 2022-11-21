@@ -2,8 +2,8 @@
 
 ## Current dev workflow
 
-Just run `docker compose up`, it will install the dependencies and start dev server. You 
-don't even need to create a `.env` file since the compose file comes with the necessary
-environment variables 🚀
+First install dependencies with `npm install`. Then at
+`mongodb://localhost:27017/payload` as `MONGODB_URI` to your `.env` file and
+run `docker compose up -d` to start the mongoDB instance.
 
 When docker containers are running, CMS is available under http://localhost:3000.
