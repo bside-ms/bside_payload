@@ -1,5 +1,7 @@
 import path from 'path';
 import { buildConfig } from 'payload/config';
+import ApiUsers from './collections/ApiUsers';
+import News from './collections/News';
 import Users from './collections/Users';
 import ContactData from './globals/ContactData';
 
@@ -10,6 +12,8 @@ export default buildConfig({
     },
     collections: [
         Users,
+        ApiUsers,
+        News,
     ],
     globals: [
         ContactData,
