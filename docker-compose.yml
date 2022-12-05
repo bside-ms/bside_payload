@@ -1,7 +1,8 @@
 version: '3'
 
 services:
-  mongo:
+  payload_mongo:
+    container_name: payload_mongo
     image: mongo:latest
     ports:
       - "27017:27017"
