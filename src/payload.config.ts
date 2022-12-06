@@ -14,8 +14,6 @@ export default buildConfig({
     admin: {
         user: Users.slug,
 
-        css: path.resolve(__dirname, './styles/custom.scss'),
-
         components: {
             beforeLogin: [
                 BeforeLogin,
