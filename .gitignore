@@ -277,3 +277,7 @@ fabric.properties
 
 # Not sure why that gitignore generator is not ignoring everything in .idea
 .idea
+
+# Media
+media/
+!media/\.gitkeep

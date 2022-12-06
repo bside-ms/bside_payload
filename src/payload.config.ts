@@ -5,8 +5,8 @@ import Media from './collections/Media';
 import News from './collections/News';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
+import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
-import BeforeDashboard from "./components/BeforeDashboard";
 
 export default buildConfig({
     // ToDo: Make this an environment variable.

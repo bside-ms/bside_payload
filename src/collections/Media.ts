@@ -32,12 +32,12 @@ const Media: CollectionConfig = {
             {
                 name: 'thumbnail',
                 width: 480,
-                heigth: 320,
+                height: 320,
             },
             {
                 name: 'hero',
                 width: 1920,
-                heigth: 1080,
+                height: 1080,
             },
         ],
     },
