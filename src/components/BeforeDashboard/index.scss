@@ -6,6 +6,10 @@
   .banner {
     color: var(--color-base-800);
 
+    .icon {
+      width: 30px;
+    }
+
     svg {
       background-color: var(--color-base-800);
       border-radius: 100px;

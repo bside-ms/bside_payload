@@ -10,6 +10,8 @@ const BeforeDashboard = (): ReactElement => {
     return (
         <div className={baseClass}>
             <Banner type="success">
+                <Check />
+
                 <strong>
                     B-Side Website 2023
                 </strong>
