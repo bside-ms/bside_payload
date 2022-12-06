@@ -1,11 +1,12 @@
 import path from 'path';
 import { buildConfig } from 'payload/config';
-import ApiUsers from './collections/Users/ApiUsers';
 import CorporateBodies from './collections/CorporateBodies';
-import News from './collections/News';
-import Users from './collections/Users/Users';
-import ContactData from './globals/ContactData';
 import Media from './collections/Media';
+import News from './collections/News';
+import ApiUsers from './collections/Users/ApiUsers';
+import Users from './collections/Users/Users';
+import BeforeLogin from './components/BeforeLogin';
+import BeforeDashboard from "./components/BeforeDashboard";
 
 export default buildConfig({
     // ToDo: Make this an environment variable.
@@ -13,6 +14,18 @@ export default buildConfig({
 
     admin: {
         user: Users.slug,
+
+        css: path.resolve(__dirname, './styles/custom.scss'),
+
+        components: {
+            beforeLogin: [
+                BeforeLogin,
+            ],
+
+            beforeDashboard: [
+                BeforeDashboard,
+            ],
+        },
     },
 
     // collections in Payload are synonymous with database tables, models or entities from other frameworks and systems
@@ -31,7 +44,7 @@ export default buildConfig({
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
     globals: [
-        ContactData,
+
     ],
 
     typescript: {
