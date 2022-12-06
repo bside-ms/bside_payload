@@ -5,6 +5,8 @@
   "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
+    "ts-check": "tsc --noEmit --pretty",
+    "ts-check:watch": "npm run ts-check -- --watch --preserveWatchOutput",
     "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
     "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
     "build:server": "tsc",
@@ -35,7 +37,7 @@
     "eslint-plugin-unicorn": "^44.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
     "nodemon": "^2.0.6",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   }
 }

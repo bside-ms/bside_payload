@@ -192,6 +192,8 @@ module.exports = {
         'react/jsx-first-prop-new-line': [ERROR, 'multiline'],
         'react/jsx-equals-spacing': ERROR,
         'react/jsx-indent': ERROR,
+        'react/jsx-uses-react': ERROR,
+        'react/jsx-uses-vars': ERROR,
         'react/jsx-no-bind': ERROR,
         'react/jsx-no-target-blank': OFF,
         'react/jsx-no-useless-fragment': ERROR,
