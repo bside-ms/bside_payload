@@ -1,11 +1,12 @@
-import React from 'react';
-import { Banner } from 'payload/components';
-
 import './index.scss';
+
+import type { ReactElement } from 'react';
+import React from 'react';
+import { Banner, Check } from 'payload/components';
 
 const baseClass = 'before-dashboard';
 
-const BeforeDashboard: React.FC = () => {
+const BeforeDashboard = (): ReactElement => {
     return (
         <div className={baseClass}>
             <Banner type="success">
