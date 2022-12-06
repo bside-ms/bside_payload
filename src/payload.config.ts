@@ -9,7 +9,6 @@ import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 
 export default buildConfig({
-    // ToDo: Make this an environment variable.
     serverURL: 'http://localhost:3000',
 
     admin: {
