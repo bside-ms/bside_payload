@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload/types';
 import toBeImplemented from './accesses/toBeImplemented';
 
 const CorporateBody: CollectionConfig = {
-    slug: 'corporateBodies',
+    slug: 'corporate-bodies',
 
     labels: {
         singular: 'Körperschaft',
@@ -14,7 +14,16 @@ const CorporateBody: CollectionConfig = {
     admin: {
         useAsTitle: 'name',
         group: 'Administration',
-        defaultColumns: ['phone'],
+        defaultColumns: [
+            'name',
+            'mail',
+            'state',
+        ],
+    },
+
+    versions: {
+        drafts: true,
+        retainDeleted: true,
     },
 
     fields: [

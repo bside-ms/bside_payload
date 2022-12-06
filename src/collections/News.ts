@@ -16,6 +16,14 @@ const News: CollectionConfig = {
             type: 'textarea',
             name: 'content',
         },
+        {
+            name: 'body',
+            label: 'Zugehörige Körperschaft',
+            type: 'relationship',
+            relationTo: 'corporate-bodies',
+            hasMany: false,
+            required: false,
+        },
     ],
 };
 

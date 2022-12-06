@@ -5,6 +5,7 @@ import CorporateBodies from './collections/CorporateBodies';
 import News from './collections/News';
 import Users from './collections/Users/Users';
 import ContactData from './globals/ContactData';
+import Media from './collections/Media';
 
 export default buildConfig({
     // ToDo: Make this an environment variable.
@@ -25,6 +26,7 @@ export default buildConfig({
 
         // Other
         News,
+        Media,
     ],
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
