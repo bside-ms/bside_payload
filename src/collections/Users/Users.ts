@@ -5,6 +5,11 @@ const Users: CollectionConfig = {
     slug: 'users',
     auth: true,
 
+    labels: {
+        singular: 'User',
+        plural: 'User',
+    },
+
     admin: {
         useAsTitle: 'email',
         group: 'Benutzer:innen-Verwaltung',
