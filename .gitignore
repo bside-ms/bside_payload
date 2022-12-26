@@ -281,3 +281,6 @@ fabric.properties
 # Media
 media/
 !media/\.gitkeep
+
+#
+build

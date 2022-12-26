@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload/types';
-import needsLoginToRead from './accesses/needsLoginToRead';
+import toBeImplemented from './accesses/toBeImplemented';
 
 const News: CollectionConfig = {
     slug: 'news',
-    access: needsLoginToRead,
+    access: toBeImplemented,
     admin: {
         useAsTitle: 'title',
     },

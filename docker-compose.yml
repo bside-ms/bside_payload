@@ -1,15 +1,37 @@
 version: '3'
 
 services:
+  payload:
+    container_name: payload
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    networks:
+      - payload
+    env_file: .env.docker
+    depends_on:
+      - payload_mongo
+    restart: unless-stopped
+    environment:
+      - PAYLOAD_CONFIG_PATH=/app/dist/payload.config.js
+    volumes:
+      - ./media:/app/media
+
   payload_mongo:
     container_name: payload_mongo
     image: mongo:latest
     ports:
-      - "27017:27017"
+      - '27017:27017'
     command:
       - --storageEngine=wiredTiger
     volumes:
       - data:/data/db
+    networks:
+      - payload
 
 volumes:
   data:
+
+networks:
+  payload:
