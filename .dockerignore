@@ -11,5 +11,4 @@ build
 dist
 media
 
-.env
-.env.skel
+.env*
