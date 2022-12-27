@@ -9,7 +9,7 @@ services:
       - '3000:3000'
     networks:
       - payload
-    env_file: .env.docker
+    env_file: .env
     depends_on:
       - payload_mongo
     restart: unless-stopped
