@@ -20,6 +20,7 @@ module.exports = {
     ignorePatterns: [
         '**/*.json',
         '**/*.js',
+        '**/payload-types.ts',
     ],
     plugins: [
         // https://github.com/yannickcr/eslint-plugin-react

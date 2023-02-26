@@ -1,17 +1,14 @@
+# Docker
 Dockerfile
 .dockerignore
+.nvmrc
 node_modules
 npm-debug.log
 README.md
-
 .git
 .github
 .idea
-
-.nvmrc
-
 build
 dist
 media
-
 .env*
