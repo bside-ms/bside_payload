@@ -9,13 +9,13 @@
 
 ## Notes for Production Deployment
 
-**Permissions**  
+### Permissions  
 The `media`-Folder needs the following permissions: `1001:1001`.
 
-**Image**  
+### Image  
 The `docker-compose.yml` needs to be changed to include the actual image.
 
-**Database**  
+### Database  
 The mongoDB instance is not required to build this image.  
 However, this image must be deployed and referenced in the `.env`-file of the NextJS project.
 Otherwise, its build will fail.

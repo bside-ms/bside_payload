@@ -23,7 +23,6 @@ const CorporateBody: CollectionConfig = {
 
     versions: {
         drafts: true,
-        retainDeleted: true,
     },
 
     fields: [
