@@ -1,18 +1,16 @@
 import path from 'path';
 import type { CollectionConfig } from 'payload/types';
+import { isAdmin } from '../access/isAdmin';
 
 const Media: CollectionConfig = {
     slug: 'media',
 
     // ToDo: Talk about this.
     access: {
-        // Allow display and download.
-
-        // Allow the rest for testing purposes.
         read: () => true,
-        create: () => true,
-        update: () => true,
-        delete: () => true,
+        create: isAdmin,
+        update: isAdmin,
+        delete: isAdmin,
     },
 
     admin: {
@@ -49,6 +47,15 @@ const Media: CollectionConfig = {
             label: 'Alternativtext',
             type: 'text',
             required: true,
+        },
+        {
+            name: 'darkModeFallback',
+            label: 'Fallback für Darkmode',
+            type: 'upload',
+            relationTo: 'media',
+            admin: {
+                description: 'Choose an upload to render if the visitor is using dark mode.',
+            },
         },
     ],
 };

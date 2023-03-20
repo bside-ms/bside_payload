@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types';
-import needsLoginToRead from '../accesses/needsLoginToRead';
+import { isAdmin } from '../../access/isAdmin';
 
 const Users: CollectionConfig = {
     slug: 'users',
@@ -15,7 +15,12 @@ const Users: CollectionConfig = {
         group: 'Benutzer:innen-Verwaltung',
     },
 
-    access: needsLoginToRead,
+    access: {
+        create: isAdmin,
+        read: () => true,
+        update: isAdmin,
+        delete: isAdmin,
+    },
 
     fields: [
         {

@@ -1,8 +1,6 @@
 import path from 'path';
 import { buildConfig } from 'payload/config';
-import CorporateBodies from './collections/CorporateBodies';
 import Media from './collections/Media';
-import News from './collections/News';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
 import BeforeDashboard from './components/BeforeDashboard';
@@ -31,11 +29,7 @@ export default buildConfig({
         Users,
         ApiUsers,
 
-        // Administration
-        CorporateBodies,
-
         // Other
-        News,
         Media,
     ],
 
@@ -50,6 +44,7 @@ export default buildConfig({
 
     graphQL: {
         disable: true,
+        disablePlaygroundInProduction: true,
     },
 
     // rateLimits provide basic API DDOS (Denial-of-service) protection and can limit accidental server load from scripts

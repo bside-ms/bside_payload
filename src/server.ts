@@ -1,8 +1,7 @@
-import { config as dotenvConfig } from 'dotenv';
 import express from 'express';
 import payload from 'payload';
 
-dotenvConfig();
+require('dotenv').config();
 
 const app = express();
 

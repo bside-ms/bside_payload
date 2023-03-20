@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types';
-import needsLoginToRead from '../accesses/needsLoginToRead';
+import { isAdmin } from '../../access/isAdmin';
 
 const ApiUsers: CollectionConfig = {
     slug: 'api-users',
@@ -17,7 +17,12 @@ const ApiUsers: CollectionConfig = {
         useAPIKey: true,
     },
 
-    access: needsLoginToRead,
+    access: {
+        create: isAdmin,
+        read: () => true,
+        update: isAdmin,
+        delete: isAdmin,
+    },
 
     fields: [],
 };
