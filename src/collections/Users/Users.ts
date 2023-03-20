@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload/types';
-import { isAdmin } from '../../access/isAdmin';
+import { isAdminFieldLevel } from '../../access/isAdmin';
+import { isAdminOrSelfFieldLevel } from '../../access/isAdminOrSelf';
+import { isTrue } from '../../access/isTrue';
 
 const Users: CollectionConfig = {
     slug: 'users',
@@ -16,17 +18,41 @@ const Users: CollectionConfig = {
     },
 
     access: {
-        create: isAdmin,
+        create: isTrue,
         read: () => true,
-        update: isAdmin,
-        delete: isAdmin,
+        update: isTrue,
+        delete: isTrue,
     },
 
     fields: [
         {
-            name: 'isAdmin',
-            required: false,
-            type: 'checkbox',
+            type: 'row',
+            fields: [
+                {
+                    name: 'firstName',
+                    type: 'text',
+                    required: true,
+                },
+                {
+                    name: 'lastName',
+                    type: 'text',
+                    required: true,
+                },
+            ],
+        },
+
+        {
+            name: 'roles',
+            type: 'select',
+            hasMany: true,
+            defaultValue: ['public'],
+            required: true,
+            access: {
+                read: isAdminOrSelfFieldLevel,
+                create: isAdminFieldLevel,
+                update: isAdminFieldLevel,
+            },
+            options: ['public', 'editor', 'admin'],
         },
     ],
 };
