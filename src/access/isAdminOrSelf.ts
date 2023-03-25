@@ -1,27 +1,19 @@
-import type { Access } from 'payload/config';
-import type { FieldAccess } from 'payload/types';
+import type { Access, FieldAccess } from 'payload/types';
 import type { User } from '../payload-types';
+import { checkRole } from './checkRole';
 
-export const isAdminOrSelf: Access = ({ req: { user } }) => {
-    // Need to be logged in
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (user) {
-        // If user has role of 'admin'
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (user.roles?.includes('admin') ?? false) {
-            return true;
-        }
-
-        // If any other type of user, only provide access to themselves
-        return {
-            id: {
-                equals: user.id,
-            },
-        };
+export const isAdminOrSelf: Access<User> = ({ req: { user } }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    if (checkRole(user, ['admin'])) {
+        return Boolean(true);
     }
 
-    // Reject everyone else
-    return false;
+    // If any other type of user, only provide access to themselves
+    return {
+        id: {
+            equals: user.id,
+        },
+    };
 };
 
 export const isAdminOrSelfFieldLevel: FieldAccess<{ id: string }, unknown, User> = ({
@@ -30,10 +22,10 @@ export const isAdminOrSelfFieldLevel: FieldAccess<{ id: string }, unknown, User>
 }) => {
     if (user) {
         // Return true or false based on if the user has an admin role
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (user.roles?.includes('admin')) {
-            return true;
+        if (checkRole(user, ['admin'])) {
+            return Boolean(true);
         }
+
         if (user.id === id) {
             return true;
         }
