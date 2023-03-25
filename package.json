@@ -16,7 +16,10 @@
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "generate:graphQLSchema": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:graphQLSchema",
     "eslint": "eslint --quiet \"./**/*.{ts,tsx}\"",
-    "eslint:fix": "npm run eslint -- --fix"
+    "eslint:fix": "npm run eslint -- --fix",
+    "db-start": "docker compose up -d payload_mongo",
+    "db-purge": "docker compose down && docker volume rm bside_payload_data && docker compose up -d payload_mongo",
+    "db-stop": "docker compose down"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
