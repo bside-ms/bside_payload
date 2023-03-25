@@ -1,12 +1,11 @@
 import type { Access } from 'payload/config';
 import type { User } from '../payload-types';
+import { checkRole } from './checkRole';
 
-export const publishedOnly: Access<
-    any, // eslint-disable-line @typescript-eslint/no-explicit-any
-    User
-> = ({ req: { user } }) => {
-    if (user?.isAdmin ?? false) {
-        return true;
+export const publishedOnly: Access<User> = ({ req: { user } }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    if (checkRole(user, ['admin'])) {
+        return Boolean(true);
     }
 
     return {

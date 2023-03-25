@@ -2,6 +2,7 @@ import path from 'path';
 import * as process from 'process';
 import { buildConfig } from 'payload/config';
 import Media from './collections/Media';
+import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
 import BeforeDashboard from './components/BeforeDashboard';
@@ -28,6 +29,8 @@ export default buildConfig({
         // Authentication
         Users,
         ApiUsers,
+
+        Pages,
 
         // Other
         Media,
