@@ -6,6 +6,7 @@ import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
 import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
+import { Footer } from './globals/Footer';
 
 export default buildConfig({
     admin: {
@@ -33,7 +34,7 @@ export default buildConfig({
     ],
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
-    globals: [],
+    globals: [Footer],
 
     graphQL: {
         disable: true,
