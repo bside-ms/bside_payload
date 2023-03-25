@@ -1,4 +1,5 @@
 import path from 'path';
+import * as process from 'process';
 import { buildConfig } from 'payload/config';
 import Media from './collections/Media';
 import ApiUsers from './collections/Users/ApiUsers';
@@ -7,8 +8,6 @@ import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 
 export default buildConfig({
-    serverURL: 'http://localhost:3000',
-
     admin: {
         user: Users.slug,
 
@@ -34,20 +33,13 @@ export default buildConfig({
     ],
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
-    globals: [
-
-    ],
-
-    typescript: {
-        outputFile: path.resolve(__dirname, 'payload-types.ts'),
-    },
+    globals: [],
 
     graphQL: {
         disable: true,
         disablePlaygroundInProduction: true,
     },
 
-    // rateLimits provide basic API DDOS (Denial-of-service) protection and can limit accidental server load from scripts
     rateLimit: {
         trustProxy: true,
         window: 2 * 60 * 1000, // 2 minutes
@@ -57,5 +49,14 @@ export default buildConfig({
     routes: {
         api: '/api',
         admin: '/admin',
+    },
+
+    // rateLimits provide basic API DDOS (Denial-of-service) protection and can limit accidental server load from scripts
+    serverURL: process.env.PAYLOAD_PUBLIC_CMS_URL,
+
+    telemetry: false,
+
+    typescript: {
+        outputFile: path.resolve(__dirname, 'payload-types.ts'),
     },
 });

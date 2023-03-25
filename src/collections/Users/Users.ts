@@ -1,11 +1,17 @@
 import type { CollectionConfig } from 'payload/types';
-import { isAdminFieldLevel } from '../../access/isAdmin';
+import { isAdmin, isAdminFieldLevel } from '../../access/isAdmin';
 import { isAdminOrSelfFieldLevel } from '../../access/isAdminOrSelf';
-import { isTrue } from '../../access/isTrue';
 
 const Users: CollectionConfig = {
     slug: 'users',
-    auth: true,
+    auth: {
+        tokenExpiration: 28800, // 8 hours
+        cookies: {
+            sameSite: 'none',
+            secure: true,
+            domain: process.env.COOKIE_DOMAIN,
+        },
+    },
 
     labels: {
         singular: 'User',
@@ -13,15 +19,16 @@ const Users: CollectionConfig = {
     },
 
     admin: {
-        useAsTitle: 'email',
+        useAsTitle: 'firstName',
         group: 'Benutzer:innen-Verwaltung',
+        defaultColumns: ['email', 'firstName', 'lastName', 'roles', 'createdAt', 'updatedAt'],
     },
 
     access: {
-        create: isTrue,
+        create: isAdmin,
         read: () => true,
-        update: isTrue,
-        delete: isTrue,
+        update: isAdmin,
+        delete: isAdmin,
     },
 
     fields: [

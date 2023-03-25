@@ -1,5 +1,7 @@
+import * as process from 'process';
 import express from 'express';
 import payload from 'payload';
+import { seed } from './seed';
 
 require('dotenv').config();
 
@@ -15,6 +17,11 @@ const start = async (): Promise<void> => {
             payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
         },
     });
+
+    if (process.env.PAYLOAD_SEED === 'true') {
+        payload.logger.info('Seeding the Database');
+        await seed(payload);
+    }
 
     app.listen(3000, (): void => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
