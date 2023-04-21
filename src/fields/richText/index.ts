@@ -23,6 +23,7 @@ const richText: RichText = (
         {
             name: 'richText',
             type: 'richText',
+            label: 'Beschreibung',
             required: true,
             admin: {
                 upload: {

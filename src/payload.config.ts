@@ -1,6 +1,8 @@
 import path from 'path';
 import * as process from 'process';
+import redirects from '@payloadcms/plugin-redirects';
 import { buildConfig } from 'payload/config';
+import Events from './collections/Events';
 import Media from './collections/Media';
 import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
@@ -9,7 +11,6 @@ import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 import { Footer } from './globals/Footer';
 import { MainMenu } from './globals/MainMenu';
-import redirects from '@payloadcms/plugin-redirects';
 
 export default buildConfig({
     admin: {
@@ -32,6 +33,8 @@ export default buildConfig({
         Users,
         ApiUsers,
 
+        // Collections
+        Events,
         Pages,
 
         // Other

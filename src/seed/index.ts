@@ -11,4 +11,13 @@ export const seed = async (payload: Payload): Promise<void> => {
             lastName: 'admin',
         },
     });
+
+    await payload.create({
+        collection: 'api-users',
+        data: {
+            email: 'api@admin.local',
+            password: 'test',
+            enableAPIKey: true,
+        },
+    });
 };
