@@ -8,6 +8,8 @@ import Users from './collections/Users/Users';
 import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 import { Footer } from './globals/Footer';
+import { MainMenu } from './globals/MainMenu';
+import redirects from '@payloadcms/plugin-redirects';
 
 export default buildConfig({
     admin: {
@@ -37,7 +39,7 @@ export default buildConfig({
     ],
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
-    globals: [Footer],
+    globals: [Footer, MainMenu],
 
     graphQL: {
         disable: true,
@@ -63,4 +65,10 @@ export default buildConfig({
     typescript: {
         outputFile: path.resolve(__dirname, 'payload-types.ts'),
     },
+
+    plugins: [
+        redirects({
+            collections: ['pages'],
+        }),
+    ],
 });
