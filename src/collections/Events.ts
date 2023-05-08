@@ -37,44 +37,70 @@ const Events: CollectionConfig = {
             required: true,
         },
 
+        //
+        // Details
         {
-            name: 'dateStart',
+            name: 'eventLocation',
+            type: 'text',
+            label: 'Veranstaltungsort',
+            required: true,
+        },
+        {
+            name: 'eventExtra',
+            type: 'text',
+            label: 'Extra',
+            required: false,
+        },
+
+        //
+        // Dates
+
+        {
+            name: 'eventDate',
+            type: 'date',
+            label: 'Datum',
+            required: true,
+            admin: {
+                date: {
+                    pickerAppearance: 'dateOnly',
+                    displayFormat: 'dd MMM yyy',
+                },
+                position: 'sidebar',
+            },
+        },
+        {
+            name: 'eventStart',
             type: 'date',
             label: 'Startzeit',
             required: true,
             admin: {
                 date: {
-                    pickerAppearance: 'dayAndTime',
+                    pickerAppearance: 'timeOnly',
+                    displayFormat: 'HH:mm',
+                    timeFormat: 'HH:mm',
+                    timeIntervals: 15,
                 },
                 position: 'sidebar',
             },
         },
-
         {
-            name: 'dateEnd',
+            name: 'eventEnd',
             type: 'date',
             label: 'Endzeit',
             required: false,
             admin: {
                 date: {
-                    pickerAppearance: 'dayAndTime',
+                    pickerAppearance: 'timeOnly',
+                    displayFormat: 'HH:mm',
+                    timeFormat: 'HH:mm',
+                    timeIntervals: 15,
                 },
                 position: 'sidebar',
             },
         },
 
-        {
-            name: 'place',
-            type: 'text',
-            label: 'Ort',
-            required: true,
-        },
-
         richText(),
         slugField(),
-        
-        // ToDo: Autogenerate Slug.
-        // ToDo: Link Arbeitskreis
     ],
 };
 
