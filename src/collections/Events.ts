@@ -51,6 +51,15 @@ const Events: CollectionConfig = {
             label: 'Extra',
             required: false,
         },
+        {
+            name: 'eventImage',
+            type: 'upload',
+            relationTo: 'media',
+            filterOptions: {
+                mimeType: { contains: 'image' },
+                imageSize: { contains: 'event' },
+            },
+        },
 
         //
         // Dates

@@ -28,6 +28,11 @@ const Media: CollectionConfig = {
         ],
         imageSizes: [
             {
+                name: 'event',
+                width: 1080,
+                height: 1080,
+            },
+            {
                 name: 'thumbnail',
                 width: 480,
                 height: 320,
