@@ -11,6 +11,7 @@ import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 import { Footer } from './globals/Footer';
 import { MainMenu } from './globals/MainMenu';
+import nestedPages from '@payloadcms/plugin-nested-docs';
 
 export default buildConfig({
     admin: {
@@ -72,6 +73,11 @@ export default buildConfig({
     plugins: [
         redirects({
             collections: ['pages'],
+        }),
+        nestedPages({
+            collections: ['pages'],
+            generateLabel: (_, doc) => doc.title as string,
+            generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, '') as string,
         }),
     ],
 });

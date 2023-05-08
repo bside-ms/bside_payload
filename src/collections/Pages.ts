@@ -36,6 +36,7 @@ const Pages: CollectionConfig = {
             type: 'text',
             required: true,
         },
+
         richText(),
         slugField(),
     ],
