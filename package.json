@@ -7,7 +7,7 @@
   "scripts": {
     "ts-check": "tsc --noEmit --pretty",
     "ts-check:watch": "npm run ts-check -- --watch --preserveWatchOutput",
-    "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
+    "dev": "sed -i \"s/PAYLOAD_SEED=.*/PAYLOAD_SEED=false/\" .env && cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
     "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
     "build:server": "tsc",
     "build": "yarn copyfiles && yarn build:payload && yarn build:server",
@@ -18,7 +18,7 @@
     "eslint": "eslint --quiet \"./**/*.{ts,tsx}\"",
     "eslint:fix": "npm run eslint -- --fix",
     "db-start": "docker compose up -d payload_mongo",
-    "db-purge": "docker compose down && docker volume rm bside_payload_data && docker compose up -d payload_mongo",
+    "db-purge": "docker compose down && docker volume rm bside_payload_data && docker compose up -d payload_mongo && sed -i \"s/PAYLOAD_SEED=.*/PAYLOAD_SEED=true/\" .env && cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
     "db-stop": "docker compose down"
   },
   "dependencies": {
