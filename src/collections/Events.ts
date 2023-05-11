@@ -71,7 +71,6 @@ const Events: CollectionConfig = {
             required: true,
             admin: {
                 date: {
-                    pickerAppearance: 'dateOnly',
                     displayFormat: 'dd MMM yyy',
                 },
                 position: 'sidebar',

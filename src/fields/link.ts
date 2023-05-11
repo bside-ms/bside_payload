@@ -27,6 +27,7 @@ type LinkType = (options?: {
 const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
     const linkResult: Field = {
         name: 'link',
+
         type: 'group',
         admin: {
             hideGutter: true,
@@ -76,7 +77,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
             name: 'reference',
             label: 'Document to link to',
             type: 'relationship',
-            relationTo: ['users'], // 'pages', 'posts', 'case-studies'
+            relationTo: ['pages'],
             required: true,
             maxDepth: 1,
             admin: {
