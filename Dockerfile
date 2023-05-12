@@ -1,33 +1,24 @@
-FROM node:14-alpine as base
+FROM node:18-alpine as base
 
 FROM base as builder
 
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package.json package-lock.json* ./
-RUN npm ci
+WORKDIR /home/node
+COPY package*.json ./
 
 COPY . .
-RUN npm run build
-
+RUN yarn install
+RUN yarn build
 
 FROM base as runtime
-WORKDIR /app
 
 ENV NODE_ENV=production
 
+WORKDIR /home/node
 COPY package*.json  ./
 
-RUN addgroup --system --gid 1001 nodejs \
-    && adduser --system --uid 1001 nodejs \
-    && chown -R nodejs:nodejs ./package*.json && npm ci --production \
-    && mkdir ./media && chown -R nodejs:nodejs ./media ./node_modules
-
-COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
-COPY --from=builder --chown=nodejs:nodejs /app/build ./build
-
-USER nodejs:nodejs
+RUN yarn install --production
+COPY --from=builder /home/node/dist ./dist
+COPY --from=builder /home/node/build ./build
 
 EXPOSE 3000
 
