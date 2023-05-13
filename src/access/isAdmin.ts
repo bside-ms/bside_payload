@@ -1,14 +1,21 @@
 import type { Access, FieldAccess } from 'payload/types';
 import type { User } from '../payload-types';
+import { checkRole } from './checkRole';
 
 export const isAdmin: Access<User> = ({ req: { user } }) => {
-    // Return true or false based on if the user has an admin role
-    return Boolean(user.roles?.includes('admin'));
+    if (checkRole(user as User, ['admin'])) {
+        return Boolean(true);
+    }
+
+    return false;
 };
 
 export const isAdminFieldLevel: FieldAccess<{ id: string }, User> = ({
     req: { user },
 }) => {
-    // Return true or false based on if the user has an admin role
-    return Boolean(user.roles.includes('admin'));
+    if (checkRole(user as User, ['admin'])) {
+        return Boolean(true);
+    }
+
+    return false;
 };
