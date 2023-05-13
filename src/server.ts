@@ -20,7 +20,12 @@ const start = async (): Promise<void> => {
 
     if (process.env.PAYLOAD_SEED === 'true') {
         payload.logger.info('Seeding the Database');
-        await seed(payload);
+        try {
+            await seed(payload);
+        } catch (e) {
+            // @ts-expect-error
+            payload.logger.error(`Seeding failed: ${e.toString()}`);
+        }
     }
 
     app.listen(3000, (): void => {

@@ -3,6 +3,10 @@ import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
 
 export const isAdmin: Access<User> = ({ req: { user } }) => {
+    if (user === undefined) {
+        return false;
+    }
+
     if (checkRole(user as User, ['admin'])) {
         return Boolean(true);
     }
@@ -13,6 +17,10 @@ export const isAdmin: Access<User> = ({ req: { user } }) => {
 export const isAdminFieldLevel: FieldAccess<{ id: string }, User> = ({
     req: { user },
 }) => {
+    if (user === undefined) {
+        return false;
+    }
+
     if (checkRole(user as User, ['admin'])) {
         return Boolean(true);
     }

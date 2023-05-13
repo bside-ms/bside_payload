@@ -24,17 +24,19 @@ export interface User {
   firstName: string;
   lastName: string;
   roles: ('public' | 'editor' | 'admin')[];
+  updatedAt: string;
+  createdAt: string;
   email?: string;
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
   loginAttempts?: number;
   lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
   password?: string;
 }
 export interface ApiUser {
   id: string;
+  updatedAt: string;
+  createdAt: string;
   enableAPIKey?: boolean;
   apiKey?: string;
   apiKeyIndex?: string;
@@ -43,8 +45,6 @@ export interface ApiUser {
   resetPasswordExpiration?: string;
   loginAttempts?: number;
   lockUntil?: string;
-  createdAt: string;
-  updatedAt: string;
   password?: string;
 }
 export interface Event {
@@ -60,22 +60,24 @@ export interface Event {
     [k: string]: unknown;
   }[];
   slug?: string;
-  _status?: 'draft' | 'published';
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
 }
 export interface Media {
   id: string;
   alt: string;
   darkModeFallback?: string | Media;
+  updatedAt: string;
+  createdAt: string;
   url?: string;
   filename?: string;
   mimeType?: string;
   filesize?: number;
   width?: number;
   height?: number;
-  sizes: {
-    event: {
+  sizes?: {
+    event?: {
       url?: string;
       width?: number;
       height?: number;
@@ -83,7 +85,7 @@ export interface Media {
       filesize?: number;
       filename?: string;
     };
-    thumbnail: {
+    thumbnail?: {
       url?: string;
       width?: number;
       height?: number;
@@ -91,7 +93,7 @@ export interface Media {
       filesize?: number;
       filename?: string;
     };
-    hero: {
+    hero?: {
       url?: string;
       width?: number;
       height?: number;
@@ -100,8 +102,6 @@ export interface Media {
       filename?: string;
     };
   };
-  createdAt: string;
-  updatedAt: string;
 }
 export interface Page {
   id: string;
@@ -111,15 +111,15 @@ export interface Page {
   }[];
   slug?: string;
   parent?: string | Page;
-  breadcrumbs: {
+  breadcrumbs?: {
     doc?: string | Page;
     url?: string;
     label?: string;
     id?: string;
   }[];
-  _status?: 'draft' | 'published';
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
 }
 export interface Redirect {
   id: string;
@@ -132,8 +132,8 @@ export interface Redirect {
     };
     url: string;
   };
-  createdAt: string;
   updatedAt: string;
+  createdAt: string;
 }
 export interface Footer {
   id: string;
