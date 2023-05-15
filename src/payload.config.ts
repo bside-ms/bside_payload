@@ -50,6 +50,11 @@ export default buildConfig({
         disablePlaygroundInProduction: true,
     },
 
+    localization: {
+        defaultLocale: 'de',
+        locales: ['de', 'en'],
+    },
+
     rateLimit: {
         trustProxy: true,
         window: 2 * 60 * 1000, // 2 minutes
@@ -61,7 +66,6 @@ export default buildConfig({
         admin: '/admin',
     },
 
-    // rateLimits provide basic API DDOS (Denial-of-service) protection and can limit accidental server load from scripts
     serverURL: process.env.PAYLOAD_PUBLIC_CMS_URL,
 
     telemetry: false,
@@ -73,10 +77,18 @@ export default buildConfig({
     plugins: [
         redirects({
             collections: ['pages'],
+            overrides: {
+                admin: {
+                    useAsTitle: 'from',
+                    defaultColumns: ['from', 'updatedAt'],
+                    description: 'Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.',
+                },
+            },
         }),
         nestedPages({
             collections: ['pages'],
             generateLabel: (_, doc) => doc.title as string,
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
         }),
     ],
