@@ -22,9 +22,8 @@ const start = async (): Promise<void> => {
         payload.logger.info('Seeding the Database');
         try {
             await seed(payload);
-        } catch (e) {
-            // @ts-expect-error
-            payload.logger.error(`Seeding failed: ${e.toString()}`);
+        } catch {
+            payload.logger.error('Seeding failed.');
         }
     }
 

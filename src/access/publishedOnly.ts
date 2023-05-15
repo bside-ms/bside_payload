@@ -3,11 +3,8 @@ import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
 
 export const publishedOnly: Access<User> = ({ req: { user } }) => {
-    if (user === undefined) {
-        return false;
-    }
 
-    if (checkRole(user as User, ['admin'])) {
+    if (user !== undefined && checkRole(user as User, ['admin'])) {
         return Boolean(true);
     }
 
