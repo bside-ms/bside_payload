@@ -141,4 +141,15 @@ export const seed = async (payload: Payload): Promise<void> => {
             _status: 'published',
         },
     });
+
+    await payload.create({
+        collection: 'redirects',
+        data: {
+            from: '/xd',
+            to: {
+                type: 'custom',
+                url: 'https://xd.adobe.com/view/32a216ce-faaa-4e26-aba4-b779e658f173-67f1/',
+            },
+        },
+    });
 };

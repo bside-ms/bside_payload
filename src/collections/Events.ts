@@ -57,7 +57,6 @@ const Events: CollectionConfig = {
             relationTo: 'media',
             filterOptions: {
                 mimeType: { contains: 'image' },
-                imageSize: { contains: 'event' },
             },
         },
 
