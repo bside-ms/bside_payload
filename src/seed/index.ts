@@ -82,14 +82,9 @@ export const seed = async (payload: Payload): Promise<void> => {
                 },
                 {
                     link: {
-                        type: 'reference',
-                        reference: {
-                            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                            value: impressumId,
-                            relationTo: 'pages',
-                        },
-                        url: '/impressum',
-                        label: 'Impressum',
+                        type: 'custom',
+                        url: '/events',
+                        label: 'Veranstaltungen',
                     },
                 },
             ],
