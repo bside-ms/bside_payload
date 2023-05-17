@@ -30,8 +30,7 @@ export const seed = async (payload: Payload): Promise<void> => {
     // Menu und Page
     //
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const { id: impressumId } = await payload.create({
+    await payload.create({
         collection: 'pages',
         data: {
             title: 'Impressum',
@@ -40,13 +39,6 @@ export const seed = async (payload: Payload): Promise<void> => {
                     children: [
                         {
                             text: 'Impressum',
-                        },
-                    ],
-                },
-                {
-                    children: [
-                        {
-                            text: '',
                         },
                     ],
                 },
@@ -68,6 +60,32 @@ export const seed = async (payload: Payload): Promise<void> => {
             ],
         },
     });
+
+    await payload.create({
+        collection: 'pages',
+        data: {
+            title: 'Datenschutzerklärung',
+            richText: [
+                {
+                    children: [
+                        {
+                            text: 'Hier entsteht die Datenschutzerklärung.',
+                        },
+                    ],
+                },
+            ],
+            slug: 'datenschutz',
+            breadcrumbs: [
+                {
+                    url: '/datenschutz',
+                    label: 'Datenschutzerklärung',
+                },
+            ],
+            _status: 'published',
+        },
+    });
+
+    // Main Menu
 
     await payload.updateGlobal({
         slug: 'main-menu',
