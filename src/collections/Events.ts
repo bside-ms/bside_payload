@@ -59,6 +59,12 @@ const Events: CollectionConfig = {
                 mimeType: { contains: 'image' },
             },
         },
+        {
+            name: 'eventOrganizer',
+            type: 'text',
+            label: 'Veranstaltet von',
+            required: false,
+        },
 
         //
         // Dates
