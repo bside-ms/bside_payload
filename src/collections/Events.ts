@@ -38,7 +38,6 @@ const Events: CollectionConfig = {
                 // Allgemeines
                 //
                 {
-                    name: 'general',
                     label: 'Allgemeines',
                     fields: [
                         {
@@ -69,7 +68,6 @@ const Events: CollectionConfig = {
                 // Ort und Zeit
                 //
                 {
-                    name: 'event',
                     label: 'Ort und Zeit',
                     fields: [
                         {
@@ -124,7 +122,6 @@ const Events: CollectionConfig = {
                 // Details
                 //
                 {
-                    name: 'details',
                     label: 'Details',
                     fields: [
                         {
@@ -190,7 +187,6 @@ const Events: CollectionConfig = {
                 //
                 {
                     label: 'Anzeige',
-                    name: 'display',
                     fields: [
                         {
                             name: 'displayOnHome',
