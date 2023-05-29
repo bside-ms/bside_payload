@@ -31,88 +31,197 @@ const Events: CollectionConfig = {
 
     fields: [
         {
-            name: 'title',
-            type: 'text',
-            label: 'Name',
-            required: true,
-        },
+            type: 'tabs',
+            tabs: [
 
-        //
-        // Details
-        {
-            name: 'eventLocation',
-            type: 'text',
-            label: 'Veranstaltungsort',
-            required: true,
-        },
-        {
-            name: 'eventExtra',
-            type: 'text',
-            label: 'Extra',
-            required: false,
-        },
-        {
-            name: 'eventImage',
-            type: 'upload',
-            relationTo: 'media',
-            filterOptions: {
-                mimeType: { contains: 'image' },
-            },
-        },
-        {
-            name: 'eventOrganizer',
-            type: 'text',
-            label: 'Veranstaltet von',
-            required: false,
-        },
+                //
+                // Allgemeines
+                //
+                {
+                    name: 'general',
+                    label: 'Allgemeines',
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            label: 'Name',
+                            required: true,
+                        },
 
-        //
-        // Dates
+                        richText(),
 
-        {
-            name: 'eventDate',
-            type: 'date',
-            label: 'Datum',
-            required: true,
-            admin: {
-                date: {
-                    displayFormat: 'dd MMM yyy',
+                        {
+                            name: 'eventImage',
+                            label: 'Bild',
+                            type: 'upload',
+                            relationTo: 'media',
+                            filterOptions: {
+                                mimeType: { contains: 'image' },
+                            },
+                            admin: {
+                                description: 'Empfohlen: webp mit 1080x1080px',
+                            },
+                        },
+                    ],
                 },
-                position: 'sidebar',
-            },
-        },
-        {
-            name: 'eventStart',
-            type: 'date',
-            label: 'Startzeit',
-            required: true,
-            admin: {
-                date: {
-                    pickerAppearance: 'timeOnly',
-                    displayFormat: 'HH:mm',
-                    timeFormat: 'HH:mm',
-                    timeIntervals: 15,
+
+                //
+                // Ort und Zeit
+                //
+                {
+                    name: 'event',
+                    label: 'Ort und Zeit',
+                    fields: [
+                        {
+                            name: 'eventLocation',
+                            type: 'text',
+                            label: 'Veranstaltungsort',
+                            required: true,
+                        },
+                        {
+                            name: 'eventDate',
+                            type: 'date',
+                            label: 'Datum',
+                            required: true,
+                            admin: {
+                                date: {
+                                    displayFormat: 'dd MMM yyy',
+                                },
+                            },
+                        },
+                        {
+                            name: 'eventStart',
+                            type: 'date',
+                            label: 'Startzeit',
+                            required: true,
+                            admin: {
+                                date: {
+                                    pickerAppearance: 'timeOnly',
+                                    displayFormat: 'HH:mm',
+                                    timeFormat: 'HH:mm',
+                                    timeIntervals: 15,
+                                },
+                            },
+                        },
+                        {
+                            name: 'eventEnd',
+                            type: 'date',
+                            label: 'Endzeit',
+                            required: false,
+                            admin: {
+                                date: {
+                                    pickerAppearance: 'timeOnly',
+                                    displayFormat: 'HH:mm',
+                                    timeFormat: 'HH:mm',
+                                    timeIntervals: 15,
+                                },
+                            },
+                        },
+                    ],
                 },
-                position: 'sidebar',
-            },
-        },
-        {
-            name: 'eventEnd',
-            type: 'date',
-            label: 'Endzeit',
-            required: false,
-            admin: {
-                date: {
-                    pickerAppearance: 'timeOnly',
-                    displayFormat: 'HH:mm',
-                    timeFormat: 'HH:mm',
-                    timeIntervals: 15,
+
+                //
+                // Details
+                //
+                {
+                    name: 'details',
+                    label: 'Details',
+                    fields: [
+                        {
+                            name: 'eventOrganizer',
+                            type: 'text',
+                            label: 'Veranstaltet von',
+                            required: false,
+                        },
+
+                        {
+                            name: 'eventExtra',
+                            type: 'text',
+                            label: 'Zusätzliche Informationen',
+                            required: false,
+                            admin: {
+                                description: 'Dieser Text wird auf der Detail-Seite über dem Ort angezeigt. Beispiel: VVK 5€ // AK 10€.',
+                            },
+                        },
+
+                        {
+                            name: 'category',
+                            type: 'select',
+                            label: 'Typ',
+                            required: false,
+                            hasMany: true,
+                            admin: {
+                                description: 'Dieses Feld wird zum Filtern der Veranstaltungen verwendet.',
+                                isClearable: true,
+                                isSortable: true,
+                            },
+                            options: [
+                                {
+                                    label: 'Konzert',
+                                    value: 'concert',
+                                },
+                                {
+                                    label: 'Film',
+                                    value: 'movie',
+                                },
+                                {
+                                    label: 'Theater',
+                                    value: 'theater',
+                                },
+                                {
+                                    label: 'Plenum',
+                                    value: 'plenum',
+                                },
+                                {
+                                    label: 'Workshop',
+                                    value: 'workshop',
+                                },
+                                {
+                                    label: 'Workshop',
+                                    value: 'workshop',
+                                },
+                            ],
+                        },
+                    ],
                 },
-                position: 'sidebar',
-            },
+
+                //
+                // Anzeige
+                //
+                {
+                    label: 'Anzeige',
+                    name: 'display',
+                    fields: [
+                        {
+                            name: 'displayOnHome',
+                            type: 'checkbox',
+                            label: 'Startseite',
+                            defaultValue: false,
+                        },
+                        {
+                            name: 'displayOnOverview',
+                            type: 'checkbox',
+                            label: 'Veranststaltungsübersicht',
+                            defaultValue: true,
+                        },
+                        {
+                            name: 'displayOnOrgansation',
+                            type: 'checkbox',
+                            label: 'Körperschaft',
+                            defaultValue: true,
+                        },
+                        {
+                            name: 'displayOnCircle',
+                            type: 'checkbox',
+                            label: 'Kreis',
+                            defaultValue: true,
+                        },
+
+                    ],
+                },
+            ],
         },
 
-        richText(),
         slugField(),
     ],
 };

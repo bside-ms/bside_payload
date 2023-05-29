@@ -49,17 +49,30 @@ export interface ApiUser {
 }
 export interface Event {
   id: string;
-  title: string;
-  eventLocation: string;
-  eventExtra?: string;
-  eventImage?: string | Media;
-  eventOrganizer?: string;
-  eventDate: string;
-  eventStart: string;
-  eventEnd?: string;
-  richText: {
-    [k: string]: unknown;
-  }[];
+  general: {
+    title: string;
+    richText: {
+      [k: string]: unknown;
+    }[];
+    eventImage?: string | Media;
+  };
+  event: {
+    eventLocation: string;
+    eventDate: string;
+    eventStart: string;
+    eventEnd?: string;
+  };
+  details: {
+    eventOrganizer?: string;
+    eventExtra?: string;
+    category?: ('concert' | 'movie' | 'theater' | 'plenum' | 'workshop' | 'workshop')[];
+  };
+  display: {
+    displayOnHome?: boolean;
+    displayOnOverview?: boolean;
+    displayOnOrgansation?: boolean;
+    displayOnCircle?: boolean;
+  };
   slug?: string;
   updatedAt: string;
   createdAt: string;
