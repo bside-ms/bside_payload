@@ -125,10 +125,26 @@ const Events: CollectionConfig = {
                     label: 'Details',
                     fields: [
                         {
+                            name: 'eventOwner',
+                            label: 'Verantwortlicher Kreis',
+                            type: 'relationship',
+                            relationTo: ['organisations', 'circles'],
+                            hasMany: true,
+                            admin: {
+                                description:
+                                    'Der angegebene Kreis wird auf der Veranstaltungsseite angezeigt. ' +
+                                    'Außerdem erscheint die Veranstaltung in der Veranstaltungübersicht des Kreises und der dazugehörigen Körperschaft.',
+                            },
+                        },
+                        {
                             name: 'eventOrganizer',
                             type: 'text',
                             label: 'Veranstaltet von',
                             required: false,
+                            admin: {
+                                description:
+                                    'Dieses Feld wird nur benötigt, falls kein eindeutiger Kreis/Körperschaft für die Veranstaltung verantwortlich ist.',
+                            },
                         },
 
                         {
@@ -137,7 +153,9 @@ const Events: CollectionConfig = {
                             label: 'Zusätzliche Informationen',
                             required: false,
                             admin: {
-                                description: 'Dieser Text wird auf der Detail-Seite über dem Ort angezeigt. Beispiel: VVK 5€ // AK 10€.',
+                                description:
+                                    'Dieser Text wird auf der Detail-Seite über dem Ort angezeigt. ' +
+                                    'Beispiel: VVK 5€ // AK 10€.',
                             },
                         },
 

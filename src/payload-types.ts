@@ -11,6 +11,8 @@ export interface Config {
     'api-users': ApiUser;
     events: Event;
     pages: Page;
+    organisations: Organisation;
+    circles: Circle;
     media: Media;
     redirects: Redirect;
   };
@@ -58,6 +60,27 @@ export interface Event {
   eventDate: string;
   eventStart: string;
   eventEnd?: string;
+  eventOwner?:
+    | (
+        | {
+            value: string;
+            relationTo: 'organisations';
+          }
+        | {
+            value: string;
+            relationTo: 'circles';
+          }
+      )[]
+    | (
+        | {
+            value: Organisation;
+            relationTo: 'organisations';
+          }
+        | {
+            value: Circle;
+            relationTo: 'circles';
+          }
+      )[];
   eventOrganizer?: string;
   eventExtra?: string;
   category?: ('concert' | 'movie' | 'theater' | 'plenum' | 'workshop' | 'workshop')[];
@@ -108,6 +131,25 @@ export interface Media {
       filename?: string;
     };
   };
+}
+export interface Organisation {
+  id: string;
+  name: string;
+  shortName: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface Circle {
+  id: string;
+  name: string;
+  organisation: string | Organisation;
+  color?: string;
+  circleImage?: string | Media;
+  fallbackImage: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
 }
 export interface Page {
   id: string;

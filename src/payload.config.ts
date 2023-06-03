@@ -3,8 +3,10 @@ import * as process from 'process';
 import nestedPages from '@payloadcms/plugin-nested-docs';
 import redirects from '@payloadcms/plugin-redirects';
 import { buildConfig } from 'payload/config';
+import Circles from './collections/Circles';
 import Events from './collections/Events';
 import Media from './collections/Media';
+import Organisation from './collections/Organisation';
 import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
@@ -37,6 +39,8 @@ export default buildConfig({
         // Collections
         Events,
         Pages,
+        Organisation,
+        Circles,
 
         // Other
         Media,
