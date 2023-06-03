@@ -8,6 +8,12 @@ export const Footer: GlobalConfig = {
         read: () => true,
         update: isAdmin,
     },
+
+    admin: {
+        group: 'Administration',
+        description: 'Unused.',
+    },
+
     fields: [
         {
             name: 'columns',

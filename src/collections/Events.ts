@@ -15,6 +15,7 @@ const Events: CollectionConfig = {
 
     admin: {
         useAsTitle: 'title',
+        group: 'B-Side',
     },
 
     versions: {

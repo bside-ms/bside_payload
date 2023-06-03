@@ -13,10 +13,15 @@ const Media: CollectionConfig = {
         delete: isAdmin,
     },
 
+    labels: {
+        singular: 'Medien',
+        plural: 'Medien',
+    },
+
     admin: {
         useAsTitle: 'filename',
         description: 'Uploads are currently set to read-only.',
-        group: 'Media',
+        group: 'Medien',
     },
 
     upload: {
@@ -25,6 +30,7 @@ const Media: CollectionConfig = {
         mimeTypes: [
             'image/png',
             'image/jpeg',
+            'image/webp',
         ],
         imageSizes: [
             {

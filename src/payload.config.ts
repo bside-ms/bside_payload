@@ -32,18 +32,21 @@ export default buildConfig({
 
     // collections in Payload are synonymous with database tables, models or entities from other frameworks and systems
     collections: [
-        // Authentication
-        Users,
-        ApiUsers,
 
         // Collections
         Events,
-        Pages,
-        Organisation,
         Circles,
+        Organisation,
 
         // Other
         Media,
+        Users,
+
+        // Administration
+        Pages,
+
+        // Authentication
+        ApiUsers,
     ],
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
@@ -82,7 +85,12 @@ export default buildConfig({
         redirects({
             collections: ['pages'],
             overrides: {
+                labels: {
+                    singular: 'Weiterleitung',
+                    plural: 'Weiterleitungen',
+                },
                 admin: {
+                    group: 'Administration',
                     useAsTitle: 'from',
                     defaultColumns: ['from', 'updatedAt'],
                     description: 'Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.',

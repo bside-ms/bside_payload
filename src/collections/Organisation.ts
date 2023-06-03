@@ -14,7 +14,7 @@ const Organisation: CollectionConfig = {
     admin: {
         useAsTitle: 'name',
         defaultColumns: ['name', 'shortName'],
-        group: 'Administratives',
+        group: 'B-Side',
     },
 
     versions: {

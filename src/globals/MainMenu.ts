@@ -7,6 +7,12 @@ export const MainMenu: GlobalConfig = {
     access: {
         read: () => true,
     },
+
+    admin: {
+        group: 'Administration',
+        description: 'Dieses Menü steuert die Desktop-Navigation.',
+    },
+
     fields: [
         {
             name: 'navItems',

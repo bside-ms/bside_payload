@@ -13,6 +13,7 @@ const Circles: CollectionConfig = {
 
     admin: {
         useAsTitle: 'name',
+        group: 'B-Side',
     },
 
     versions: {
