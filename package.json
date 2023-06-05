@@ -14,12 +14,8 @@
     "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
-    "generate:graphQLSchema": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:graphQLSchema",
     "eslint": "eslint --quiet \"./**/*.{ts,tsx}\"",
-    "eslint:fix": "npm run eslint -- --fix",
-    "db-start": "docker compose up -d payload_mongo",
-    "db-purge": "docker compose down && docker volume rm bside_payload_data && docker compose up -d payload_mongo && sed -i \"s/PAYLOAD_SEED=.*/PAYLOAD_SEED=true/\" .env && cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
-    "db-stop": "docker compose down"
+    "eslint:fix": "npm run eslint -- --fix"
   },
   "dependencies": {
     "@payloadcms/plugin-nested-docs": "^1.0.4",
