@@ -192,10 +192,6 @@ const Events: CollectionConfig = {
                                     label: 'Workshop',
                                     value: 'workshop',
                                 },
-                                {
-                                    label: 'Workshop',
-                                    value: 'workshop',
-                                },
                             ],
                         },
                     ],
