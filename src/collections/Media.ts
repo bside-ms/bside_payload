@@ -5,7 +5,6 @@ import { isAdmin } from '../access/isAdmin';
 const Media: CollectionConfig = {
     slug: 'media',
 
-    // ToDo: Talk about this.
     access: {
         read: () => true,
         create: isAdmin,
@@ -25,13 +24,19 @@ const Media: CollectionConfig = {
     },
 
     upload: {
+        // from the imageSizes below, the admin UI will show this size for previewing
         adminThumbnail: 'thumbnail',
+
         staticDir: path.resolve(__dirname, '../../media'),
+
+        // limit the types of files allowed and request validation
         mimeTypes: [
             'image/png',
             'image/jpeg',
             'image/webp',
+            'image/avif',
         ],
+
         imageSizes: [
             {
                 name: 'event',
@@ -42,6 +47,11 @@ const Media: CollectionConfig = {
                 name: 'thumbnail',
                 width: 480,
                 height: 320,
+            },
+            {
+                name: 'portrait',
+                width: 768,
+                height: 1024,
             },
             {
                 name: 'hero',
@@ -58,15 +68,6 @@ const Media: CollectionConfig = {
             label: 'Alternativtext',
             type: 'text',
             required: true,
-        },
-        {
-            name: 'darkModeFallback',
-            label: 'Fallback für Darkmode',
-            type: 'upload',
-            relationTo: 'media',
-            admin: {
-                description: 'Choose an upload to render if the visitor is using dark mode.',
-            },
         },
     ],
 };

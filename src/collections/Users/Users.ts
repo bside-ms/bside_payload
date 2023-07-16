@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload/types';
-import { checkRole } from '../../access/checkRole';
 import { isAdmin, isAdminFieldLevel } from '../../access/isAdmin';
 import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '../../access/isAdminOrSelf';
 
@@ -26,11 +25,11 @@ const Users: CollectionConfig = {
     },
 
     access: {
-        create: isAdmin,
+        create: () => true,
         read: isAdminOrSelf,
         update: isAdmin,
         delete: isAdmin,
-        admin: ({ req: { user } }) => checkRole(user, ['admin']), // eslint-disable-line @typescript-eslint/no-unsafe-argument
+        admin: () => true,  
     },
 
     fields: [
