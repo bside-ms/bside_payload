@@ -18,7 +18,6 @@ export interface Config {
   };
   globals: {
     footer: Footer;
-    'main-menu': MainMenu;
   };
 }
 export interface Event {
@@ -55,7 +54,7 @@ export interface Event {
       )[];
   eventOrganizer?: string;
   eventExtra?: string;
-  category?: ('concert' | 'movie' | 'theater' | 'plenum' | 'workshop' | 'workshop')[];
+  category?: ('concert' | 'movie' | 'theater' | 'plenum' | 'workshop')[];
   displayOnHome?: boolean;
   displayOnOverview?: boolean;
   displayOnOrgansation?: boolean;
@@ -68,7 +67,6 @@ export interface Event {
 export interface Media {
   id: string;
   alt: string;
-  darkModeFallback?: string | Media;
   updatedAt: string;
   createdAt: string;
   url?: string;
@@ -87,6 +85,14 @@ export interface Media {
       filename?: string;
     };
     thumbnail?: {
+      url?: string;
+      width?: number;
+      height?: number;
+      mimeType?: string;
+      filesize?: number;
+      filename?: string;
+    };
+    portrait?: {
       url?: string;
       width?: number;
       height?: number;
@@ -119,6 +125,53 @@ export interface Circle {
   color?: string;
   circleImage?: string | Media;
   fallbackImage: string;
+  layout?: (
+    | {
+        columns: {
+          width: 'oneThird' | 'half' | 'twoThirds' | 'full';
+          alignment: 'left' | 'center' | 'right';
+          richText: {
+            [k: string]: unknown;
+          }[];
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        media: string | Media;
+        size?: 'normal' | 'wide' | 'fullscreen';
+        caption?: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        alignment: 'contentOnLeft' | 'contentOnRight';
+        richText: {
+          [k: string]: unknown;
+        }[];
+        media: string | Media;
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        introContent: {
+          [k: string]: unknown;
+        }[];
+        slides: {
+          media: string | Media;
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaSlider';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
@@ -199,22 +252,6 @@ export interface Footer {
       };
       id?: string;
     }[];
-    id?: string;
-  }[];
-}
-export interface MainMenu {
-  id: string;
-  navItems: {
-    link: {
-      type?: 'reference' | 'custom';
-      newTab?: boolean;
-      reference: {
-        value: string | Page;
-        relationTo: 'pages';
-      };
-      url: string;
-      label: string;
-    };
     id?: string;
   }[];
 }
