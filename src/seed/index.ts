@@ -6,23 +6,15 @@ export const seed = async (payload: Payload): Promise<void> => {
     // USERS
     //
 
+    payload.logger.debug('Seeding: Users');
     await payload.create({
         collection: 'users',
         data: {
-            email: 'admin@admin.local',
+            email: 'admin@b-side.ms',
             password: 'test',
-            roles: ['admin'],
             firstName: 'admin',
             lastName: 'admin',
-        },
-    });
-
-    await payload.create({
-        collection: 'api-users',
-        data: {
-            email: 'api@admin.local',
-            password: 'test',
-            enableAPIKey: true,
+            roles: ['admin'],
         },
     });
 
@@ -30,6 +22,7 @@ export const seed = async (payload: Payload): Promise<void> => {
     // Menu und Page
     //
 
+    payload.logger.debug('Seeding: Pages: imprint');
     await payload.create({
         collection: 'pages',
         data: {
@@ -47,6 +40,7 @@ export const seed = async (payload: Payload): Promise<void> => {
         },
     });
 
+    payload.logger.debug('Seeding: Pages: privacy');
     await payload.create({
         collection: 'pages',
         data: {
@@ -64,34 +58,11 @@ export const seed = async (payload: Payload): Promise<void> => {
         },
     });
 
-    // Main Menu
-
-    await payload.updateGlobal({
-        slug: 'main-menu',
-        data: {
-            navItems: [
-                {
-                    link: {
-                        type: 'custom',
-                        url: '/haus',
-                        label: 'Die B-Side',
-                    },
-                },
-                {
-                    link: {
-                        type: 'custom',
-                        url: '/events',
-                        label: 'Veranstaltungen',
-                    },
-                },
-            ],
-        },
-    });
-
     //
     // Events
     //
 
+    payload.logger.debug('Seeding: Events');
     await payload.create({
         collection: 'events',
         data: {
@@ -134,6 +105,7 @@ export const seed = async (payload: Payload): Promise<void> => {
         },
     });
 
+    payload.logger.debug('Seeding: Redirects');
     await payload.create({
         collection: 'redirects',
         data: {
