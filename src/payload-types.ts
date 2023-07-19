@@ -159,18 +159,6 @@ export interface Circle {
         blockName?: string;
         blockType: 'mediaContent';
       }
-    | {
-        introContent: {
-          [k: string]: unknown;
-        }[];
-        slides: {
-          media: string | Media;
-          id?: string;
-        }[];
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaSlider';
-      }
   )[];
   updatedAt: string;
   createdAt: string;

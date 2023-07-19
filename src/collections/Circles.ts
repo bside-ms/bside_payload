@@ -5,7 +5,6 @@ import { publishedOnly } from '../access/publishedOnly';
 import { Content } from '../blocks/Content';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
-import MediaSlider from '../blocks/MediaSlider';
 
 const Circles: CollectionConfig = {
     slug: 'circles',
@@ -95,7 +94,6 @@ const Circles: CollectionConfig = {
                                 Content,
                                 MediaBlock,
                                 MediaContent,
-                                MediaSlider,
                             ],
                         },
                     ],

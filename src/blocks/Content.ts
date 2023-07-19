@@ -72,6 +72,7 @@ export const Content: Block = {
                             ],
                             admin: {
                                 width: '50%',
+                                disabled: true,
                             },
                         },
                     ],
