@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload/types';
 import { checkRole } from '../access/checkRole';
 import { isAdmin } from '../access/isAdmin';
 import { publishedOnly } from '../access/publishedOnly';
+import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
@@ -91,6 +92,7 @@ const Circles: CollectionConfig = {
                             type: 'blocks',
                             minRows: 1,
                             blocks: [
+                                CallToAction,
                                 Content,
                                 MediaBlock,
                                 MediaContent,
