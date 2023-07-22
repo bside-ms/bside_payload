@@ -10,25 +10,62 @@ export const MediaContent: Block = {
 
     fields: [
         {
-            name: 'alignment',
-            label: 'Ausrichtung',
-            type: 'radio',
-            defaultValue: 'contentOnLeft',
-            required: true,
-            options: [
+            type: 'row',
+            fields: [
                 {
-                    label: 'Inhalt auf der linken Seite',
-                    value: 'contentOnLeft',
+                    name: 'alignment',
+                    label: 'Ausrichtung',
+                    type: 'select',
+                    defaultValue: 'contentOnLeft',
+                    required: true,
+                    options: [
+                        {
+                            label: 'Inhalt auf der linken Seite',
+                            value: 'contentOnLeft',
+                        },
+                        {
+                            label: 'Inhalt auf der rechten Seite',
+                            value: 'contentOnRight',
+                        },
+                    ],
+                    admin: {
+                        width: '50%',
+                    },
                 },
                 {
-                    label: 'Inhalt auf der rechten Seite',
-                    value: 'contentOnRight',
+                    name: 'backgroundColor',
+                    label: 'Hintergrundfarbe',
+                    type: 'select',
+                    defaultValue: 'white',
+                    required: true,
+                    options: [
+                        {
+                            label: 'Weiß',
+                            value: 'white',
+                        },
+                        {
+                            label: 'Schwarz',
+                            value: 'black',
+                        },
+                    ],
+                    admin: {
+                        width: '50%',
+                    },
                 },
             ],
+        },
+
+        {
+            name: 'media',
+            type: 'upload',
+            label: 'Bild',
+            relationTo: 'media',
+            required: true,
             admin: {
-                layout: 'horizontal',
+                description: 'ToDo: Beschreibung einfügen.',
             },
         },
+
         richText(
             {
                 label: 'Text',
@@ -41,15 +78,5 @@ export const MediaContent: Block = {
                 ],
             },
         ),
-        {
-            name: 'media',
-            type: 'upload',
-            label: 'Bild',
-            relationTo: 'media',
-            required: true,
-            admin: {
-                description: 'ToDo: Beschreibung einfügen.',
-            },
-        },
     ],
 };
