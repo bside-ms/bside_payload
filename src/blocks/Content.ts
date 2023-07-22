@@ -103,9 +103,54 @@ export const Content: Block = {
                         'upload',
                     ] },
                 ),
-
             ],
+
+            validate: (value: number, options: ColumnValidationProps): true | string => {
+                let width = 0;
+
+                options.data.layout.forEach(row => {
+                    row.columns.forEach(block => {
+                        switch (block.width) {
+                            case 'full':
+                                width += 100;
+                                break;
+
+                            case 'half':
+                                width += 50;
+                                break;
+
+                            case 'oneThird':
+                                width += 33;
+                                break;
+
+                            case 'twoThirds':
+                                width += 66;
+                                break;
+
+                            default:
+                                break;
+                        }
+                    });
+                });
+
+                if (width >= 99 && width <= 100) {
+                    return true;
+                }
+
+                return 'Die ausgewählten Spalten füllen nicht die gesamte Breite!';
+            },
         },
     ],
 
 };
+
+interface ColumnValidationProps {
+    data: {
+        layout: Array<{
+            columns: Array<{
+                width: string;
+                id: string;
+            }>;
+        }>;
+    };
+}
