@@ -35,6 +35,7 @@ export const MediaBlock: Block = {
             ],
             admin: {
                 layout: 'horizontal',
+                hidden: true,
             },
         },
         {

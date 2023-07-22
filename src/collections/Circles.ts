@@ -97,7 +97,6 @@ const Circles: CollectionConfig = {
                             ],
                             admin: {
                                 initCollapsed: true,
-
                             },
                         },
                     ],
