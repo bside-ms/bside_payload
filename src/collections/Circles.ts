@@ -95,6 +95,10 @@ const Circles: CollectionConfig = {
                                 MediaBlock,
                                 MediaContent,
                             ],
+                            admin: {
+                                initCollapsed: true,
+
+                            },
                         },
                     ],
                 },

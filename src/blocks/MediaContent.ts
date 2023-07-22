@@ -4,8 +4,8 @@ import richText from '../fields/richText';
 export const MediaContent: Block = {
     slug: 'mediaContent',
     labels: {
-        singular: 'Medien + Inhalt',
-        plural: 'Medien + Inhalt',
+        singular: 'Bild + Text',
+        plural: 'Bild + Text',
     },
 
     fields: [
@@ -30,7 +30,9 @@ export const MediaContent: Block = {
             },
         },
         richText(
-            {},
+            {
+                label: 'Text',
+            },
             {
                 elements: [
                     'ol',
@@ -42,13 +44,12 @@ export const MediaContent: Block = {
         {
             name: 'media',
             type: 'upload',
+            label: 'Bild',
             relationTo: 'media',
             required: true,
             admin: {
-                description: 'Maximum upload file size: 2MB. Recommended file size for images is <500KB.',
+                description: 'ToDo: Beschreibung einfügen.',
             },
         },
     ],
 };
-
-export default MediaContent;

@@ -3,38 +3,34 @@ import type { Block } from 'payload/types';
 export const MediaBlock: Block = {
     slug: 'mediaBlock',
     labels: {
-        singular: 'Medien',
-        plural: 'Medien',
+        singular: 'Bild',
+        plural: 'Bilder',
     },
 
     fields: [
         {
             name: 'media',
-            label: 'Medium',
+            label: 'Bild',
             type: 'upload',
             relationTo: 'media',
             required: true,
             admin: {
-                description: 'Maximum upload file size: 12MB. Recommended file size for images is <500KB.',
+                description: 'ToDo: Beschreibungstext einfügen.',
             },
         },
         {
             name: 'size',
-            label: 'Size',
+            label: 'Größe',
             type: 'radio',
             defaultValue: 'normal',
             options: [
                 {
-                    label: 'Normal',
+                    label: 'Standard',
                     value: 'normal',
                 },
                 {
-                    label: 'Wide',
+                    label: 'Breit',
                     value: 'wide',
-                },
-                {
-                    label: 'Fullscreen',
-                    value: 'fullscreen',
                 },
             ],
             admin: {
@@ -43,15 +39,8 @@ export const MediaBlock: Block = {
         },
         {
             name: 'caption',
-            label: 'Caption',
-            type: 'richText',
-            admin: {
-                elements: [
-                    'link',
-                ],
-            },
+            label: 'Anmerkung',
+            type: 'text',
         },
     ],
 };
-
-export default MediaBlock;

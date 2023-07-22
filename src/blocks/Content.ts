@@ -3,6 +3,7 @@ import richText from '../fields/richText';
 
 export const Content: Block = {
     slug: 'content',
+
     labels: {
         singular: 'Block',
         plural: 'Blöcke',
@@ -10,76 +11,90 @@ export const Content: Block = {
 
     fields: [
         {
+            type: 'row',
+            fields: [
+                {
+                    name: 'backgroundColor',
+                    label: 'Hintergrundfarbe',
+                    type: 'select',
+                    defaultValue: 'white',
+                    required: true,
+                    options: [
+                        {
+                            label: 'Weiß',
+                            value: 'white',
+                        },
+                        {
+                            label: 'Schwarz',
+                            value: 'black',
+                        },
+                    ],
+                    admin: {
+                        width: '50%',
+                    },
+                },
+                {
+                    name: 'backgroundWidth',
+                    label: 'Hintergrund-Design',
+                    type: 'select',
+                    defaultValue: 'full',
+                    required: true,
+                    options: [
+                        {
+                            label: 'Breit',
+                            value: 'full',
+                        },
+                        {
+                            label: 'Block',
+                            value: 'block',
+                        },
+                    ],
+                    admin: {
+                        width: '50%',
+                    },
+                },
+            ],
+        },
+        {
             name: 'columns',
             type: 'array',
             minRows: 1,
+            label: 'Spalten',
             labels: {
                 singular: 'Spalte',
                 plural: 'Spalten',
             },
             fields: [
-
                 {
-                    type: 'row',
-                    fields: [
+                    name: 'width',
+                    label: 'Breite der Spalte',
+                    type: 'select',
+                    defaultValue: 'full',
+                    required: true,
+                    options: [
                         {
-                            name: 'width',
-                            label: 'Breite der Spalte',
-                            type: 'select',
-                            defaultValue: 'full',
-                            required: true,
-                            options: [
-                                {
-                                    label: '1/3',
-                                    value: 'oneThird',
-                                },
-                                {
-                                    label: '1/2',
-                                    value: 'half',
-                                },
-                                {
-                                    label: '2/3',
-                                    value: 'twoThirds',
-                                },
-                                {
-                                    label: 'Ganze Breite',
-                                    value: 'full',
-                                },
-                            ],
-                            admin: {
-                                width: '50%',
-                            },
+                            label: 'Ganze Breite',
+                            value: 'full',
                         },
                         {
-                            name: 'alignment',
-                            label: 'Ausrichtung',
-                            type: 'select',
-                            defaultValue: 'left',
-                            required: true,
-                            options: [
-                                {
-                                    label: 'Links',
-                                    value: 'left',
-                                },
-                                {
-                                    label: 'Mitte',
-                                    value: 'center',
-                                },
-                                {
-                                    label: 'Rechts',
-                                    value: 'right',
-                                },
-                            ],
-                            admin: {
-                                width: '50%',
-                                disabled: true,
-                            },
+                            label: '1/2 - Halbe Seite',
+                            value: 'half',
+                        },
+                        {
+                            label: '1/3 - Ein Drittel',
+                            value: 'oneThird',
+                        },
+                        {
+                            label: '2/3 - Zwei Drittel',
+                            value: 'twoThirds',
                         },
                     ],
                 },
 
                 richText(
-                    {},
+                    {
+                        label: 'Text',
+                    },
                     { elements: [
                         'ol',
                         'ul',
