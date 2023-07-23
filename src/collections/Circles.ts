@@ -4,6 +4,7 @@ import { isAdmin } from '../access/isAdmin';
 import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
+import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
 
@@ -96,6 +97,7 @@ const Circles: CollectionConfig = {
                                 Content,
                                 MediaBlock,
                                 MediaContent,
+                                HeadlineBlock,
                             ],
                             admin: {
                                 initCollapsed: true,
