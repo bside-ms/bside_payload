@@ -27,6 +27,10 @@ export const MediaContent: Block = {
                             label: 'Inhalt auf der rechten Seite',
                             value: 'contentOnRight',
                         },
+                        {
+                            label: 'Inhalt unterhalb des Bildes',
+                            value: 'contentOnBottom',
+                        },
                     ],
                     admin: {
                         width: '50%',
@@ -50,6 +54,19 @@ export const MediaContent: Block = {
                     ],
                     admin: {
                         width: '50%',
+                    },
+                },
+                {
+                    name: 'headline',
+                    label: 'Titel',
+                    type: 'text',
+                    required: false,
+                    admin: {
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-expect-error
+                        condition: (_: undefined, siblingData: { alignment: string }): boolean => {
+                            return siblingData.alignment === 'contentOnBottom';
+                        },
                     },
                 },
             ],
