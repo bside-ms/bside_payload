@@ -5,8 +5,8 @@ export const Content: Block = {
     slug: 'content',
 
     labels: {
-        singular: 'Block',
-        plural: 'Blöcke',
+        singular: 'Textblock',
+        plural: 'Textblöcke',
     },
 
     fields: [

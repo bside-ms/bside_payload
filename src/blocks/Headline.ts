@@ -25,13 +25,45 @@ export const HeadlineBlock: Block = {
             },
         },
         {
-            name: 'anchor',
-            type: 'text',
-            required: false,
-            label: 'Anker',
-            admin: {
-                description: 'Optional: Kann zur direkten Verlinkung verwendet werden.',
-            },
+            type: 'row',
+            fields: [
+                {
+                    name: 'level',
+                    type: 'select',
+                    required: true,
+                    defaultValue: 'h2',
+                    options: [
+                        {
+                            label: 'h1',
+                            value: 'h1',
+                        },
+                        {
+                            label: 'h2',
+                            value: 'h2',
+                        },
+                        {
+                            label: 'h3',
+                            value: 'h3',
+                        },
+                        {
+                            label: 'h4',
+                            value: 'h4',
+                        },
+                    ],
+                    admin: {
+                        description: 'Achtung: Es darf maximal eine Überschrift der Größe H1 geben!',
+                    },
+                },
+                {
+                    name: 'anchor',
+                    type: 'text',
+                    required: false,
+                    label: 'Anker',
+                    admin: {
+                        description: 'Optional: Kann zur direkten Verlinkung verwendet werden.',
+                    },
+                },
+            ],
         },
     ],
 };
