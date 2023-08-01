@@ -171,6 +171,7 @@ export interface Circle {
       }
     | {
         title: string;
+        teaser?: string;
         anchor?: string;
         id?: string;
         blockName?: string;

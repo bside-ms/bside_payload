@@ -19,7 +19,7 @@ export const CallToAction: Block = {
             name: 'text',
             type: 'text',
             required: true,
-            label: 'Text des Links',
+            label: 'Text des Buttons',
         },
         {
             name: 'href',

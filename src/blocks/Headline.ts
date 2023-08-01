@@ -16,10 +16,22 @@ export const HeadlineBlock: Block = {
             label: 'Titel',
         },
         {
+            name: 'teaser',
+            type: 'text',
+            required: false,
+            label: 'Teaser',
+            admin: {
+                description: 'Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.',
+            },
+        },
+        {
             name: 'anchor',
             type: 'text',
             required: false,
-            label: 'Slug',
+            label: 'Anker',
+            admin: {
+                description: 'Optional: Kann zur direkten Verlinkung verwendet werden.',
+            },
         },
     ],
 };
