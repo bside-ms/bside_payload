@@ -41,6 +41,12 @@ const Circles: CollectionConfig = {
             type: 'text',
             required: true,
         },
+        {
+            name: 'hiddenType',
+            type: 'text',
+            hidden: true,
+            defaultValue: 'circle',
+        },
 
         {
             type: 'tabs',

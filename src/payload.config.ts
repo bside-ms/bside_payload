@@ -13,6 +13,7 @@ import Users from './collections/Users/Users';
 import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 import { Footer } from './globals/Footer';
+import seo from '@payloadcms/plugin-seo';
 
 export default buildConfig({
     admin: {
@@ -101,6 +102,26 @@ export default buildConfig({
             generateLabel: (_, doc) => doc.title as string,
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
+        }),
+        seo({
+            collections: [
+                'organisations',
+                'circles',
+            ],
+            tabbedUI: true,
+            // @ts-expect-error `doc` expects type T.
+            generateTitle({ doc }: { doc: { title: { value: string }, name: { value: string }, hiddenType: { value: string } } }) {
+                switch (doc.hiddenType.value) {
+                    case 'circle':
+                        return `${doc.name.value} - B-Side`;
+
+                    case 'organisation':
+                        return `${doc.title.value} - B-Side`;
+
+                    default:
+                        return 'B-Side';
+                }
+            },
         }),
     ],
 });
