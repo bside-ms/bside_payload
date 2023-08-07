@@ -19,46 +19,6 @@ export const seed = async (payload: Payload): Promise<void> => {
     });
 
     //
-    // Menu und Page
-    //
-
-    payload.logger.debug('Seeding: Pages: imprint');
-    await payload.create({
-        collection: 'pages',
-        data: {
-            title: 'Impressum',
-            // eslint-disable-next-line max-len
-            richText: [{ children: [{ text: 'B-Side GmbH\n', bold: true }, { text: 'Am Hawerkamp 29\n48155 Münster' }] }, { children: [{ text: '' }] }, { children: [{ text: '' }, { type: 'link', linkType: 'custom', url: 'mailto://placeholder@local.host', children: [{ text: 'placeholder@local.host' }] }, { text: '', bold: true }] }, { children: [{ text: '' }] }, { children: [{ text: 'Vertreten durch die Geschäftsführer:\nGF1\nGF2' }] }, { children: [{ text: '' }] }, { children: [{ text: 'Wir sind nicht bereit und nicht verpflichtet, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.' }] }, { children: [{ text: '' }] }, { children: [{ text: 'Entwicklung: TBA\nKonzept & Design: TBA' }] }],
-            _status: 'published',
-            slug: 'impressum',
-            breadcrumbs: [
-                {
-                    url: '/impressum',
-                    label: 'Impressum',
-                },
-            ],
-        },
-    });
-
-    payload.logger.debug('Seeding: Pages: privacy');
-    await payload.create({
-        collection: 'pages',
-        data: {
-            title: 'Datenschutzerklärung',
-            // eslint-disable-next-line max-len
-            richText: [{ children: [{ text: 'Deine Daten gehören dir. Und das sollen sie auch bleiben. Dennoch müssen wir einige deiner Daten für bestimmte von uns angebotene Dienstleistungen erfassen.' }] }, { children: [{ text: 'Cookies' }], type: 'h3' }, { children: [{ text: 'Wir setzen keine Cookies.' }] }, { children: [{ text: 'Tracking' }], type: 'h3' }, { children: [{ text: 'Wir mögen kein Tracking. Und wir glauben nicht, dass Cookies oder Tracking in irgendeiner Weise zur Verbesserung unserer Websites beitragen. Die einzigen Informationen, die wir speichern, sind Zugriffsprotokolle unserer Server zur Fehlerbehebung. Diese Daten enthalten Teile deiner IP-Adresse.' }] }, { type: 'h3', children: [{ text: 'Gesetzliche Anforderungen und deine Rechte' }] }, { children: [{ text: 'Wir verarbeiten personenbezogene Daten auf der Grundlage von Art. 6 Abs.. 1 lit. f DSGVO. Wir gewähren dir Zugriff auf deine bei uns gespeicherten Daten. Außerdem aktualisieren und löschen wir deine Daten auf deinen Wunsch.' }] }, { children: [{ text: 'Kontakt für Fragen zum Datenschutz' }], type: 'h3' }, { children: [{ text: 'Für alle Anfragen, Fragen oder Beschwerden wende dich bitte an ' }, { type: 'link', linkType: 'custom', url: 'mailto://placeholder@local.host', children: [{ text: 'placeholder@local.host' }] }, { text: '.' }] }, { children: [{ text: 'Deine Daten werden mit größter Sorgfalt behandelt und der Zugang zu ihnen ist streng auf die Personen beschränkt, die sie wirklich benötigen.' }] }, { children: [{ text: '\n' }] }],
-            slug: 'datenschutz',
-            breadcrumbs: [
-                {
-                    url: '/datenschutz',
-                    label: 'Datenschutzerklärung',
-                },
-            ],
-            _status: 'published',
-        },
-    });
-
-    //
     // Events
     //
 

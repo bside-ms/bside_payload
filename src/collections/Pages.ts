@@ -2,7 +2,11 @@ import type { CollectionConfig } from 'payload/types';
 import { checkRole } from '../access/checkRole';
 import { isAdmin } from '../access/isAdmin';
 import { publishedOnly } from '../access/publishedOnly';
-import richText from '../fields/richText';
+import { CallToAction } from '../blocks/CallToAction';
+import { Content } from '../blocks/Content';
+import { HeadlineBlock } from '../blocks/Headline';
+import { MediaBlock } from '../blocks/MediaBlock';
+import { MediaContent } from '../blocks/MediaContent';
 import { slugField } from '../fields/slug';
 
 const Pages: CollectionConfig = {
@@ -38,8 +42,25 @@ const Pages: CollectionConfig = {
             required: true,
         },
 
-        richText(),
+        // richText(),
         slugField(),
+
+        {
+            name: 'layout',
+            label: 'Inhalt',
+            type: 'blocks',
+            minRows: 1,
+            blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                MediaContent,
+                HeadlineBlock,
+            ],
+            admin: {
+                initCollapsed: true,
+            },
+        },
     ],
 };
 
