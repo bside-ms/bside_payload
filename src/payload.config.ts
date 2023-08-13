@@ -2,6 +2,7 @@ import path from 'path';
 import * as process from 'process';
 import nestedPages from '@payloadcms/plugin-nested-docs';
 import redirects from '@payloadcms/plugin-redirects';
+import seo from '@payloadcms/plugin-seo';
 import { buildConfig } from 'payload/config';
 import Circles from './collections/Circles';
 import Events from './collections/Events';
@@ -13,7 +14,6 @@ import Users from './collections/Users/Users';
 import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
 import { Footer } from './globals/Footer';
-import seo from '@payloadcms/plugin-seo';
 
 export default buildConfig({
     admin: {
