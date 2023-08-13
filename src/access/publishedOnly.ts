@@ -1,11 +1,23 @@
 import type { Access } from 'payload/config';
 import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
+import { logger } from '@smithy/smithy-client';
 
 export const publishedOnly: Access<User> = ({ req: { user } }) => {
 
-    if (user !== undefined && checkRole(user as User, ['admin'])) {
-        return Boolean(true);
+    logger.warn(user);
+
+    if (user !== undefined) {
+
+        if (user.collection === 'users') {
+            if (checkRole(user as User, ['admin'])) {
+                return Boolean(true);
+            }
+        }
+
+        if (user.collection === 'api-users') {
+            return true;
+        }
     }
 
     return {
