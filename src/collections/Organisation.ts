@@ -3,6 +3,7 @@ import { checkRole } from '../access/checkRole';
 import { isAdmin } from '../access/isAdmin';
 import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
+import { CircleOverviewBlock } from '../blocks/CircleOverviewBlock';
 import { Content } from '../blocks/Content';
 import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
@@ -71,6 +72,7 @@ const Organisation: CollectionConfig = {
                                 MediaBlock,
                                 MediaContent,
                                 HeadlineBlock,
+                                CircleOverviewBlock,
                             ],
                             admin: {
                                 initCollapsed: true,

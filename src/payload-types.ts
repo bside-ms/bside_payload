@@ -167,6 +167,16 @@ export interface Organisation {
         blockName?: string;
         blockType: 'headlineBlock';
       }
+    | {
+        title: string;
+        circleSide: 'textLeft' | 'textRight';
+        richText: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'circleOverview';
+      }
   )[];
   meta?: {
     title?: string;
