@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types';
 import { checkRole } from '../access/checkRole';
-import { isAdmin } from '../access/isAdmin';
+import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
+import { isEditor } from '../access/isEditor';
 import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
@@ -28,7 +29,7 @@ const Circles: CollectionConfig = {
     access: {
         create: isAdmin,
         read: publishedOnly,
-        update: isAdmin,
+        update: isEditor,
         delete: isAdmin,
         admin: ({ req: { user } }) => checkRole(user, ['admin']), // eslint-disable-line @typescript-eslint/no-unsafe-argument
     },
@@ -67,7 +68,31 @@ const Circles: CollectionConfig = {
                             name: 'color',
                             label: 'Akzentfarbe',
                             type: 'text',
+                            required: true,
+                            defaultValue: '#11ff11',
+                            admin: {
+                                description: 'Diese Farbe wird in den Kreisübersichten als Hintergrundfarbe verwendet. Beispiel: #f55511',
+                            },
+                            access: {
+                                read: () => true,
+                                update: isAdminFieldLevel,
+                                create: isAdminFieldLevel,
+                            },
+                        },
+                        {
+                            name: 'description',
+                            label: 'Kurzbeschreibung',
+                            type: 'text',
                             required: false,
+                            defaultValue: '-',
+                            admin: {
+                                description: 'Diese Beschreibung wird in den Kreisübersichten in der zweiten Zeile angezeigt.',
+                            },
+                            access: {
+                                read: () => true,
+                                update: isAdminFieldLevel,
+                                create: isAdminFieldLevel,
+                            },
                         },
                         {
                             name: 'circleImage',

@@ -192,7 +192,8 @@ export interface Circle {
   name: string;
   hiddenType?: string;
   organisation: string | Organisation;
-  color?: string;
+  color: string;
+  description?: string;
   circleImage?: string | Media;
   fallbackImage: string;
   layout?: (
