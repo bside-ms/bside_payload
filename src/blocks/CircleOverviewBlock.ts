@@ -1,4 +1,5 @@
 import type { Block } from 'payload/types';
+import { isAdminFieldLevel } from '../access/isAdmin';
 import richText from '../fields/richText';
 
 export const CircleOverviewBlock: Block = {
@@ -22,7 +23,7 @@ export const CircleOverviewBlock: Block = {
             label: 'Ausrichtung',
             type: 'select',
             required: true,
-            defaultValue: 'normal',
+            defaultValue: 'textRight',
             options: [
                 {
                     label: 'Text auf der linken Seite',
@@ -33,6 +34,23 @@ export const CircleOverviewBlock: Block = {
                     value: 'textRight',
                 },
             ],
+            admin: {
+                width: '50%',
+            },
+        },
+        {
+            name: 'organisationId',
+            type: 'text',
+            label: 'Organisation-ID',
+            required: true,
+            admin: {
+                width: '50%',
+            },
+            access: {
+                read: () => true,
+                update: isAdminFieldLevel,
+                create: isAdminFieldLevel,
+            },
         },
 
         richText(
