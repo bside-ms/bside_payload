@@ -5,6 +5,7 @@ import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { CircleOverviewBlock } from '../blocks/CircleOverviewBlock';
 import { Content } from '../blocks/Content';
+import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
 import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
@@ -73,6 +74,7 @@ const Organisation: CollectionConfig = {
                                 MediaContent,
                                 HeadlineBlock,
                                 CircleOverviewBlock,
+                                EventOverviewBlock,
                             ],
                             admin: {
                                 initCollapsed: true,

@@ -1,12 +1,12 @@
 import type { Block } from 'payload/types';
 import richText from '../fields/richText';
 
-export const CircleOverviewBlock: Block = {
-    slug: 'circleOverview',
+export const EventOverviewBlock: Block = {
+    slug: 'eventOverview',
 
     labels: {
-        singular: 'Kreisübersicht',
-        plural: 'Kreisübersicht',
+        singular: 'Veranstaltungsübersicht',
+        plural: 'Veranstaltungsübersicht',
     },
 
     fields: [
@@ -18,7 +18,7 @@ export const CircleOverviewBlock: Block = {
         },
 
         {
-            name: 'circleSide',
+            name: 'eventSide',
             label: 'Ausrichtung',
             type: 'select',
             required: true,
