@@ -51,7 +51,28 @@ export const HeadlineBlock: Block = {
                         },
                     ],
                     admin: {
+                        width: '50%',
                         description: 'Achtung: Es darf maximal eine Überschrift der Größe H1 geben!',
+                    },
+                },
+                {
+                    name: 'backgroundColor',
+                    label: 'Hintergrundfarbe',
+                    type: 'select',
+                    defaultValue: 'white',
+                    required: true,
+                    options: [
+                        {
+                            label: 'Weiß',
+                            value: 'white',
+                        },
+                        {
+                            label: 'Schwarz',
+                            value: 'black',
+                        },
+                    ],
+                    admin: {
+                        width: '50%',
                     },
                 },
                 {
