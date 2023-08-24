@@ -64,11 +64,33 @@ const richText: RichText = (
                 },
                 elements: [...elements, ...(additions.elements ?? [])],
                 leaves: [...leaves, ...(additions.leaves ?? [])],
+                link: {
+                    fields: [
+                        {
+                            label: 'Anzeigetyp',
+                            name: 'appearance',
+                            type: 'select',
+                            defaultValue: 'link',
+                            options: [
+                                {
+                                    label: 'Link',
+                                    value: 'link',
+                                },
+                                {
+                                    label: 'Button',
+                                    value: 'button',
+                                },
+                            ],
+                            admin: {
+                                width: '50%',
+                            },
+                        },
+                    ],
+                },
             },
         },
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
+        // @ts-expect-error Undefined is not assignable to type 'Partial<RichTextField>'.
         overrides,
     );
 
