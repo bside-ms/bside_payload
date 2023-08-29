@@ -12,7 +12,7 @@ export const CallToAction: Block = {
         {
             name: 'title',
             type: 'text',
-            required: true,
+            required: false,
             label: 'Titel',
         },
         {

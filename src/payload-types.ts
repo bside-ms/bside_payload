@@ -117,7 +117,7 @@ export interface Organisation {
   shortName: string;
   layout?: (
     | {
-        title: string;
+        title?: string;
         text: string;
         href: string;
         id?: string;
@@ -210,7 +210,7 @@ export interface Circle {
   fallbackImage: string;
   layout?: (
     | {
-        title: string;
+        title?: string;
         text: string;
         href: string;
         id?: string;
@@ -293,7 +293,7 @@ export interface Page {
   slug?: string;
   layout?: (
     | {
-        title: string;
+        title?: string;
         text: string;
         href: string;
         id?: string;
