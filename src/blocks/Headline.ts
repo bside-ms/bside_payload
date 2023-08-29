@@ -51,8 +51,36 @@ export const HeadlineBlock: Block = {
                         },
                     ],
                     admin: {
-                        width: '50%',
+                        width: '33%',
                         description: 'Achtung: Es darf maximal eine Überschrift der Größe H1 geben!',
+                    },
+                },
+                {
+                    name: 'as',
+                    type: 'select',
+                    required: true,
+                    defaultValue: 'h2',
+                    options: [
+                        {
+                            label: 'h1',
+                            value: 'h1',
+                        },
+                        {
+                            label: 'h2',
+                            value: 'h2',
+                        },
+                        {
+                            label: 'h3',
+                            value: 'h3',
+                        },
+                        {
+                            label: 'h4',
+                            value: 'h4',
+                        },
+                    ],
+                    admin: {
+                        width: '33%',
+                        description: 'Dies ist die Größe, die im Browser angezeigt wird.',
                     },
                 },
                 {
@@ -72,7 +100,7 @@ export const HeadlineBlock: Block = {
                         },
                     ],
                     admin: {
-                        width: '50%',
+                        width: '33%',
                     },
                 },
                 {
