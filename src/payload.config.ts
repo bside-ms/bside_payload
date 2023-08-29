@@ -107,6 +107,7 @@ export default buildConfig({
             collections: [
                 'organisations',
                 'circles',
+                'pages',
             ],
             tabbedUI: true,
             // @ts-expect-error `doc` expects type T.
