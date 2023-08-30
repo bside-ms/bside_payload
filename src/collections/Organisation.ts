@@ -9,6 +9,7 @@ import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
 import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
+import { TeaserBlock } from '../blocks/Teaser';
 
 const Organisation: CollectionConfig = {
     slug: 'organisations',
@@ -75,6 +76,7 @@ const Organisation: CollectionConfig = {
                                 HeadlineBlock,
                                 CircleOverviewBlock,
                                 EventOverviewBlock,
+                                TeaserBlock,
                             ],
                             admin: {
                                 initCollapsed: true,

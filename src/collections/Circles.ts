@@ -8,6 +8,7 @@ import { Content } from '../blocks/Content';
 import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
+import { TeaserBlock } from '../blocks/Teaser';
 
 const Circles: CollectionConfig = {
     slug: 'circles',
@@ -128,6 +129,7 @@ const Circles: CollectionConfig = {
                                 Content,
                                 MediaBlock,
                                 MediaContent,
+                                TeaserBlock,
                                 HeadlineBlock,
                             ],
                             admin: {

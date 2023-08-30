@@ -7,6 +7,7 @@ import { Content } from '../blocks/Content';
 import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
+import { TeaserBlock } from '../blocks/Teaser';
 import { slugField } from '../fields/slug';
 
 const Pages: CollectionConfig = {
@@ -56,6 +57,7 @@ const Pages: CollectionConfig = {
                 MediaBlock,
                 MediaContent,
                 HeadlineBlock,
+                TeaserBlock,
             ],
             admin: {
                 initCollapsed: true,
