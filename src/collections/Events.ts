@@ -216,7 +216,7 @@ const Events: CollectionConfig = {
                             defaultValue: true,
                         },
                         {
-                            name: 'displayOnOrgansation',
+                            name: 'displayOnOrganisation',
                             type: 'checkbox',
                             label: 'Körperschaft',
                             defaultValue: true,
