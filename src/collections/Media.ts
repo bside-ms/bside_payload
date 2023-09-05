@@ -49,14 +49,9 @@ const Media: CollectionConfig = {
                 height: 320,
             },
             {
-                name: 'portrait',
-                width: 768,
-                height: 1024,
-            },
-            {
-                name: 'hero',
-                width: 1920,
-                height: 1080,
+                name: 'wide',
+                width: 1248,
+                height: 288,
             },
         ],
     },

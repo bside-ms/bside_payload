@@ -93,15 +93,7 @@ export interface Media {
       filesize?: number;
       filename?: string;
     };
-    portrait?: {
-      url?: string;
-      width?: number;
-      height?: number;
-      mimeType?: string;
-      filesize?: number;
-      filename?: string;
-    };
-    hero?: {
+    wide?: {
       url?: string;
       width?: number;
       height?: number;
