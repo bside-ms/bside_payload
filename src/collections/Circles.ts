@@ -5,6 +5,7 @@ import { isEditor } from '../access/isEditor';
 import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
+import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
 import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
@@ -125,12 +126,13 @@ const Circles: CollectionConfig = {
                             type: 'blocks',
                             minRows: 1,
                             blocks: [
-                                CallToAction,
+                                HeadlineBlock,
                                 Content,
                                 MediaBlock,
                                 MediaContent,
                                 TeaserBlock,
-                                HeadlineBlock,
+                                CallToAction,
+                                EventOverviewBlock,
                             ],
                             admin: {
                                 initCollapsed: true,

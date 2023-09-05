@@ -69,14 +69,14 @@ const Organisation: CollectionConfig = {
                             type: 'blocks',
                             minRows: 1,
                             blocks: [
-                                CallToAction,
+                                HeadlineBlock,
                                 Content,
                                 MediaBlock,
                                 MediaContent,
-                                HeadlineBlock,
-                                CircleOverviewBlock,
-                                EventOverviewBlock,
+                                CallToAction,
                                 TeaserBlock,
+                                EventOverviewBlock,
+                                CircleOverviewBlock,
                             ],
                             admin: {
                                 initCollapsed: true,

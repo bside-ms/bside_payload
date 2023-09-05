@@ -52,11 +52,11 @@ const Pages: CollectionConfig = {
             type: 'blocks',
             minRows: 1,
             blocks: [
-                CallToAction,
+                HeadlineBlock,
                 Content,
                 MediaBlock,
                 MediaContent,
-                HeadlineBlock,
+                CallToAction,
                 TeaserBlock,
             ],
             admin: {
