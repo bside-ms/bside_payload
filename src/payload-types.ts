@@ -143,7 +143,7 @@ export interface Organisation {
       }
     | {
         media: string | Media;
-        size?: 'normal' | 'wide';
+        size?: 'normal' | 'wide' | 'event';
         caption?: string;
         id?: string;
         blockName?: string;
@@ -250,7 +250,7 @@ export interface Circle {
       }
     | {
         media: string | Media;
-        size?: 'normal' | 'wide';
+        size?: 'normal' | 'wide' | 'event';
         caption?: string;
         id?: string;
         blockName?: string;
@@ -357,7 +357,7 @@ export interface Page {
       }
     | {
         media: string | Media;
-        size?: 'normal' | 'wide';
+        size?: 'normal' | 'wide' | 'event';
         caption?: string;
         id?: string;
         blockName?: string;

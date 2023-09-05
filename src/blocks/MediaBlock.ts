@@ -32,10 +32,13 @@ export const MediaBlock: Block = {
                     label: 'Breit',
                     value: 'wide',
                 },
+                {
+                    label: 'Quadratisch',
+                    value: 'event',
+                },
             ],
             admin: {
                 layout: 'horizontal',
-                hidden: true,
             },
         },
         {
