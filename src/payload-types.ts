@@ -389,6 +389,16 @@ export interface Page {
         blockName?: string;
         blockType: 'teaser';
       }
+    | {
+        title: string;
+        eventSide: 'textLeft' | 'textRight';
+        richText: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'eventOverview';
+      }
   )[];
   parent?: string | Page;
   breadcrumbs?: {
