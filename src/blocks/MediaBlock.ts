@@ -42,6 +42,30 @@ export const MediaBlock: Block = {
             },
         },
         {
+            name: 'effects',
+            label: 'Effekte',
+            type: 'select',
+            hasMany: true,
+            options: [
+                {
+                    label: 'Blur',
+                    value: 'blur',
+                },
+                {
+                    label: 'Grayscale',
+                    value: 'grayscale',
+                },
+                {
+                    label: 'Desaturated',
+                    value: 'desaturated',
+                },
+                {
+                    label: 'Darker',
+                    value: 'darker',
+                },
+            ],
+        },
+        {
             name: 'caption',
             label: 'Anmerkung',
             type: 'text',

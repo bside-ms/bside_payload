@@ -82,6 +82,30 @@ export const MediaContent: Block = {
                 description: 'ToDo: Beschreibung einfügen.',
             },
         },
+        {
+            name: 'effects',
+            label: 'Effekte',
+            type: 'select',
+            hasMany: true,
+            options: [
+                {
+                    label: 'Blur',
+                    value: 'blur',
+                },
+                {
+                    label: 'Grayscale',
+                    value: 'grayscale',
+                },
+                {
+                    label: 'Desaturated',
+                    value: 'desaturated',
+                },
+                {
+                    label: 'Darker',
+                    value: 'darker',
+                },
+            ],
+        },
 
         richText(
             {
