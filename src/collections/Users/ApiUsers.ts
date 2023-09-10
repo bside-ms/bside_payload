@@ -15,6 +15,7 @@ const ApiUsers: CollectionConfig = {
 
     auth: {
         useAPIKey: true,
+        disableLocalStrategy: true,
     },
 
     access: {

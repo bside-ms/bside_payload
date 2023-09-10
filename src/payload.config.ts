@@ -4,6 +4,8 @@ import nestedPages from '@payloadcms/plugin-nested-docs';
 import redirects from '@payloadcms/plugin-redirects';
 import seo from '@payloadcms/plugin-seo';
 import { buildConfig } from 'payload/config';
+import ContactForms from './collections/Administration/ContactForms';
+import NotFoundPages from './collections/Administration/NotFound';
 import Circles from './collections/Circles';
 import Events from './collections/Events';
 import Media from './collections/Media';
@@ -44,6 +46,10 @@ export default buildConfig({
 
         // Administration
         Pages,
+
+        // Automated
+        ContactForms,
+        NotFoundPages,
 
         // Authentication
         ApiUsers,
