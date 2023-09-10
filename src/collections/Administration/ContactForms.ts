@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types';
-import { isApiUser } from '../../access/isApiUser';
+import { isAdmin } from '../../access/isAdmin';
 
 const ContactForms: CollectionConfig = {
     slug: 'contact-forms',
@@ -18,10 +18,10 @@ const ContactForms: CollectionConfig = {
     },
 
     access: {
-        create: isApiUser,
-        read: isApiUser,
-        update: isApiUser,
-        delete: isApiUser,
+        create: () => true,
+        read: isAdmin,
+        update: isAdmin,
+        delete: isAdmin,
     },
 
     fields: [
