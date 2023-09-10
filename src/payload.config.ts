@@ -80,6 +80,7 @@ export default buildConfig({
     },
 
     serverURL: process.env.PAYLOAD_PUBLIC_CMS_URL,
+    cors: '*',
 
     telemetry: false,
 
