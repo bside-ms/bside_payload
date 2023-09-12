@@ -67,21 +67,6 @@ const Circles: CollectionConfig = {
                             required: true,
                         },
                         {
-                            name: 'color',
-                            label: 'Akzentfarbe',
-                            type: 'text',
-                            required: true,
-                            defaultValue: '#11ff11',
-                            admin: {
-                                description: 'Diese Farbe wird in den Kreisübersichten als Hintergrundfarbe verwendet. Beispiel: #f55511',
-                            },
-                            access: {
-                                read: () => true,
-                                update: isAdminFieldLevel,
-                                create: isAdminFieldLevel,
-                            },
-                        },
-                        {
                             name: 'description',
                             label: 'Kurzbeschreibung',
                             type: 'text',
