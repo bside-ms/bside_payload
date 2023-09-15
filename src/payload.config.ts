@@ -105,7 +105,7 @@ export default buildConfig({
                     description: 'Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.',
                 },
                 access: {
-                    read: publishedOnly,
+                    read: () => true,
                     create: isAdmin,
                     update: isAdmin,
                     delete: isAdmin,
