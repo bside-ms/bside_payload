@@ -284,5 +284,5 @@ media/
 !media/\.gitkeep
 
 #
-build
-db
+/build
+/db
