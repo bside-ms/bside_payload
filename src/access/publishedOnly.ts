@@ -1,4 +1,4 @@
-import type { Access } from 'payload/config';
+import type { Access } from 'payload/types';
 import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
 
@@ -9,10 +9,6 @@ export const publishedOnly: Access<User> = ({ req: { user } }) => {
             if (checkRole(user as User, ['admin'])) {
                 return Boolean(true);
             }
-        }
-
-        if (user.collection === 'api-users') {
-            return true;
         }
     }
 

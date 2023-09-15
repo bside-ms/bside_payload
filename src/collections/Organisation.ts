@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload/types';
-import { checkRole } from '../access/checkRole';
-import { isAdmin } from '../access/isAdmin';
+import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
+import { isEditor } from '../access/isEditor';
 import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { CircleOverviewBlock } from '../blocks/CircleOverviewBlock';
@@ -32,9 +32,8 @@ const Organisation: CollectionConfig = {
     access: {
         create: isAdmin,
         read: publishedOnly,
-        update: isAdmin,
+        update: isEditor,
         delete: isAdmin,
-        admin: ({ req: { user } }) => checkRole(user, ['admin']), // eslint-disable-line @typescript-eslint/no-unsafe-argument
     },
 
     fields: [
@@ -50,11 +49,17 @@ const Organisation: CollectionConfig = {
                             name: 'name',
                             type: 'text',
                             required: true,
+                            access: {
+                                update: isAdminFieldLevel,
+                            },
                         },
                         {
                             name: 'shortName',
                             type: 'text',
                             required: true,
+                            access: {
+                                update: isAdminFieldLevel,
+                            },
                         },
                     ],
                 },

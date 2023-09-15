@@ -20,7 +20,7 @@ const ApiUsers: CollectionConfig = {
 
     access: {
         create: isAdmin,
-        read: () => true,
+        read: isAdmin,
         update: isAdmin,
         delete: isAdmin,
     },

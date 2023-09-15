@@ -14,22 +14,22 @@ const Users: CollectionConfig = {
     },
 
     labels: {
-        singular: 'User',
-        plural: 'User',
+        singular: 'Benutzer*in',
+        plural: 'Benutzer*innen',
     },
 
     admin: {
         useAsTitle: 'firstName',
         group: 'Benutzer:innen-Verwaltung',
-        defaultColumns: ['email', 'firstName', 'lastName', 'roles', 'createdAt', 'updatedAt'],
+        defaultColumns: ['email', 'firstName', 'lastName', 'roles'],
     },
 
     access: {
-        create: () => true,
+        create: isAdmin,
         read: isAdminOrSelf,
         update: isAdmin,
         delete: isAdmin,
-        admin: () => true,  
+        admin: () => true,
     },
 
     fields: [
@@ -38,11 +38,13 @@ const Users: CollectionConfig = {
             fields: [
                 {
                     name: 'firstName',
+                    label: 'Vorname',
                     type: 'text',
                     required: true,
                 },
                 {
                     name: 'lastName',
+                    label: 'Nachname',
                     type: 'text',
                     required: true,
                 },
@@ -52,6 +54,7 @@ const Users: CollectionConfig = {
         {
             name: 'roles',
             type: 'select',
+            label: 'Rollen',
             hasMany: true,
             defaultValue: ['public'],
             required: true,
@@ -60,7 +63,34 @@ const Users: CollectionConfig = {
                 create: isAdminFieldLevel,
                 update: isAdminFieldLevel,
             },
-            options: ['public', 'editor', 'admin'],
+            options: [
+                {
+                    value: 'public',
+                    label: 'Benutzer*in',
+                },
+                {
+                    value: 'editor',
+                    label: 'Editor*in',
+                },
+                {
+                    value: 'admin',
+                    label: 'Administrator*in',
+                },
+            ],
+        },
+
+        {
+            name: 'circles',
+            type: 'relationship',
+            label: 'Kreismitgliedschaften',
+            hasMany: true,
+            required: false,
+            access: {
+                read: isAdminOrSelfFieldLevel,
+                create: isAdminFieldLevel,
+                update: isAdminFieldLevel,
+            },
+            relationTo: 'circles',
         },
     ],
 };

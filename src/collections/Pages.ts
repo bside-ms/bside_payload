@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload/types';
-import { checkRole } from '../access/checkRole';
-import { isAdmin } from '../access/isAdmin';
+import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
+import { isEditor } from '../access/isEditor';
 import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
@@ -21,8 +21,8 @@ const Pages: CollectionConfig = {
 
     admin: {
         useAsTitle: 'title',
-        defaultColumns: ['title', 'slug', 'updatedAt'],
-        group: 'Administration',
+        defaultColumns: ['title', 'slug', 'parent', 'updatedAt', '_status'],
+        group: 'Seiten',
     },
 
     versions: {
@@ -32,9 +32,8 @@ const Pages: CollectionConfig = {
     access: {
         create: isAdmin,
         read: publishedOnly,
-        update: isAdmin,
+        update: isEditor,
         delete: isAdmin,
-        admin: ({ req: { user } }) => checkRole(user, ['admin']), // eslint-disable-line @typescript-eslint/no-unsafe-argument
     },
 
     fields: [
@@ -42,6 +41,9 @@ const Pages: CollectionConfig = {
             name: 'title',
             type: 'text',
             required: true,
+            access: {
+                update: isAdminFieldLevel,
+            },
         },
 
         // richText(),

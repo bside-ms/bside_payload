@@ -11,12 +11,9 @@ services:
     command:
       - --storageEngine=wiredTiger
     volumes:
-      - data:/data/db
+      - ./db:/data/db
     networks:
       - payload
-
-volumes:
-  data:
 
 networks:
   payload:

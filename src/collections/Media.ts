@@ -1,14 +1,15 @@
 import path from 'path';
 import type { CollectionConfig } from 'payload/types';
 import { isAdmin } from '../access/isAdmin';
+import { isUser } from '../access/isUser';
 
 const Media: CollectionConfig = {
     slug: 'media',
 
     access: {
         read: () => true,
-        create: isAdmin,
-        update: isAdmin,
+        create: isUser,
+        update: isUser,
         delete: isAdmin,
     },
 
@@ -63,6 +64,9 @@ const Media: CollectionConfig = {
             label: 'Alternativtext',
             type: 'text',
             required: true,
+            admin: {
+                description: 'Gib "-" ein, falls es sich um ein rein dekoratives Element handelt',
+            },
         },
     ],
 };

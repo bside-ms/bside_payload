@@ -4,6 +4,8 @@ import nestedPages from '@payloadcms/plugin-nested-docs';
 import redirects from '@payloadcms/plugin-redirects';
 import seo from '@payloadcms/plugin-seo';
 import { buildConfig } from 'payload/config';
+import { isAdmin } from './access/isAdmin';
+import { publishedOnly } from './access/publishedOnly';
 import ContactForms from './collections/Administration/ContactForms';
 import NotFoundPages from './collections/Administration/NotFound';
 import Circles from './collections/Circles';
@@ -101,6 +103,12 @@ export default buildConfig({
                     useAsTitle: 'from',
                     defaultColumns: ['from', 'updatedAt'],
                     description: 'Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.',
+                },
+                access: {
+                    read: publishedOnly,
+                    create: isAdmin,
+                    update: isAdmin,
+                    delete: isAdmin,
                 },
             },
         }),

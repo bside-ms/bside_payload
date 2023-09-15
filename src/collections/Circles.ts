@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload/types';
-import { checkRole } from '../access/checkRole';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
 import { isEditor } from '../access/isEditor';
 import { publishedOnly } from '../access/publishedOnly';
@@ -22,6 +21,7 @@ const Circles: CollectionConfig = {
     admin: {
         useAsTitle: 'name',
         group: 'B-Side',
+        defaultColumns: ['name', 'organisation', 'updatedAt', '_status'],
     },
 
     versions: {
@@ -33,7 +33,6 @@ const Circles: CollectionConfig = {
         read: publishedOnly,
         update: isEditor,
         delete: isAdmin,
-        admin: ({ req: { user } }) => checkRole(user, ['admin']), // eslint-disable-line @typescript-eslint/no-unsafe-argument
     },
 
     fields: [

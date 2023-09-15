@@ -14,7 +14,7 @@ export const seed = async (payload: Payload): Promise<void> => {
             password: 'test',
             firstName: 'admin',
             lastName: 'admin',
-            roles: ['admin'],
+            roles: ['public'],
         },
     });
 

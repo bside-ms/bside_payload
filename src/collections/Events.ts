@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types';
-import { checkRole } from '../access/checkRole';
 import { isAdmin } from '../access/isAdmin';
-import { publishedOnly } from '../access/publishedOnly';
+import { isEditor, isEditorFieldLevel } from '../access/isEditor';
+import { isUser, isUserOrPublished } from '../access/isUser';
 import richText from '../fields/richText';
 import { slugField } from '../fields/slug';
 
@@ -16,6 +16,7 @@ const Events: CollectionConfig = {
     admin: {
         useAsTitle: 'title',
         group: 'B-Side',
+        defaultColumns: ['title', 'eventDate', 'eventStart', 'updatedAt', '_status'],
     },
 
     versions: {
@@ -23,11 +24,10 @@ const Events: CollectionConfig = {
     },
 
     access: {
-        create: isAdmin,
-        read: publishedOnly,
-        update: isAdmin,
+        create: isUser,
+        read: isUserOrPublished,
+        update: isEditor,
         delete: isAdmin,
-        admin: ({ req: { user } }) => checkRole(user, ['admin']), // eslint-disable-line @typescript-eslint/no-unsafe-argument
     },
 
     fields: [
@@ -202,12 +202,16 @@ const Events: CollectionConfig = {
                 //
                 {
                     label: 'Anzeige',
+                    description: 'Hier kann eingestellt werden, auf welchen Veranstaltungsübersichten die Veranstaltung angezeigt werden soll.',
                     fields: [
                         {
                             name: 'displayOnHome',
                             type: 'checkbox',
                             label: 'Startseite',
-                            defaultValue: false,
+                            defaultValue: true,
+                            access: {
+                                update: isEditorFieldLevel,
+                            },
                         },
                         {
                             name: 'displayOnOverview',
