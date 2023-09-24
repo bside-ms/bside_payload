@@ -8,6 +8,7 @@ import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
 import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
+import { Slider } from '../blocks/Slider';
 import { TeaserBlock } from '../blocks/Teaser';
 import { slugField } from '../fields/slug';
 
@@ -62,6 +63,7 @@ const Pages: CollectionConfig = {
                 CallToAction,
                 TeaserBlock,
                 EventOverviewBlock,
+                Slider,
             ],
             admin: {
                 initCollapsed: true,

@@ -22,7 +22,8 @@ const start = async (): Promise<void> => {
         payload.logger.info('Seeding the Database');
         try {
             await seed(payload);
-        } catch {
+        } catch (error) {
+            payload.logger.error(error);
             payload.logger.error('Seeding failed.');
         }
     }
