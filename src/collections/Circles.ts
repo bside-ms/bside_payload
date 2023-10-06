@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload/types';
+import { hasCircleAccess, hasCircleAccessOrPublished } from '../access/checkCircle';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { isEditor } from '../access/isEditor';
-import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
@@ -30,8 +29,8 @@ const Circles: CollectionConfig = {
 
     access: {
         create: isAdmin,
-        read: publishedOnly,
-        update: isEditor,
+        read: hasCircleAccessOrPublished,
+        update: hasCircleAccess('id'),
         delete: isAdmin,
     },
 

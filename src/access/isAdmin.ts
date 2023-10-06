@@ -2,7 +2,7 @@ import type { Access, FieldAccess } from 'payload/types';
 import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
 
-export const isAdmin: Access<User> = ({ req: { user } }) => {
+export const isAdmin: Access<User> = ({ req: { user } }): boolean => {
     if (user === undefined) {
         return false;
     }
