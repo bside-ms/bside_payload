@@ -9,7 +9,6 @@ const app = express();
 const start = async (): Promise<void> => {
     await payload.init({
         secret: process.env.PAYLOAD_SECRET,
-        mongoURL: process.env.MONGODB_URI,
         express: app,
         onInit: () => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access

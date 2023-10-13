@@ -1,11 +1,14 @@
 import path from 'path';
 import * as process from 'process';
+import { webpackBundler } from '@payloadcms/bundler-webpack';
+import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import nestedPages from '@payloadcms/plugin-nested-docs';
 import redirects from '@payloadcms/plugin-redirects';
 import seo from '@payloadcms/plugin-seo';
+import { slateEditor } from '@payloadcms/richtext-slate';
 import { buildConfig } from 'payload/config';
+import type { PayloadBundler } from 'payload/dist/bundlers/types';
 import { isAdmin } from './access/isAdmin';
-import { publishedOnly } from './access/publishedOnly';
 import ContactForms from './collections/Administration/ContactForms';
 import NotFoundPages from './collections/Administration/NotFound';
 import Circles from './collections/Circles';
@@ -20,7 +23,7 @@ import BeforeLogin from './components/BeforeLogin';
 
 export default buildConfig({
     admin: {
-        user: Users.slug,
+        bundler: webpackBundler() as PayloadBundler,
 
         components: {
             beforeLogin: [
@@ -31,6 +34,8 @@ export default buildConfig({
                 BeforeDashboard,
             ],
         },
+
+        user: Users.slug,
     },
 
     // collections in Payload are synonymous with database tables, models or entities from other frameworks and systems
@@ -55,6 +60,12 @@ export default buildConfig({
         // Authentication
         ApiUsers,
     ],
+
+    db: mongooseAdapter({
+        url: process.env.MONGODB_URI,
+    }),
+     
+    editor: slateEditor({}),
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
     globals: [],
