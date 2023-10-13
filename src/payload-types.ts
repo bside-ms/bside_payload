@@ -18,6 +18,8 @@ export interface Config {
     'not-found-pages': NotFoundPage;
     'api-users': ApiUser;
     redirects: Redirect;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   globals: {};
 }
@@ -35,22 +37,22 @@ export interface Event {
   eventOwner?:
     | (
         | {
-            value: string;
             relationTo: 'organisations';
+            value: string;
           }
         | {
-            value: string;
             relationTo: 'circles';
+            value: string;
           }
       )[]
     | (
         | {
-            value: Organisation;
             relationTo: 'organisations';
+            value: Organisation;
           }
         | {
-            value: Circle;
             relationTo: 'circles';
+            value: Circle;
           }
       )[];
   eventOrganizer?: string;
@@ -464,11 +466,63 @@ export interface Redirect {
   to: {
     type?: 'reference' | 'custom';
     reference: {
-      value: string | Page;
       relationTo: 'pages';
+      value: string | Page;
     };
     url: string;
   };
   updatedAt: string;
   createdAt: string;
+}
+export interface PayloadPreference {
+  id: string;
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'api-users';
+        value: string | ApiUser;
+      };
+  key?: string;
+  value?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface PayloadMigration {
+  id: string;
+  name?: string;
+  batch?: number;
+  updatedAt: string;
+  createdAt: string;
+}
+
+
+declare module 'payload' {
+  export interface GeneratedTypes {
+    collections: {
+      'events': Event
+      'circles': Circle
+      'organisations': Organisation
+      'media': Media
+      'users': User
+      'pages': Page
+      'contact-forms': ContactForm
+      'not-found-pages': NotFoundPage
+      'api-users': ApiUser
+      'redirects': Redirect
+      'payload-preferences': PayloadPreference
+      'payload-migrations': PayloadMigration
+    }
+
+  }
 }
