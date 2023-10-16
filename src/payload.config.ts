@@ -1,5 +1,6 @@
 import path from 'path';
 import * as process from 'process';
+import { addAuthorFields } from '@boomworks/payload-plugin-author-fields';
 import { webpackBundler } from '@payloadcms/bundler-webpack';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import nestedPages from '@payloadcms/plugin-nested-docs';
@@ -64,7 +65,7 @@ export default buildConfig({
     db: mongooseAdapter({
         url: process.env.MONGODB_URI,
     }),
-     
+
     editor: slateEditor({}),
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
@@ -101,6 +102,7 @@ export default buildConfig({
     },
 
     plugins: [
+
         redirects({
             collections: ['pages'],
             overrides: {
@@ -122,12 +124,14 @@ export default buildConfig({
                 },
             },
         }),
+
         nestedPages({
             collections: ['pages'],
             generateLabel: (_, doc) => doc.title as string,
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
         }),
+
         seo({
             collections: [
                 'organisations',
@@ -148,6 +152,24 @@ export default buildConfig({
                         return 'B-Side';
                 }
             },
+
+            // Disabled. We are using screenshots.
+            // uploadsCollection: 'media',
+        }),
+
+        addAuthorFields({
+            excludedCollections: [
+                'users',
+                'api-users',
+                'contact-forms',
+                'not-found-pages',
+            ],
+
+            // The 'Created By' field should be editable for posts
+            // createdByFieldEditable: (slug: string) => slug === 'posts',
+
+            createdByLabel: { en: 'Created by', de: 'Erstellt von' },
+            updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
         }),
     ],
 });
