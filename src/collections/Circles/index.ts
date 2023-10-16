@@ -1,15 +1,16 @@
 import type { CollectionConfig } from 'payload/types';
-import { hasCircleAccess, hasCircleAccessOrPublished } from '../access/checkCircle';
-import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { CallToAction } from '../blocks/CallToAction';
-import { Content } from '../blocks/Content';
-import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
-import { HeadlineBlock } from '../blocks/Headline';
-import { MediaBlock } from '../blocks/MediaBlock';
-import { MediaContent } from '../blocks/MediaContent';
-import { TeaserBlock } from '../blocks/Teaser';
+import { hasCircleAccess, hasCircleAccessOrPublished } from '../../access/checkCircle';
+import { isAdmin, isAdminFieldLevel } from '../../access/isAdmin';
+import { CallToAction } from '../../blocks/CallToAction';
+import { Content } from '../../blocks/Content';
+import { EventOverviewBlock } from '../../blocks/EventOverviewBlock';
+import { HeadlineBlock } from '../../blocks/Headline';
+import { MediaBlock } from '../../blocks/MediaBlock';
+import { MediaContent } from '../../blocks/MediaContent';
+import { TeaserBlock } from '../../blocks/Teaser';
+import { revalidateCircle } from './hooks/revalidateCircle';
 
-const Circles: CollectionConfig = {
+const Index: CollectionConfig = {
     slug: 'circles',
 
     labels: {
@@ -34,8 +35,11 @@ const Circles: CollectionConfig = {
         delete: isAdmin,
     },
 
-    fields: [
+    hooks: {
+        afterChange: [revalidateCircle],
+    },
 
+    fields: [
         {
             name: 'name',
             label: 'Name',
@@ -128,4 +132,4 @@ const Circles: CollectionConfig = {
     ],
 };
 
-export default Circles;
+export default Index;

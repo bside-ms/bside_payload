@@ -12,7 +12,7 @@ import type { PayloadBundler } from 'payload/dist/bundlers/types';
 import { isAdmin } from './access/isAdmin';
 import ContactForms from './collections/Administration/ContactForms';
 import NotFoundPages from './collections/Administration/NotFound';
-import Circles from './collections/Circles';
+import Index from './collections/Circles';
 import Events from './collections/Events';
 import Media from './collections/Media';
 import Organisation from './collections/Organisation';
@@ -44,7 +44,7 @@ export default buildConfig({
 
         // Collections
         Events,
-        Circles,
+        Index,
         Organisation,
 
         // Other
