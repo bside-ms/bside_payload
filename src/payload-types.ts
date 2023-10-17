@@ -63,6 +63,14 @@ export interface Event {
   displayOnOrganisation?: boolean;
   displayOnCircle?: boolean;
   slug?: string;
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
@@ -70,6 +78,14 @@ export interface Event {
 export interface Media {
   id: string;
   alt: string;
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
   url?: string;
@@ -104,6 +120,128 @@ export interface Media {
       filename?: string;
     };
   };
+}
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  roles: ('public' | 'editor' | 'admin')[];
+  circles?: string[] | Circle[];
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  salt?: string;
+  hash?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  password?: string;
+}
+export interface Circle {
+  id: string;
+  name: string;
+  hiddenType?: string;
+  organisation: string | Organisation;
+  description?: string;
+  circleImage?: string | Media;
+  fallbackImage: string;
+  layout?: (
+    | {
+        title: string;
+        teaser?: string;
+        level: 'h1' | 'h2' | 'h3' | 'h4';
+        as: 'h1' | 'h2' | 'h3' | 'h4';
+        backgroundColor: 'white' | 'black';
+        anchor?: string;
+        id?: string;
+        blockName?: string;
+        blockType: 'headlineBlock';
+      }
+    | {
+        backgroundColor: 'white' | 'black';
+        backgroundWidth: 'full' | 'block';
+        columns?: {
+          width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+          richText: {
+            [k: string]: unknown;
+          }[];
+          id?: string;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        media: string | Media;
+        size?: 'normal' | 'wide' | 'event';
+        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
+        caption?: string;
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+        backgroundColor: 'white' | 'black';
+        headline?: string;
+        media: string | Media;
+        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
+        richText: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        headlineTitle: string;
+        headlineTeaser?: string;
+        reversed?: boolean;
+        linkText: string;
+        linkHref: string;
+        image: string | Media;
+        richText: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'teaser';
+      }
+    | {
+        title?: string;
+        text: string;
+        href: string;
+        id?: string;
+        blockName?: string;
+        blockType: 'callToAction';
+      }
+    | {
+        title: string;
+        eventSide: 'textLeft' | 'textRight';
+        richText: {
+          [k: string]: unknown;
+        }[];
+        id?: string;
+        blockName?: string;
+        blockType: 'eventOverview';
+      }
+  )[];
+  meta?: {
+    title?: string;
+    description?: string;
+  };
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
 }
 export interface Organisation {
   id: string;
@@ -205,123 +343,17 @@ export interface Organisation {
     description?: string;
   };
   hiddenType?: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: 'draft' | 'published';
-}
-export interface Circle {
-  id: string;
-  name: string;
-  hiddenType?: string;
-  organisation: string | Organisation;
-  description?: string;
-  circleImage?: string | Media;
-  fallbackImage: string;
-  layout?: (
-    | {
-        title: string;
-        teaser?: string;
-        level: 'h1' | 'h2' | 'h3' | 'h4';
-        as: 'h1' | 'h2' | 'h3' | 'h4';
-        backgroundColor: 'white' | 'black';
-        anchor?: string;
-        id?: string;
-        blockName?: string;
-        blockType: 'headlineBlock';
-      }
-    | {
-        backgroundColor: 'white' | 'black';
-        backgroundWidth: 'full' | 'block';
-        columns?: {
-          width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-          richText: {
-            [k: string]: unknown;
-          }[];
-          id?: string;
-        }[];
-        id?: string;
-        blockName?: string;
-        blockType: 'content';
-      }
-    | {
-        media: string | Media;
-        size?: 'normal' | 'wide' | 'event';
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
-        caption?: string;
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaBlock';
-      }
-    | {
-        alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-        backgroundColor: 'white' | 'black';
-        headline?: string;
-        media: string | Media;
-        effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[];
-        richText: {
-          [k: string]: unknown;
-        }[];
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaContent';
-      }
-    | {
-        headlineTitle: string;
-        headlineTeaser?: string;
-        reversed?: boolean;
-        linkText: string;
-        linkHref: string;
-        image: string | Media;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        id?: string;
-        blockName?: string;
-        blockType: 'teaser';
-      }
-    | {
-        title?: string;
-        text: string;
-        href: string;
-        id?: string;
-        blockName?: string;
-        blockType: 'callToAction';
-      }
-    | {
-        title: string;
-        eventSide: 'textLeft' | 'textRight';
-        richText: {
-          [k: string]: unknown;
-        }[];
-        id?: string;
-        blockName?: string;
-        blockType: 'eventOverview';
-      }
-  )[];
-  meta?: {
-    title?: string;
-    description?: string;
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
-}
-export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  roles: ('public' | 'editor' | 'admin')[];
-  circles?: string[] | Circle[];
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  salt?: string;
-  hash?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
 }
 export interface Page {
   id: string;
@@ -430,6 +462,14 @@ export interface Page {
     title?: string;
     description?: string;
   };
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
@@ -470,6 +510,14 @@ export interface Redirect {
       value: string | Page;
     };
     url: string;
+  };
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
