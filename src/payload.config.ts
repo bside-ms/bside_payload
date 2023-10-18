@@ -21,8 +21,8 @@ import Organisation from './collections/Organisation';
 import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
-import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
+import OAuthButton from './components/OAuthButton';
 
 export default buildConfig({
     admin: {
@@ -32,10 +32,6 @@ export default buildConfig({
         components: {
             beforeLogin: [
                 BeforeLogin,
-            ],
-
-            beforeDashboard: [
-                BeforeDashboard,
             ],
         },
 
@@ -197,6 +193,9 @@ export default buildConfig({
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                     firstName: user.given_name as string,
                 };
+            },
+            components: {
+                Button: () => OAuthButton(),
             },
         }),
     ],
