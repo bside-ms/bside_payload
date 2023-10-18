@@ -7,8 +7,10 @@ import nestedPages from '@payloadcms/plugin-nested-docs';
 import redirects from '@payloadcms/plugin-redirects';
 import seo from '@payloadcms/plugin-seo';
 import { slateEditor } from '@payloadcms/richtext-slate';
+import axios from 'axios';
 import { buildConfig } from 'payload/config';
 import type { PayloadBundler } from 'payload/dist/bundlers/types';
+import { oAuthPlugin } from 'payload-plugin-oauth';
 import { isAdmin } from './access/isAdmin';
 import ContactForms from './collections/Administration/ContactForms';
 import NotFoundPages from './collections/Administration/NotFound';
@@ -25,6 +27,7 @@ import BeforeLogin from './components/BeforeLogin';
 export default buildConfig({
     admin: {
         bundler: webpackBundler() as PayloadBundler,
+        webpack: config => config,
 
         components: {
             beforeLogin: [
@@ -153,7 +156,7 @@ export default buildConfig({
                 }
             },
 
-            // Disabled. We are using screenshots.
+            // Disabled. We are using auto-generated screenshots.
             // uploadsCollection: 'media',
         }),
 
@@ -165,11 +168,36 @@ export default buildConfig({
                 'not-found-pages',
             ],
 
-            // The 'Created By' field should be editable for posts
-            // createdByFieldEditable: (slug: string) => slug === 'posts',
-
             createdByLabel: { en: 'Created by', de: 'Erstellt von' },
             updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
+        }),
+
+        oAuthPlugin({
+            // @ts-expect-error The plugin config is not configured correctly.
+            clientID: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            authorizationURL: `${process.env.OAUTH_SERVER}/protocol/openid-connect/auth`,
+            tokenURL: `${process.env.OAUTH_SERVER}/protocol/openid-connect/token`,
+            callbackURL: `${process.env.PAYLOAD_PUBLIC_CMS_URL}/oauth2/callback`,
+            scope: 'openid',
+            async userinfo(accessToken) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                const { data: user } = await axios.get(`${process.env.OAUTH_SERVER}/protocol/openid-connect/userinfo`, {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+
+                return {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    sub: user.sub as string,
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    name: user.preferred_username as string,
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    email: user.email as string,
+                    roles: 'public',
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    firstName: user.given_name as string,
+                };
+            },
         }),
     ],
 });

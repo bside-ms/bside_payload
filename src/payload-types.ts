@@ -124,9 +124,10 @@ export interface Media {
 export interface User {
   id: string;
   firstName: string;
-  lastName: string;
+  lastName?: string;
   roles: ('public' | 'editor' | 'admin')[];
   circles?: string[] | Circle[];
+  sub?: string;
   updatedAt: string;
   createdAt: string;
   email: string;

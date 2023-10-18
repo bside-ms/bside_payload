@@ -10,5 +10,9 @@ declare namespace NodeJS {
         PAYLOAD_PUBLIC_SITE_URL: string;
 
         REVALIDATION_KEY: string;
+
+        CLIENT_ID: string;
+        CLIENT_SECRET: string;
+        OAUTH_SERVER: string;
     }
 }

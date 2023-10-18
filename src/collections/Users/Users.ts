@@ -46,7 +46,7 @@ const Users: CollectionConfig = {
                     name: 'lastName',
                     label: 'Nachname',
                     type: 'text',
-                    required: true,
+                    required: false,
                 },
             ],
         },
