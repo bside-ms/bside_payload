@@ -130,14 +130,6 @@ export interface User {
   sub?: string;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  salt?: string;
-  hash?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
 }
 export interface Circle {
   id: string;
