@@ -4,6 +4,7 @@ import { isEditor, isEditorFieldLevel } from '../access/isEditor';
 import { isUser, isUserOrPublished } from '../access/isUser';
 import richText from '../fields/richText';
 import { slugField } from '../fields/slug';
+import createEventSlug from '../utilities/createEventSlug';
 
 const Events: CollectionConfig = {
     slug: 'events',
@@ -17,6 +18,13 @@ const Events: CollectionConfig = {
         useAsTitle: 'title',
         group: 'B-Side',
         defaultColumns: ['title', 'eventDate', 'eventStart', 'updatedAt', '_status'],
+
+        livePreview: {
+            url: ({ data }) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/events/${createEventSlug(data.slug, data.title, data.id)}`;
+            },
+        },
     },
 
     versions: {
