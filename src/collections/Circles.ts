@@ -9,6 +9,7 @@ import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
 import { TeaserBlock } from '../blocks/Teaser';
+import { kebabCase } from 'lodash';
 
 const Circles: CollectionConfig = {
     slug: 'circles',
@@ -22,6 +23,13 @@ const Circles: CollectionConfig = {
         useAsTitle: 'name',
         group: 'B-Side',
         defaultColumns: ['name', 'organisation', 'updatedAt', '_status'],
+
+        livePreview: {
+            url: ({ data }) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/kreise/${kebabCase(data.name)}`;
+            },
+        },
     },
 
     versions: {
