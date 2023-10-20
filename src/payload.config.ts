@@ -195,13 +195,13 @@ export default buildConfig({
             // @ts-expect-error The plugin config is not configured correctly.
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            authorizationURL: `${process.env.OAUTH_SERVER}/protocol/openid-connect/auth`,
-            tokenURL: `${process.env.OAUTH_SERVER}/protocol/openid-connect/token`,
+            authorizationURL: `${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/auth`,
+            tokenURL: `${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/token`,
             callbackURL: `${process.env.PAYLOAD_PUBLIC_CMS_URL}/oauth2/callback`,
             scope: 'openid',
             async userinfo(accessToken) {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const { data: user } = await axios.get(`${process.env.OAUTH_SERVER}/protocol/openid-connect/userinfo`, {
+                const { data: user } = await axios.get(`${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/userinfo`, {
                     headers: { Authorization: `Bearer ${accessToken}` },
                 });
 

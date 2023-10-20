@@ -13,6 +13,6 @@ declare namespace NodeJS {
 
         CLIENT_ID: string;
         CLIENT_SECRET: string;
-        OAUTH_SERVER: string;
+        PAYLOAD_PUBLIC_OAUTH_SERVER: string;
     }
 }

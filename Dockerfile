@@ -5,13 +5,18 @@ FROM base as builder
 WORKDIR /home/node
 COPY package*.json ./
 
+ARG PAYLOAD_PUBLIC_OAUTH_SERVER
+ENV PAYLOAD_PUBLIC_OAUTH_SERVER=${PAYLOAD_PUBLIC_OAUTH_SERVER}
+
+ARG PAYLOAD_PUBLIC_CMS_URL
+ENV PAYLOAD_PUBLIC_CMS_URL=${PAYLOAD_PUBLIC_CMS_URL}
+
+
 COPY . .
 RUN yarn install
 RUN yarn build
 
 FROM base as runtime
-
-ENV NODE_ENV=production
 
 WORKDIR /home/node
 COPY package*.json  ./
