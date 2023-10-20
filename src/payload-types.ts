@@ -549,21 +549,5 @@ export interface PayloadMigration {
 
 
 declare module 'payload' {
-  export interface GeneratedTypes {
-    collections: {
-      'events': Event
-      'circles': Circle
-      'organisations': Organisation
-      'media': Media
-      'users': User
-      'pages': Page
-      'contact-forms': ContactForm
-      'not-found-pages': NotFoundPage
-      'api-users': ApiUser
-      'redirects': Redirect
-      'payload-preferences': PayloadPreference
-      'payload-migrations': PayloadMigration
-    }
-
-  }
+  export interface GeneratedTypes extends Config {}
 }
