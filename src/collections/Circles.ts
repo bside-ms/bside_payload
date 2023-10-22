@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types';
-import { hasCircleAccess, hasCircleAccessOrPublished } from '../access/checkCircle';
+import { hasCircleAccess } from '../access/checkCircle';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
+import { publishedOnly } from '../access/publishedOnly';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
@@ -8,6 +9,7 @@ import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
 import { TeaserBlock } from '../blocks/Teaser';
+import { kebabCase } from 'lodash';
 
 const Circles: CollectionConfig = {
     slug: 'circles',
@@ -21,6 +23,13 @@ const Circles: CollectionConfig = {
         useAsTitle: 'name',
         group: 'B-Side',
         defaultColumns: ['name', 'organisation', 'updatedAt', '_status'],
+
+        livePreview: {
+            url: ({ data }) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/kreise/${kebabCase(data.name)}`;
+            },
+        },
     },
 
     versions: {
@@ -29,13 +38,12 @@ const Circles: CollectionConfig = {
 
     access: {
         create: isAdmin,
-        read: hasCircleAccessOrPublished,
+        read: publishedOnly,
         update: hasCircleAccess('id'),
         delete: isAdmin,
     },
 
     fields: [
-
         {
             name: 'name',
             label: 'Name',

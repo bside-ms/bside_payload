@@ -6,6 +6,7 @@ const Users: CollectionConfig = {
     slug: 'users',
     auth: {
         tokenExpiration: 28800, // 8 hours
+        disableLocalStrategy: true,
         cookies: {
             sameSite: 'none',
             secure: true,
@@ -46,7 +47,7 @@ const Users: CollectionConfig = {
                     name: 'lastName',
                     label: 'Nachname',
                     type: 'text',
-                    required: true,
+                    required: false,
                 },
             ],
         },

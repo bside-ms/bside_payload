@@ -1,5 +1,16 @@
 #!/bin/bash
 
-docker build -t $IMAGE_NAME .
+if [ $SOURCE_BRANCH = "main" ]
+then
+  PAYLOAD_PUBLIC_CMS_URL=$PAYLOAD_PUBLIC_CMS_URL_PROD
+else
+  PAYLOAD_PUBLIC_CMS_URL=$PAYLOAD_PUBLIC_CMS_URL_DEV
+fi
+
+docker build \
+  -t $IMAGE_NAME \
+  --build-arg PAYLOAD_PUBLIC_CMS_URL=$PAYLOAD_PUBLIC_CMS_URL \
+  .
+
 docker tag $IMAGE_NAME $DOCKER_REPO:$SOURCE_COMMIT
 docker push $DOCKER_REPO:$SOURCE_COMMIT

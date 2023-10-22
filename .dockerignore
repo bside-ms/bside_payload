@@ -2,6 +2,7 @@
 Dockerfile
 .dockerignore
 .nvmrc
+db/
 node_modules
 npm-debug.log
 README.md

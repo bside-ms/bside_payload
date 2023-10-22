@@ -24,6 +24,13 @@ const Pages: CollectionConfig = {
         useAsTitle: 'title',
         defaultColumns: ['title', 'slug', 'parent', 'updatedAt', '_status'],
         group: 'Seiten',
+
+        livePreview: {
+            url: ({ data }) => {
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
+            },
+        },
+
     },
 
     versions: {

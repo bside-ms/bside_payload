@@ -1,11 +1,17 @@
 import path from 'path';
 import * as process from 'process';
+import { addAuthorFields } from '@boomworks/payload-plugin-author-fields';
+import { webpackBundler } from '@payloadcms/bundler-webpack';
+import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import nestedPages from '@payloadcms/plugin-nested-docs';
 import redirects from '@payloadcms/plugin-redirects';
 import seo from '@payloadcms/plugin-seo';
+import { slateEditor } from '@payloadcms/richtext-slate';
+import axios from 'axios';
 import { buildConfig } from 'payload/config';
+import type { PayloadBundler } from 'payload/dist/bundlers/types';
+import { oAuthPlugin } from 'payload-plugin-oauth';
 import { isAdmin } from './access/isAdmin';
-import { publishedOnly } from './access/publishedOnly';
 import ContactForms from './collections/Administration/ContactForms';
 import NotFoundPages from './collections/Administration/NotFound';
 import Circles from './collections/Circles';
@@ -15,20 +21,42 @@ import Organisation from './collections/Organisation';
 import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
-import BeforeDashboard from './components/BeforeDashboard';
 import BeforeLogin from './components/BeforeLogin';
+import OAuthButton from './components/OAuthButton';
 
 export default buildConfig({
     admin: {
-        user: Users.slug,
+        bundler: webpackBundler() as PayloadBundler,
+        webpack: config => config,
 
         components: {
             beforeLogin: [
                 BeforeLogin,
             ],
+        },
 
-            beforeDashboard: [
-                BeforeDashboard,
+        user: Users.slug,
+
+        livePreview: {
+            breakpoints: [
+                {
+                    label: 'Mobile',
+                    name: 'mobile',
+                    width: 375,
+                    height: 667,
+                },
+                {
+                    label: 'Tablet',
+                    name: 'tablet',
+                    width: 768,
+                    height: 1024,
+                },
+                {
+                    label: 'Desktop',
+                    name: 'desktop',
+                    width: 1440,
+                    height: 900,
+                },
             ],
         },
     },
@@ -55,6 +83,12 @@ export default buildConfig({
         // Authentication
         ApiUsers,
     ],
+
+    db: mongooseAdapter({
+        url: process.env.MONGODB_URI,
+    }),
+
+    editor: slateEditor({}),
 
     // globals are a single-instance collection, often used for navigation or site settings that live in one place
     globals: [],
@@ -90,6 +124,7 @@ export default buildConfig({
     },
 
     plugins: [
+
         redirects({
             collections: ['pages'],
             overrides: {
@@ -111,12 +146,14 @@ export default buildConfig({
                 },
             },
         }),
+
         nestedPages({
             collections: ['pages'],
             generateLabel: (_, doc) => doc.title as string,
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
         }),
+
         seo({
             collections: [
                 'organisations',
@@ -136,6 +173,52 @@ export default buildConfig({
                     default:
                         return 'B-Side';
                 }
+            },
+
+            // Disabled. We are using auto-generated screenshots.
+            // uploadsCollection: 'media',
+        }),
+
+        addAuthorFields({
+            excludedCollections: [
+                'users',
+                'api-users',
+                'contact-forms',
+                'not-found-pages',
+            ],
+
+            createdByLabel: { en: 'Created by', de: 'Erstellt von' },
+            updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
+        }),
+
+        oAuthPlugin({
+            // @ts-expect-error The plugin config is not configured correctly.
+            clientID: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            authorizationURL: `${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/auth`,
+            tokenURL: `${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/token`,
+            callbackURL: `${process.env.PAYLOAD_PUBLIC_CMS_URL}/oauth2/callback`,
+            scope: 'openid',
+            async userinfo(accessToken) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                const { data: user } = await axios.get(`${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/userinfo`, {
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                });
+
+                return {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    sub: user.sub as string,
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    name: user.preferred_username as string,
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    email: user.email as string,
+                    roles: 'public',
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                    firstName: user.given_name as string,
+                };
+            },
+            components: {
+                Button: () => OAuthButton(),
             },
         }),
     ],
