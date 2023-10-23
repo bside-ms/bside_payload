@@ -209,14 +209,17 @@ export default buildConfig({
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                     sub: user.sub as string,
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                    name: user.preferred_username as string,
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                     email: user.email as string,
                     roles: 'public',
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                     firstName: user.given_name as string,
                 };
             },
+
+            subField: {
+                name: 'sub',
+            },
+
             components: {
                 Button: () => OAuthButton(),
             },

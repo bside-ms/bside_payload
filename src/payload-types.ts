@@ -123,6 +123,7 @@ export interface Media {
 }
 export interface User {
   id: string;
+  email: string;
   firstName: string;
   lastName?: string;
   roles: ('public' | 'editor' | 'admin')[];

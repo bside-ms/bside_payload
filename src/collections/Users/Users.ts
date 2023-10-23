@@ -35,6 +35,16 @@ const Users: CollectionConfig = {
 
     fields: [
         {
+            name: 'email',
+            type: 'email',
+            required: true,
+            access: {
+                read: isAdminOrSelfFieldLevel,
+                create: isAdminFieldLevel,
+                update: isAdminFieldLevel,
+            },
+        },
+        {
             type: 'row',
             fields: [
                 {
@@ -42,12 +52,22 @@ const Users: CollectionConfig = {
                     label: 'Vorname',
                     type: 'text',
                     required: true,
+                    access: {
+                        read: isAdminOrSelfFieldLevel,
+                        create: isAdminFieldLevel,
+                        update: isAdminFieldLevel,
+                    },
                 },
                 {
                     name: 'lastName',
                     label: 'Nachname',
                     type: 'text',
                     required: false,
+                    access: {
+                        read: isAdminOrSelfFieldLevel,
+                        create: isAdminFieldLevel,
+                        update: isAdminFieldLevel,
+                    },
                 },
             ],
         },
@@ -92,6 +112,17 @@ const Users: CollectionConfig = {
                 update: isAdminFieldLevel,
             },
             relationTo: 'circles',
+        },
+
+        {
+            name: 'sub',
+            label: 'Keycloak-ID',
+            type: 'text',
+            access: {
+                read: isAdminOrSelfFieldLevel,
+                create: isAdminFieldLevel,
+                update: isAdminFieldLevel,
+            },
         },
     ],
 };
