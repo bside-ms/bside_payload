@@ -1,3 +1,4 @@
+import { kebabCase } from 'lodash';
 import type { CollectionConfig } from 'payload/types';
 import { hasCircleAccess } from '../access/checkCircle';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
@@ -9,7 +10,6 @@ import { HeadlineBlock } from '../blocks/Headline';
 import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
 import { TeaserBlock } from '../blocks/Teaser';
-import { kebabCase } from 'lodash';
 
 const Circles: CollectionConfig = {
     slug: 'circles',
@@ -75,9 +75,8 @@ const Circles: CollectionConfig = {
                         {
                             name: 'description',
                             label: 'Kurzbeschreibung',
+                            localized: true,
                             type: 'text',
-                            required: false,
-                            defaultValue: '-',
                             admin: {
                                 description: 'Diese Beschreibung wird in den Kreisübersichten in der zweiten Zeile angezeigt.',
                             },
@@ -115,7 +114,7 @@ const Circles: CollectionConfig = {
                             name: 'layout',
                             label: 'Inhalt',
                             type: 'blocks',
-                            minRows: 1,
+                            localized: true,
                             blocks: [
                                 HeadlineBlock,
                                 Content,

@@ -72,7 +72,7 @@ const Organisation: CollectionConfig = {
                             name: 'layout',
                             label: 'Inhalt',
                             type: 'blocks',
-                            minRows: 1,
+                            localized: true,
                             blocks: [
                                 HeadlineBlock,
                                 Content,

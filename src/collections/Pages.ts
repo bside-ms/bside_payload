@@ -30,7 +30,6 @@ const Pages: CollectionConfig = {
                 return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
             },
         },
-
     },
 
     versions: {
@@ -48,20 +47,20 @@ const Pages: CollectionConfig = {
         {
             name: 'title',
             type: 'text',
+            localized: true,
             required: true,
             access: {
                 update: isAdminFieldLevel,
             },
         },
 
-        // richText(),
         slugField(),
 
         {
             name: 'layout',
             label: 'Inhalt',
             type: 'blocks',
-            minRows: 1,
+            localized: true,
             blocks: [
                 HeadlineBlock,
                 Content,

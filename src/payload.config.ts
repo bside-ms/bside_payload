@@ -101,6 +101,7 @@ export default buildConfig({
     localization: {
         defaultLocale: 'de',
         locales: ['de', 'en'],
+        fallback: true,
     },
 
     rateLimit: {
@@ -161,19 +162,6 @@ export default buildConfig({
                 'pages',
             ],
             tabbedUI: true,
-            // @ts-expect-error `doc` expects type T.
-            generateTitle({ doc }: { doc: { title: { value: string }, name: { value: string }, hiddenType: { value: string } } }) {
-                switch (doc.hiddenType.value) {
-                    case 'circle':
-                        return `${doc.name.value} - B-Side`;
-
-                    case 'organisation':
-                        return `${doc.title.value} - B-Side`;
-
-                    default:
-                        return 'B-Side';
-                }
-            },
 
             // Disabled. We are using auto-generated screenshots.
             // uploadsCollection: 'media',
