@@ -18,7 +18,7 @@ export const hasCircleAccessOrPublished: Access = ({ req: { user } }): (boolean 
     }
 
     let circles = (user as User).circles;
-    if (circles === undefined || circles.length <= 0) {
+    if (circles === undefined || circles === null || circles.length <= 0) {
         circles = [];
     }
 
@@ -57,7 +57,7 @@ export const hasCircleAccess = (circleIdFieldName: string = 'circle'): Access =>
     }
 
     const circles = (user as User).circles;
-    if (circles !== undefined && circles.length >= 0) {
+    if (circles !== undefined && circles !== null && circles.length >= 0) {
         return {
             or: [
                 {
