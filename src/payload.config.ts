@@ -24,6 +24,7 @@ import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
 import BeforeLogin from './components/BeforeLogin';
 import OAuthButton from './components/OAuthButton';
+import { AboutBside } from './globals/AboutBside';
 import { StartPage } from './globals/StartPage';
 import type { Config } from './payload-types';
 
@@ -93,6 +94,7 @@ export default buildConfig({
 
     globals: [
         StartPage,
+        AboutBside,
     ],
 
     db: mongooseAdapter({

@@ -6,7 +6,7 @@ export const StartPage: GlobalConfig = {
     label: 'Startseite',
 
     admin: {
-        group: 'globals',
+        group: 'Statisches',
         livePreview: {
             url: ({ locale }) => {
                 return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}`;
@@ -23,30 +23,21 @@ export const StartPage: GlobalConfig = {
         {
             type: 'text',
             name: 'title',
-            label: {
-                de: 'Titel',
-                en: 'Title',
-            },
+            label: 'Titel',
             localized: true,
             required: true,
         },
         {
             type: 'textarea',
             name: 'textBody',
-            label: {
-                de: 'Text',
-                en: 'Text',
-            },
+            label: 'Text',
             localized: true,
             required: true,
         },
         {
             type: 'text',
             name: 'buttonText',
-            label: {
-                de: 'Text des Buttons',
-                en: 'Button Text',
-            },
+            label: 'Text des Buttons',
             localized: true,
             required: true,
         },
