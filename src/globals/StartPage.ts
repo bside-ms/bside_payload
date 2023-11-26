@@ -8,7 +8,9 @@ export const StartPage: GlobalConfig = {
     admin: {
         group: 'globals',
         livePreview: {
-            url: () => `${process.env.PAYLOAD_PUBLIC_SITE_URL}/}`,
+            url: ({ locale }) => {
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}`;
+            },
         },
     },
 

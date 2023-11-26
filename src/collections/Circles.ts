@@ -25,9 +25,9 @@ const Circles: CollectionConfig = {
         defaultColumns: ['name', 'organisation', 'updatedAt', '_status'],
 
         livePreview: {
-            url: ({ data }) => {
+            url: ({ data, locale }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/kreise/${kebabCase(data.name)}`;
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}kreise/${kebabCase(data.name)}`;
             },
         },
     },

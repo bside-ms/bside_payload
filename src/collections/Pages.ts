@@ -26,8 +26,8 @@ const Pages: CollectionConfig = {
         group: 'Seiten',
 
         livePreview: {
-            url: ({ data }) => {
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
+            url: ({ data, locale }) => {
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
             },
         },
     },
