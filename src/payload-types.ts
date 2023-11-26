@@ -21,7 +21,9 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  globals: {};
+  globals: {
+    'start-page': StartPage;
+  };
 }
 export interface Event {
   id: string;
@@ -555,8 +557,19 @@ export interface PayloadMigration {
   updatedAt: string;
   createdAt: string;
 }
-
-
-declare module 'payload' {
-  export interface GeneratedTypes extends Config {}
+export interface StartPage {
+  id: string;
+  title: string;
+  textBody: string;
+  buttonText: string;
+  createdBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedBy?: {
+    relationTo: 'users';
+    value: string | User;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }

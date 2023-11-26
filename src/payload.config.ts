@@ -10,6 +10,7 @@ import { slateEditor } from '@payloadcms/richtext-slate';
 import axios from 'axios';
 import { buildConfig } from 'payload/config';
 import type { PayloadBundler } from 'payload/dist/bundlers/types';
+import computeBlurhash from 'payload-blurhash-plugin';
 import { oAuthPlugin } from 'payload-plugin-oauth';
 import { isAdmin } from './access/isAdmin';
 import ContactForms from './collections/Administration/ContactForms';
@@ -23,7 +24,12 @@ import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
 import BeforeLogin from './components/BeforeLogin';
 import OAuthButton from './components/OAuthButton';
-import computeBlurhash from 'payload-blurhash-plugin';
+import { StartPage } from './globals/StartPage';
+import type { Config } from './payload-types';
+
+declare module 'payload' {
+    export interface GeneratedTypes extends Config {}
+}
 
 export default buildConfig({
     admin: {
@@ -85,14 +91,15 @@ export default buildConfig({
         ApiUsers,
     ],
 
+    globals: [
+        StartPage,
+    ],
+
     db: mongooseAdapter({
         url: process.env.MONGODB_URI,
     }),
 
     editor: slateEditor({}),
-
-    // globals are a single-instance collection, often used for navigation or site settings that live in one place
-    globals: [],
 
     graphQL: {
         disable: true,
@@ -123,6 +130,7 @@ export default buildConfig({
 
     typescript: {
         outputFile: path.resolve(__dirname, 'payload-types.ts'),
+        declare: false,
     },
 
     plugins: [
