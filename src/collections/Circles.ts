@@ -49,6 +49,11 @@ const Circles: CollectionConfig = {
             label: 'Name',
             type: 'text',
             required: true,
+            localized: true,
+            access: {
+                read: () => true,
+                update: isAdminFieldLevel,
+            },
         },
         {
             name: 'hiddenType',
