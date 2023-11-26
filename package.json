@@ -22,23 +22,23 @@
     "@boomworks/payload-plugin-author-fields": "^1.1.6",
     "@payloadcms/bundler-webpack": "^1.0.5",
     "@payloadcms/db-mongodb": "^1.0.8",
-    "@payloadcms/plugin-nested-docs": "^1.0.8",
+    "@payloadcms/plugin-nested-docs": "^1.0.9",
     "@payloadcms/plugin-redirects": "^1.0.1",
     "@payloadcms/plugin-seo": "^1.0.15",
-    "@payloadcms/richtext-slate": "^1.1.0",
+    "@payloadcms/richtext-slate": "^1.2.0",
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
-    "payload": "^2.1.1",
+    "payload": "^2.2.1",
     "payload-plugin-oauth": "^2.0.1",
     "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
-    "@types/react": "^18.2.37",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
+    "@types/react": "^18.2.38",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.54.0",
@@ -50,6 +50,6 @@
     "eslint-plugin-unused-imports": "^3.0.0",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   }
 }
