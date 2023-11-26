@@ -77,6 +77,7 @@ export interface Media {
     relationTo: 'users';
     value: string | User;
   } | null;
+  blurhash?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

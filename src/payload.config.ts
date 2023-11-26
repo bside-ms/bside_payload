@@ -23,6 +23,7 @@ import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
 import BeforeLogin from './components/BeforeLogin';
 import OAuthButton from './components/OAuthButton';
+import computeBlurhash from 'payload-blurhash-plugin';
 
 export default buildConfig({
     admin: {
@@ -211,6 +212,15 @@ export default buildConfig({
             components: {
                 Button: () => OAuthButton(),
             },
+        }),
+
+        computeBlurhash({
+            collections: ['media'],
+            width: 32,
+            height: 32,
+            componentX: 4,
+            componentY: 4,
+            mimeTypePattern: 'image/*',
         }),
     ],
 });
