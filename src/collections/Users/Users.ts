@@ -94,6 +94,10 @@ const Users: CollectionConfig = {
                     label: 'Editor*in',
                 },
                 {
+                    value: 'organisator',
+                    label: 'Organisator*in',
+                },
+                {
                     value: 'admin',
                     label: 'Administrator*in',
                 },

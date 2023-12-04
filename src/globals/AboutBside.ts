@@ -1,5 +1,5 @@
 import type { GlobalConfig } from 'payload/types';
-import { isAdmin } from '../access/isAdmin';
+import { isOrganisator } from '../access/isOrganisator';
 
 export const AboutBside: GlobalConfig = {
     slug: 'about-bside',
@@ -16,7 +16,7 @@ export const AboutBside: GlobalConfig = {
 
     access: {
         read: () => true,
-        update: isAdmin,
+        update: isOrganisator,
     },
 
     fields: [

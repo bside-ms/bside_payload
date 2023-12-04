@@ -1,5 +1,5 @@
 import type { GlobalConfig } from 'payload/types';
-import { isAdmin } from '../access/isAdmin';
+import { isOrganisator } from '../access/isOrganisator';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
@@ -24,7 +24,7 @@ export const EventPage: GlobalConfig = {
 
     access: {
         read: () => true,
-        update: isAdmin,
+        update: isOrganisator,
     },
 
     fields: [
