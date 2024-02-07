@@ -18,6 +18,7 @@ import NotFoundPages from './collections/Administration/NotFound';
 import Circles from './collections/Circles';
 import Events from './collections/Events';
 import Media from './collections/Media';
+import News from './collections/News';
 import Organisation from './collections/Organisation';
 import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
@@ -84,6 +85,7 @@ export default buildConfig({
         Users,
 
         // Administration
+        News,
         Pages,
 
         // Automated
