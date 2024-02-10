@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types';
 import { isAdmin } from '../access/isAdmin';
 import { isEditor, isEditorFieldLevel } from '../access/isEditor';
-import { isUser, isUserOrPublished } from '../access/isUser';
+import { isUser } from '../access/isUser';
 import richText from '../fields/richText';
 import { slugField } from '../fields/slug';
 import createEventSlug from '../utilities/createEventSlug';
@@ -33,7 +33,7 @@ const Events: CollectionConfig = {
 
     access: {
         create: isUser,
-        read: isUserOrPublished,
+        read: () => true,
         update: isEditor,
         delete: isAdmin,
     },

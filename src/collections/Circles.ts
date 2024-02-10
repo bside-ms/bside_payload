@@ -2,7 +2,7 @@ import { kebabCase } from 'lodash';
 import type { CollectionConfig } from 'payload/types';
 import { hasCircleAccess } from '../access/checkCircle';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { publishedOnly } from '../access/publishedOnly';
+import { isUserOrPublished } from '../access/isUser';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
@@ -38,7 +38,7 @@ const Circles: CollectionConfig = {
 
     access: {
         create: isAdmin,
-        read: publishedOnly,
+        read: isUserOrPublished,
         update: hasCircleAccess('id'),
         delete: isAdmin,
     },

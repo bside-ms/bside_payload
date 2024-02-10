@@ -1,7 +1,14 @@
 import type { CollectionConfig } from 'payload/types';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { publishedOnly } from '../access/publishedOnly';
-import { defaultBlocks } from '../fields/blocks';
+import { isUserOrPublished } from '../access/isUser';
+import { CallToAction } from '../blocks/CallToAction';
+import { Content } from '../blocks/Content';
+import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
+import { HeadlineBlock } from '../blocks/Headline';
+import { MediaBlock } from '../blocks/MediaBlock';
+import { MediaContent } from '../blocks/MediaContent';
+import { Slider } from '../blocks/Slider';
+import { TeaserBlock } from '../blocks/Teaser';
 import formatSlug from '../utilities/formatSlug';
 
 const News: CollectionConfig = {
@@ -23,7 +30,7 @@ const News: CollectionConfig = {
 
     access: {
         create: isAdmin,
-        read: publishedOnly,
+        read: isUserOrPublished,
         update: isAdmin,
         delete: isAdmin,
     },
@@ -148,7 +155,16 @@ const News: CollectionConfig = {
             label: 'Inhalt',
             type: 'blocks',
             localized: true,
-            blocks: defaultBlocks,
+            blocks: [
+                HeadlineBlock,
+                Content,
+                MediaBlock,
+                MediaContent,
+                CallToAction,
+                TeaserBlock,
+                EventOverviewBlock,
+                Slider,
+            ],
             admin: {
                 initCollapsed: true,
             },
