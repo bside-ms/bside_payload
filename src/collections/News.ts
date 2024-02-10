@@ -132,6 +132,18 @@ const News: CollectionConfig = {
         },
 
         {
+            name: 'excerpt',
+            label: 'Vorschautext',
+            type: 'textarea',
+            localized: true,
+            required: true,
+            maxLength: 450,
+            admin: {
+                description: 'Dieser Text wird auf der Übersichtsseite angezeigt. Maximal 450 Zeichen.',
+            },
+        },
+
+        {
             name: 'layout',
             label: 'Inhalt',
             type: 'blocks',
