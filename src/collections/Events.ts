@@ -246,6 +246,31 @@ const Events: CollectionConfig = {
         },
 
         slugField(),
+
+        {
+            type: 'text',
+            name: 'identifier',
+            access: {
+                create: () => false,
+                update: () => false,
+            },
+            admin: {
+                readOnly: true,
+                position: 'sidebar',
+                description: 'Dieses Feld wird automatisch verwaltet.',
+            },
+            hooks: {
+                // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+                afterRead: [({ data }): string => {
+                    if (!data || data.id === undefined) {
+                        return '-';
+                    }
+
+                    const id = data.id as string;
+                    return id.slice(-4);
+                }],
+            },
+        },
     ],
 };
 
