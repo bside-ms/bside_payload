@@ -18,6 +18,7 @@ module.exports = {
         }
     },
     ignorePatterns: [
+        'db/**',
         '**/*.json',
         '**/*.js',
         '**/payload-types.ts',
