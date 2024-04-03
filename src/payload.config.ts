@@ -26,6 +26,7 @@ import Users from './collections/Users/Users';
 import BeforeLogin from './components/BeforeLogin';
 import OAuthButton from './components/OAuthButton';
 import { AboutBside } from './globals/AboutBside';
+import { Banner } from './globals/Banner';
 import { EventArchive } from './globals/EventArchive';
 import { EventPage } from './globals/EventPage';
 import { StartPage } from './globals/StartPage';
@@ -101,6 +102,7 @@ export default buildConfig({
         AboutBside,
         EventPage,
         EventArchive,
+        Banner,
     ],
 
     db: mongooseAdapter({
