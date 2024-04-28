@@ -241,4 +241,14 @@ export default buildConfig({
             mimeTypePattern: 'image/*',
         }),
     ],
+
+    endpoints: [
+        {
+            path: '/health',
+            method: 'get',
+            handler: (req, res): void => {
+                res.status(200).json({ status: 'ok' });
+            },
+        },
+    ],
 });
