@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload/types';
-import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { isUserOrPublished } from '../access/isUser';
+import { isAdmin } from '../access/isAdmin';
+import { isUser, isUserField, isUserOrPublished } from '../access/isUser';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
@@ -29,9 +29,9 @@ const News: CollectionConfig = {
     },
 
     access: {
-        create: isAdmin,
+        create: isUser,
         read: isUserOrPublished,
-        update: isAdmin,
+        update: isUser,
         delete: isAdmin,
     },
 
@@ -46,7 +46,7 @@ const News: CollectionConfig = {
             localized: true,
             required: true,
             access: {
-                update: isAdminFieldLevel,
+                update: isUserField,
             },
         },
 
@@ -185,6 +185,15 @@ const News: CollectionConfig = {
             hooks: {
                 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
                 afterRead: [({ data }): string => {
+                    if (!data || data.id === undefined) {
+                        return '-';
+                    }
+
+                    const id = data.id as string;
+                    return id.slice(-4);
+                }],
+                // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+                afterChange: [({ data }): string => {
                     if (!data || data.id === undefined) {
                         return '-';
                     }
