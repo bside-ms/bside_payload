@@ -192,15 +192,6 @@ const News: CollectionConfig = {
                     const id = data.id as string;
                     return id.slice(-4);
                 }],
-                // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-                afterChange: [({ data }): string => {
-                    if (!data || data.id === undefined) {
-                        return '-';
-                    }
-
-                    const id = data.id as string;
-                    return id.slice(-4);
-                }],
             },
         },
     ],

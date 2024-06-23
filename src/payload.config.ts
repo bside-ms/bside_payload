@@ -33,6 +33,7 @@ import { StartPage } from './globals/StartPage';
 import type { Config } from './payload-types';
 
 declare module 'payload' {
+    // @ts-expect-error The plugin config is not configured correctly.
     export interface GeneratedTypes extends Config {}
 }
 
