@@ -9,6 +9,7 @@ import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
 import { Slider } from '../blocks/Slider';
 import { TeaserBlock } from '../blocks/Teaser';
+import { createNewsSlug } from '../utilities/createNewsSlug';
 import formatSlug from '../utilities/formatSlug';
 
 const News: CollectionConfig = {
@@ -22,6 +23,13 @@ const News: CollectionConfig = {
     admin: {
         useAsTitle: 'title',
         group: 'Seiten',
+
+        livePreview: {
+            url: ({ data, locale }) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}news/${createNewsSlug(data.slug, data.id, data.title)}`;
+            },
+        },
     },
 
     versions: {
