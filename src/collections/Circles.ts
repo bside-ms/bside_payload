@@ -100,9 +100,12 @@ const Circles: CollectionConfig = {
                         },
                         {
                             name: 'fallbackImage',
-                            label: 'Fallback-Image',
+                            label: 'Strichmännchen-Bild',
                             type: 'text',
                             required: true,
+                            admin: {
+                                description: 'Name eines auf dem Server liegenden Strichmännchen-Bildes',
+                            },
                         },
                     ],
                 },
