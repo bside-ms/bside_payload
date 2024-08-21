@@ -142,7 +142,7 @@ const Events: CollectionConfig = {
                             admin: {
                                 description:
                                     'Der angegebene Kreis wird auf der Veranstaltungsseite angezeigt. ' +
-                                    'Außerdem erscheint die Veranstaltung in der Veranstaltungübersicht des Kreises und der dazugehörigen Körperschaft.',
+                                    'Außerdem erscheint die Veranstaltung in der Veranstaltungsübersicht des Kreises und der dazugehörigen Körperschaft.',
                             },
                         },
                         {
@@ -200,6 +200,10 @@ const Events: CollectionConfig = {
                                     label: 'Workshop',
                                     value: 'workshop',
                                 },
+                                {
+                                    label: 'Party',
+                                    value: 'party',
+                                },
                             ],
                         },
                     ],
@@ -224,7 +228,7 @@ const Events: CollectionConfig = {
                         {
                             name: 'displayOnOverview',
                             type: 'checkbox',
-                            label: 'Veranststaltungsübersicht',
+                            label: 'Veranstaltungsübersicht',
                             defaultValue: true,
                         },
                         {
