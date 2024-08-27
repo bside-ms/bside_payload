@@ -18,16 +18,22 @@ import NotFoundPages from './collections/Administration/NotFound';
 import Circles from './collections/Circles';
 import Events from './collections/Events';
 import Media from './collections/Media';
+import News from './collections/News';
 import Organisation from './collections/Organisation';
 import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
 import BeforeLogin from './components/BeforeLogin';
 import OAuthButton from './components/OAuthButton';
+import { AboutBside } from './globals/AboutBside';
+import { Banner } from './globals/Banner';
+import { EventArchive } from './globals/EventArchive';
+import { EventPage } from './globals/EventPage';
 import { StartPage } from './globals/StartPage';
 import type { Config } from './payload-types';
 
 declare module 'payload' {
+    // @ts-expect-error The plugin config is not configured correctly.
     export interface GeneratedTypes extends Config {}
 }
 
@@ -81,6 +87,7 @@ export default buildConfig({
         Users,
 
         // Administration
+        News,
         Pages,
 
         // Automated
@@ -93,6 +100,10 @@ export default buildConfig({
 
     globals: [
         StartPage,
+        AboutBside,
+        EventPage,
+        EventArchive,
+        Banner,
     ],
 
     db: mongooseAdapter({
@@ -230,5 +241,15 @@ export default buildConfig({
             componentY: 4,
             mimeTypePattern: 'image/*',
         }),
+    ],
+
+    endpoints: [
+        {
+            path: '/health',
+            method: 'get',
+            handler: (req, res): void => {
+                res.status(200).json({ status: 'ok' });
+            },
+        },
     ],
 });

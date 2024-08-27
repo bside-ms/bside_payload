@@ -1,5 +1,5 @@
-import isNotEmptyString from './isNotEmptyString';
 import { kebabCase } from 'lodash';
+import isNotEmptyString from './isNotEmptyString';
 
 const createEventSlug = (slug: string, title: string, id: string): string => {
 

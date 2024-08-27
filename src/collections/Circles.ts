@@ -2,7 +2,7 @@ import { kebabCase } from 'lodash';
 import type { CollectionConfig } from 'payload/types';
 import { hasCircleAccess } from '../access/checkCircle';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { publishedOnly } from '../access/publishedOnly';
+import { isUserOrPublished } from '../access/isUser';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
@@ -25,9 +25,9 @@ const Circles: CollectionConfig = {
         defaultColumns: ['name', 'organisation', 'updatedAt', '_status'],
 
         livePreview: {
-            url: ({ data }) => {
+            url: ({ data, locale }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/kreise/${kebabCase(data.name)}`;
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}kreise/${kebabCase(data.name)}`;
             },
         },
     },
@@ -38,7 +38,7 @@ const Circles: CollectionConfig = {
 
     access: {
         create: isAdmin,
-        read: publishedOnly,
+        read: isUserOrPublished,
         update: hasCircleAccess('id'),
         delete: isAdmin,
     },
@@ -49,6 +49,11 @@ const Circles: CollectionConfig = {
             label: 'Name',
             type: 'text',
             required: true,
+            localized: true,
+            access: {
+                read: () => true,
+                update: isAdminFieldLevel,
+            },
         },
         {
             name: 'hiddenType',

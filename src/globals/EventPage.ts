@@ -1,7 +1,5 @@
-import type { CollectionConfig } from 'payload/types';
-import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { isEditor } from '../access/isEditor';
-import { isUserOrPublished } from '../access/isUser';
+import type { GlobalConfig } from 'payload/types';
+import { isOrganisator } from '../access/isOrganisator';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
 import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
@@ -10,51 +8,33 @@ import { MediaBlock } from '../blocks/MediaBlock';
 import { MediaContent } from '../blocks/MediaContent';
 import { Slider } from '../blocks/Slider';
 import { TeaserBlock } from '../blocks/Teaser';
-import { slugField } from '../fields/slug';
 
-const Pages: CollectionConfig = {
-    slug: 'pages',
-
-    labels: {
-        singular: 'Seite',
-        plural: 'Seiten',
-    },
+export const EventPage: GlobalConfig = {
+    slug: 'event-page',
+    label: 'Veranstaltungsübersicht',
 
     admin: {
-        useAsTitle: 'title',
-        defaultColumns: ['title', 'slug', 'parent', 'updatedAt', '_status'],
-        group: 'Seiten',
-
+        group: 'Statisches',
         livePreview: {
-            url: ({ data, locale }) => {
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
+            url: ({ locale }) => {
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '/events' : '/en/events'}`;
             },
         },
     },
 
-    versions: {
-        drafts: true,
-    },
-
     access: {
-        create: isAdmin,
-        read: isUserOrPublished,
-        update: isEditor,
-        delete: isAdmin,
+        read: () => true,
+        update: isOrganisator,
     },
 
     fields: [
         {
-            name: 'title',
             type: 'text',
+            name: 'title',
+            label: 'Titel',
             localized: true,
             required: true,
-            access: {
-                update: isAdminFieldLevel,
-            },
         },
-
-        slugField(),
 
         {
             name: 'layout',
@@ -77,5 +57,3 @@ const Pages: CollectionConfig = {
         },
     ],
 };
-
-export default Pages;

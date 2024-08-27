@@ -18,6 +18,7 @@ module.exports = {
         }
     },
     ignorePatterns: [
+        'db/**',
         '**/*.json',
         '**/*.js',
         '**/payload-types.ts',
@@ -37,8 +38,9 @@ module.exports = {
 
         // https://github.com/sweepline/eslint-plugin-unused-imports
         'unused-imports',
+        'import',
 
-        // https://github.com/sindresorhus/eslint-plugin-unicorn/
+    // https://github.com/sindresorhus/eslint-plugin-unicorn/
         'unicorn',
 
         // https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks
@@ -63,6 +65,8 @@ module.exports = {
 
         // node_modules/eslint-plugin-react-hooks/src/index.js
         'plugin:react-hooks/recommended',
+
+        "plugin:import/recommended",
     ],
     settings: {
         react: {
@@ -73,6 +77,11 @@ module.exports = {
             '@typescript-eslint/parser': ['.ts', '.tsx']
         },
         'import/cache': 'Infinity',
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
     },
     reportUnusedDisableDirectives: true,
     rules: {

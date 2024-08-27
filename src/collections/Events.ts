@@ -20,9 +20,9 @@ const Events: CollectionConfig = {
         defaultColumns: ['title', 'eventDate', 'eventStart', 'updatedAt', '_status'],
 
         livePreview: {
-            url: ({ data }) => {
+            url: ({ data, locale }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/events/${createEventSlug(data.slug, data.title, data.id)}`;
+                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}events/${createEventSlug(data.slug, data.title, data.id)}`;
             },
         },
     },
@@ -245,6 +245,31 @@ const Events: CollectionConfig = {
         },
 
         slugField(),
+
+        {
+            type: 'text',
+            name: 'identifier',
+            access: {
+                create: () => false,
+                update: () => false,
+            },
+            admin: {
+                readOnly: true,
+                position: 'sidebar',
+                description: 'Dieses Feld wird automatisch verwaltet.',
+            },
+            hooks: {
+                // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+                afterRead: [({ data }): string => {
+                    if (!data || data.id === undefined) {
+                        return '-';
+                    }
+
+                    const id = data.id as string;
+                    return id.slice(-4);
+                }],
+            },
+        },
     ],
 };
 

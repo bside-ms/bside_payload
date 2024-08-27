@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
 import { isEditor } from '../access/isEditor';
-import { publishedOnly } from '../access/publishedOnly';
+import { isUserOrPublished } from '../access/isUser';
 import { CallToAction } from '../blocks/CallToAction';
 import { CircleOverviewBlock } from '../blocks/CircleOverviewBlock';
 import { Content } from '../blocks/Content';
@@ -31,7 +31,7 @@ const Organisation: CollectionConfig = {
 
     access: {
         create: isAdmin,
-        read: publishedOnly,
+        read: isUserOrPublished,
         update: isEditor,
         delete: isAdmin,
     },
