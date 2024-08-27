@@ -59,7 +59,20 @@ export interface Event {
     | null;
   eventOrganizer?: string | null;
   eventExtra?: string | null;
-  category?: ('concert' | 'movie' | 'theater' | 'plenum' | 'workshop')[] | null;
+  category?:
+    | (
+        | 'concert'
+        | 'movie'
+        | 'theater'
+        | 'plenum'
+        | 'workshop'
+        | 'party'
+        | 'exhibition'
+        | 'reading'
+        | 'lecture'
+        | 'other'
+      )[]
+    | null;
   displayOnHome?: boolean | null;
   displayOnOverview?: boolean | null;
   displayOnOrganisation?: boolean | null;

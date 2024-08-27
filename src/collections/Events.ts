@@ -142,7 +142,7 @@ const Events: CollectionConfig = {
                             admin: {
                                 description:
                                     'Der angegebene Kreis wird auf der Veranstaltungsseite angezeigt. ' +
-                                    'Außerdem erscheint die Veranstaltung in der Veranstaltungübersicht des Kreises und der dazugehörigen Körperschaft.',
+                                    'Außerdem erscheint die Veranstaltung in der Veranstaltungsübersicht des Kreises und der dazugehörigen Körperschaft.',
                             },
                         },
                         {
@@ -180,26 +180,16 @@ const Events: CollectionConfig = {
                                 isSortable: true,
                             },
                             options: [
-                                {
-                                    label: 'Konzert',
-                                    value: 'concert',
-                                },
-                                {
-                                    label: 'Film',
-                                    value: 'movie',
-                                },
-                                {
-                                    label: 'Theater',
-                                    value: 'theater',
-                                },
-                                {
-                                    label: 'Plenum',
-                                    value: 'plenum',
-                                },
-                                {
-                                    label: 'Workshop',
-                                    value: 'workshop',
-                                },
+                                { label: 'Konzert', value: 'concert' },
+                                { label: 'Film', value: 'movie' },
+                                { label: 'Theater', value: 'theater' },
+                                { label: 'Plenum', value: 'plenum' },
+                                { label: 'Workshop', value: 'workshop' },
+                                { label: 'Party', value: 'party' },
+                                { label: 'Ausstellung', value: 'exhibition' },
+                                { label: 'Lesung', value: 'reading' },
+                                { label: 'Vortrag', value: 'lecture' },
+                                { label: 'Sonstiges', value: 'other' },
                             ],
                         },
                     ],
@@ -224,7 +214,7 @@ const Events: CollectionConfig = {
                         {
                             name: 'displayOnOverview',
                             type: 'checkbox',
-                            label: 'Veranststaltungsübersicht',
+                            label: 'Veranstaltungsübersicht',
                             defaultValue: true,
                         },
                         {
