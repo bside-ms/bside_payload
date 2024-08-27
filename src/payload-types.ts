@@ -68,18 +68,9 @@ export interface Event {
         | 'workshop'
         | 'party'
         | 'exhibition'
-        | 'danceShow'
-        | 'performance'
         | 'reading'
-        | 'seminar'
         | 'lecture'
-        | 'reception'
-        | 'barcamp'
-        | 'meeting'
-        | 'conference'
-        | 'congress'
-        | 'teamEvent'
-        | 'corporateEvent'
+        | 'other'
       )[]
     | null;
   displayOnHome?: boolean | null;
