@@ -62,7 +62,6 @@ export const MediaContent: Block = {
                     type: 'text',
                     required: false,
                     admin: {
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-expect-error
                         condition: (_: undefined, siblingData: { alignment: string }): boolean => {
                             return siblingData.alignment === 'contentOnBottom';

@@ -58,11 +58,28 @@ export const Content: Block = {
         {
             name: 'columns',
             type: 'array',
-            minRows: 1,
+            required: true,
             label: 'Spalten',
             labels: {
                 singular: 'Spalte',
                 plural: 'Spalten',
+            },
+            validate: (columns: Array<{ id: string; width: 'full' | 'half' | 'oneThird' | 'twoThirds'; richText: Array<object> }>) => {
+                // Since field is required, first column will be set
+                const widthOfFirstColumn = columns[0]!.width;
+
+                const amountOfColumns = columns.length;
+
+                switch (widthOfFirstColumn) {
+                    case 'full':
+                        return amountOfColumns === 1 ? true : 'Bei "Ganze Breite" ist nur eine Spalte im Layout-Element zulässig.';
+                    case 'half':
+                        return amountOfColumns === 2 ? true : 'Bei "Halbe Seite" müssen exakt zwei Spalten im Layout-Element sein.';
+                    case 'oneThird':
+                        return amountOfColumns === 3 ? true : 'Bei "Ein Drittel" müssen exakt drei Spalten im Layout-Element sein.';
+                    case 'twoThirds':
+                        return amountOfColumns === 2 ? true : 'Bei "Zwei Drittel" müssen exakt zwei Spalten im Layout-Element sein.';
+                }
             },
             fields: [
                 {
@@ -71,6 +88,13 @@ export const Content: Block = {
                     type: 'select',
                     defaultValue: 'full',
                     required: true,
+                    admin: {
+                        description: `
+                            Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+                            im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+                            drei Spalten sein.
+                        `,
+                    },
                     options: [
                         {
                             label: 'Ganze Breite',

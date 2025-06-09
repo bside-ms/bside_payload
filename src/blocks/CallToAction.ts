@@ -13,7 +13,7 @@ export const CallToAction: Block = {
             name: 'title',
             type: 'text',
             required: false,
-            label: 'Titel',
+            label: 'Optionaler Titel über dem Button',
         },
         {
             name: 'text',

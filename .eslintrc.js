@@ -260,7 +260,6 @@ module.exports = {
             ERROR,
             { default: 'generic' }
         ],
-        '@typescript-eslint/ban-ts-comment': ERROR,
         '@typescript-eslint/brace-style': ERROR,
         '@typescript-eslint/camelcase': OFF, // Too many external influences for a consistent case style
         '@typescript-eslint/comma-dangle': [
