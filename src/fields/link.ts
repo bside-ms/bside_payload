@@ -121,14 +121,10 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     }
 
     if (appearances !== false) {
-        let appearanceOptionsToUse = [
-            appearanceOptions.default,
-            appearanceOptions.primary,
-            appearanceOptions.secondary,
-        ];
+        let appearanceOptionsToUse = [appearanceOptions.default, appearanceOptions.primary, appearanceOptions.secondary];
 
         if (appearances) {
-            appearanceOptionsToUse = appearances.map(appearance => appearanceOptions[appearance]);
+            appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance]);
         }
 
         linkResult.fields.push({

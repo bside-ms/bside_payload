@@ -43,11 +43,7 @@ export const CircleOverviewBlock: Block = {
                 label: 'Begleittext',
             },
             {
-                elements: [
-                    'ol',
-                    'ul',
-                    'indent',
-                ],
+                elements: ['ol', 'ul', 'indent'],
             },
         ),
     ],

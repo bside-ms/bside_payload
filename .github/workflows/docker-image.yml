@@ -1,0 +1,19 @@
+name: Docker Image CI
+on:
+    push:
+    workflow_dispatch:
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Install dependencies
+              run: npm ci
+            - name: Lint code
+              run: npm run eslint
+            - name: Type check code
+              run: npm run ts-check
+            - name: Check code style
+              run: npm run prettier

@@ -63,11 +63,7 @@ export const TeaserBlock: Block = {
                 label: 'Text',
             },
             {
-                elements: [
-                    'ol',
-                    'ul',
-                    'indent',
-                ],
+                elements: ['ol', 'ul', 'indent'],
             },
         ),
     ],

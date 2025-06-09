@@ -31,12 +31,7 @@ const Media: CollectionConfig = {
         staticDir: path.resolve(__dirname, '../../media'),
 
         // limit the types of files allowed and request validation
-        mimeTypes: [
-            'image/png',
-            'image/jpeg',
-            'image/webp',
-            'image/avif',
-        ],
+        mimeTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/avif'],
 
         imageSizes: [
             {

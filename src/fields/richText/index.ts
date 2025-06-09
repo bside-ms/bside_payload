@@ -18,7 +18,6 @@ const richText: RichText = (
     additions = {
         elements: [],
         leaves: [],
-
     },
 ) =>
     deepMerge<RichTextField, Partial<RichTextField>>(
@@ -98,7 +97,6 @@ const richText: RichText = (
                     },
                 },
             }),
-
         },
 
         // @ts-expect-error Undefined is not assignable to type 'Partial<RichTextField>'.

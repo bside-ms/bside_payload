@@ -119,13 +119,7 @@ export const Content: Block = {
                     {
                         label: 'Text',
                     },
-                    { elements: [
-                        'ol',
-                        'ul',
-                        'indent',
-                        'relationship',
-                        'upload',
-                    ] },
+                    { elements: ['ol', 'ul', 'indent', 'relationship', 'upload'] },
                 ),
             ],
         },

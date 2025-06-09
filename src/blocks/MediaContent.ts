@@ -111,11 +111,7 @@ export const MediaContent: Block = {
                 label: 'Text',
             },
             {
-                elements: [
-                    'ol',
-                    'ul',
-                    'indent',
-                ],
+                elements: ['ol', 'ul', 'indent'],
             },
         ),
     ],

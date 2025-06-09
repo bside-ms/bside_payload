@@ -42,7 +42,6 @@ const Events: CollectionConfig = {
         {
             type: 'tabs',
             tabs: [
-
                 //
                 // Allgemeines
                 //
@@ -163,8 +162,7 @@ const Events: CollectionConfig = {
                             required: false,
                             admin: {
                                 description:
-                                    'Dieser Text wird auf der Detail-Seite über dem Ort angezeigt. ' +
-                                    'Beispiel: VVK 5€ // AK 10€.',
+                                    'Dieser Text wird auf der Detail-Seite über dem Ort angezeigt. ' + 'Beispiel: VVK 5€ // AK 10€.',
                             },
                         },
 
@@ -200,7 +198,8 @@ const Events: CollectionConfig = {
                 //
                 {
                     label: 'Anzeige',
-                    description: 'Hier kann eingestellt werden, auf welchen Veranstaltungsübersichten die Veranstaltung angezeigt werden soll.',
+                    description:
+                        'Hier kann eingestellt werden, auf welchen Veranstaltungsübersichten die Veranstaltung angezeigt werden soll.',
                     fields: [
                         {
                             name: 'displayOnHome',
@@ -229,7 +228,6 @@ const Events: CollectionConfig = {
                             label: 'Kreis',
                             defaultValue: true,
                         },
-
                     ],
                 },
             ],
@@ -251,14 +249,16 @@ const Events: CollectionConfig = {
             },
             hooks: {
                 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-                afterRead: [({ data }): string => {
-                    if (!data || data.id === undefined) {
-                        return '-';
-                    }
+                afterRead: [
+                    ({ data }): string => {
+                        if (!data || data.id === undefined) {
+                            return '-';
+                        }
 
-                    const id = data.id as string;
-                    return id.slice(-4);
-                }],
+                        const id = data.id as string;
+                        return id.slice(-4);
+                    },
+                ],
             },
         },
     ],

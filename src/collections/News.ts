@@ -163,16 +163,7 @@ const News: CollectionConfig = {
             label: 'Inhalt',
             type: 'blocks',
             localized: true,
-            blocks: [
-                HeadlineBlock,
-                Content,
-                MediaBlock,
-                MediaContent,
-                CallToAction,
-                TeaserBlock,
-                EventOverviewBlock,
-                Slider,
-            ],
+            blocks: [HeadlineBlock, Content, MediaBlock, MediaContent, CallToAction, TeaserBlock, EventOverviewBlock, Slider],
             admin: {
                 initCollapsed: true,
             },
@@ -192,14 +183,16 @@ const News: CollectionConfig = {
             },
             hooks: {
                 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-                afterRead: [({ data }): string => {
-                    if (!data || data.id === undefined) {
-                        return '-';
-                    }
+                afterRead: [
+                    ({ data }): string => {
+                        if (!data || data.id === undefined) {
+                            return '-';
+                        }
 
-                    const id = data.id as string;
-                    return id.slice(-4);
-                }],
+                        const id = data.id as string;
+                        return id.slice(-4);
+                    },
+                ],
             },
         },
     ],

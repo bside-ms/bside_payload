@@ -24,9 +24,7 @@ export const isUser: Access<User> = ({ req: { user } }) => {
     return false;
 };
 
-export const isUserField: FieldAccess<{ id: string }, User> = ({
-    req: { user },
-}) => {
+export const isUserField: FieldAccess<{ id: string }, User> = ({ req: { user } }) => {
     if (user === undefined) {
         return false;
     }

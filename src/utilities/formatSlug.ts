@@ -8,22 +8,22 @@ const format = (val: string): string =>
 
 const formatSlug =
     (fallback: string): FieldHook =>
-        ({ operation, value, originalDoc, data }) => {
-            if (typeof value === 'string') {
-                return format(value);
+    ({ operation, value, originalDoc, data }) => {
+        if (typeof value === 'string') {
+            return format(value);
+        }
+
+        if (operation === 'create') {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const fallbackData = Boolean(data?.[fallback]) || originalDoc?.[fallback];
+
+            if (Boolean(fallbackData) && typeof fallbackData === 'string') {
+                return format(fallbackData);
             }
+        }
 
-            if (operation === 'create') {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const fallbackData = (Boolean((data?.[fallback]))) || originalDoc?.[fallback];
-
-                if ((Boolean(fallbackData)) && typeof fallbackData === 'string') {
-                    return format(fallbackData);
-                }
-            }
-
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-            return value;
-        };
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return value;
+    };
 
 export default formatSlug;

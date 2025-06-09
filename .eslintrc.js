@@ -7,22 +7,17 @@ module.exports = {
     env: {
         browser: true,
         es6: true,
-        node: true
+        node: true,
     },
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: 'tsconfig.json',
         sourceType: 'module',
         ecmaFeatures: {
-            jsx: true
-        }
+            jsx: true,
+        },
     },
-    ignorePatterns: [
-        'db/**',
-        '**/*.json',
-        '**/*.js',
-        '**/payload-types.ts',
-    ],
+    ignorePatterns: ['db/**', '**/*.json', '**/*.js', '**/payload-types.ts'],
     plugins: [
         // https://github.com/yannickcr/eslint-plugin-react
         'react',
@@ -40,7 +35,7 @@ module.exports = {
         'unused-imports',
         'import',
 
-    // https://github.com/sindresorhus/eslint-plugin-unicorn/
+        // https://github.com/sindresorhus/eslint-plugin-unicorn/
         'unicorn',
 
         // https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks
@@ -66,22 +61,22 @@ module.exports = {
         // node_modules/eslint-plugin-react-hooks/src/index.js
         'plugin:react-hooks/recommended',
 
-        "plugin:import/recommended",
+        'plugin:import/recommended',
     ],
     settings: {
         react: {
-            version: 'detect'
+            version: 'detect',
         },
         'import/extensions': ['.ts', '.tsx'],
         'import/parsers': {
-            '@typescript-eslint/parser': ['.ts', '.tsx']
+            '@typescript-eslint/parser': ['.ts', '.tsx'],
         },
         'import/cache': 'Infinity',
-        "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
-        }
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
     },
     reportUnusedDisableDirectives: true,
     rules: {
@@ -96,24 +91,17 @@ module.exports = {
         'arrow-parens': [OFF, 'as-needed'],
         'arrow-spacing': ERROR,
         'comma-dangle': OFF, // Is handled by TS plugin
-        'complexity': [
-            ERROR,
-            { max: 15 }
-        ],
-        'curly': ERROR,
+        complexity: [ERROR, { max: 15 }],
+        curly: ERROR,
         'default-param-last': OFF, // Is handled by TS plugin
         'dot-notation': OFF, // Is handled by TS plugin
         'eol-last': ERROR,
         'function-call-argument-newline': [ERROR, 'consistent'],
         'function-paren-newline': [ERROR, 'multiline-arguments'],
-        'eqeqeq': [ERROR, 'always'],
+        eqeqeq: [ERROR, 'always'],
         'guard-for-in': ERROR,
         'id-match': ERROR,
-        'indent':  [
-            ERROR,
-            4,
-            { SwitchCase: 1 }
-        ],
+        indent: [ERROR, 4, { SwitchCase: 1 }],
         'jsx-quotes': [ERROR, 'prefer-double'],
         'key-spacing': ERROR,
         'max-classes-per-file': [ERROR, 10],
@@ -122,8 +110,8 @@ module.exports = {
             {
                 code: 160,
                 ignoreRegExpLiterals: true,
-                ignorePattern: '^import ' // ignoring imports
-            }
+                ignorePattern: '^import ', // ignoring imports
+            },
         ],
         'max-lines': [ERROR, 666],
         'new-parens': ERROR,
@@ -134,10 +122,7 @@ module.exports = {
         'no-extra-bind': ERROR,
         'no-lone-blocks': ERROR,
         'no-multi-spaces': ERROR,
-        'no-multiple-empty-lines': [
-            ERROR,
-            { max: 1 }
-        ],
+        'no-multiple-empty-lines': [ERROR, { max: 1 }],
         'no-nested-ternary': ERROR,
         'no-new-func': ERROR,
         'no-new-wrappers': ERROR,
@@ -148,7 +133,7 @@ module.exports = {
                 object: 'window',
                 property: 'console',
                 message: 'Use the global `console` object instead of the `window.console` property.',
-            }
+            },
         ],
         'no-return-await': ERROR,
         'no-sequences': ERROR,
@@ -161,25 +146,19 @@ module.exports = {
         'object-curly-spacing': [ERROR, 'always'],
         'object-property-newline': [ERROR, { allowAllPropertiesOnSameLine: true }],
         'object-shorthand': ERROR,
-        'one-var': [
-            ERROR,
-            'never'
-        ],
+        'one-var': [ERROR, 'never'],
         'prefer-object-spread': ERROR,
         'prefer-template': ERROR,
-        'quote-props': [
-            ERROR,
-            'consistent-as-needed'
-        ],
-        'radix': ERROR,
+        'quote-props': [ERROR, 'consistent-as-needed'],
+        radix: ERROR,
         'space-before-blocks': OFF, // Is handled by TS plugin
         'space-before-function-paren': [
             ERROR,
             {
                 anonymous: 'never',
                 asyncArrow: 'always',
-                named: 'never'
-            }
+                named: 'never',
+            },
         ],
         'spaced-comment': ERROR,
         'space-in-parens': [ERROR, 'never'],
@@ -190,10 +169,7 @@ module.exports = {
          *
          * https://github.com/yannickcr/eslint-plugin-react#list-of-supported-rules
          */
-        'react/default-props-match-prop-types': [
-            ERROR,
-            { 'allowRequiredDefaults': true }
-        ],
+        'react/default-props-match-prop-types': [ERROR, { allowRequiredDefaults: true }],
         'react/display-name': OFF,
         'react/jsx-closing-bracket-location': ERROR,
         'react/jsx-closing-tag-location': ERROR,
@@ -212,23 +188,23 @@ module.exports = {
         'react/jsx-tag-spacing': [
             ERROR,
             {
-                'closingSlash': 'never',
-                'beforeSelfClosing': 'always',
-                'afterOpening': 'never',
-                'beforeClosing': 'never'
-            }
+                closingSlash: 'never',
+                beforeSelfClosing: 'always',
+                afterOpening: 'never',
+                beforeClosing: 'never',
+            },
         ],
         'react/jsx-wrap-multilines': [
             ERROR,
             {
-                'declaration': 'parens-new-line',
-                'assignment': 'parens-new-line',
-                'return': 'parens-new-line',
-                'arrow': 'parens-new-line',
-                'condition': 'parens-new-line',
-                'logical': 'parens-new-line',
-                'prop': 'parens-new-line'
-            }
+                declaration: 'parens-new-line',
+                assignment: 'parens-new-line',
+                return: 'parens-new-line',
+                arrow: 'parens-new-line',
+                condition: 'parens-new-line',
+                logical: 'parens-new-line',
+                prop: 'parens-new-line',
+            },
         ],
         'react/no-access-state-in-setstate': ERROR,
         'react/no-adjacent-inline-elements': OFF,
@@ -256,14 +232,12 @@ module.exports = {
          *
          * https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
          */
-        '@typescript-eslint/array-type': [
-            ERROR,
-            { default: 'generic' }
-        ],
+        '@typescript-eslint/array-type': [ERROR, { default: 'generic' }],
         '@typescript-eslint/brace-style': ERROR,
         '@typescript-eslint/camelcase': OFF, // Too many external influences for a consistent case style
         '@typescript-eslint/comma-dangle': [
-            ERROR, {
+            ERROR,
+            {
                 arrays: 'always-multiline',
                 objects: 'always-multiline',
                 imports: 'always-multiline',
@@ -272,20 +246,21 @@ module.exports = {
                 enums: 'always-multiline',
                 generics: 'always-multiline',
                 tuples: 'always-multiline',
-            }
+            },
         ],
         '@typescript-eslint/comma-spacing': ERROR,
         '@typescript-eslint/consistent-indexed-object-style': [ERROR, 'record'],
         '@typescript-eslint/consistent-type-assertions': [
-            ERROR, {
+            ERROR,
+            {
                 assertionStyle: 'as',
                 objectLiteralTypeAssertions: 'allow',
-            }
+            },
         ],
         '@typescript-eslint/consistent-type-definitions': ERROR,
         '@typescript-eslint/consistent-type-imports': [
             ERROR, // Mainly so this can be auto-fixed
-            { disallowTypeAnnotations: false }
+            { disallowTypeAnnotations: false },
         ],
         '@typescript-eslint/default-param-last': ERROR,
         '@typescript-eslint/dot-notation': ERROR,
@@ -296,9 +271,9 @@ module.exports = {
                 accessibility: 'explicit',
                 overrides: {
                     accessors: 'explicit',
-                    constructors: 'explicit'
-                }
-            }
+                    constructors: 'explicit',
+                },
+            },
         ],
         '@typescript-eslint/explicit-module-boundary-types': ERROR,
         '@typescript-eslint/func-call-spacing': ERROR,
@@ -309,18 +284,18 @@ module.exports = {
             {
                 multiline: {
                     delimiter: 'semi',
-                    requireLast: true
+                    requireLast: true,
                 },
                 singleline: {
                     delimiter: 'comma',
-                    requireLast: false
-                }
-            }
+                    requireLast: false,
+                },
+            },
         ],
         '@typescript-eslint/member-ordering': [
             ERROR,
             {
-                'default': [
+                default: [
                     // Index signature
                     'signature',
 
@@ -362,9 +337,9 @@ module.exports = {
                     'protected-method',
                     'private-method',
 
-                    'method'
-                ]
-            }
+                    'method',
+                ],
+            },
         ],
         '@typescript-eslint/no-confusing-void-expression': [ERROR, { ignoreArrowShorthand: true }],
         '@typescript-eslint/no-dupe-class-members': ERROR,
@@ -378,10 +353,7 @@ module.exports = {
         '@typescript-eslint/no-misused-promises': OFF, // We know when and how to use promises
         '@typescript-eslint/no-non-null-assertion': OFF, // There are still too many cases where we do need this
         '@typescript-eslint/parameter-properties': ERROR,
-        '@typescript-eslint/no-shadow': [
-            ERROR,
-            { hoist: 'all' }
-        ],
+        '@typescript-eslint/no-shadow': [ERROR, { hoist: 'all' }],
         '@typescript-eslint/no-throw-literal': ERROR,
         '@typescript-eslint/no-unnecessary-boolean-literal-compare': ERROR,
         '@typescript-eslint/no-unnecessary-condition': ERROR,
@@ -410,18 +382,16 @@ module.exports = {
         '@typescript-eslint/prefer-ts-expect-error': ERROR,
         '@typescript-eslint/quotes': [ERROR, 'single'],
         '@typescript-eslint/require-await': ERROR,
-        '@typescript-eslint/restrict-template-expressions': [
-            ERROR,
-            { allowNumber: true }
-        ],
+        '@typescript-eslint/restrict-template-expressions': [ERROR, { allowNumber: true }],
         '@typescript-eslint/semi': [ERROR, 'always'],
         '@typescript-eslint/space-before-blocks': ERROR,
         '@typescript-eslint/space-before-function-paren': [
-            ERROR, {
+            ERROR,
+            {
                 anonymous: 'never',
                 asyncArrow: 'always',
                 named: 'never',
-            }
+            },
         ],
         '@typescript-eslint/space-infix-ops': ERROR,
         '@typescript-eslint/strict-boolean-expressions': ERROR,
@@ -437,12 +407,12 @@ module.exports = {
         'unused-imports/no-unused-vars-ts': [
             ERROR,
             {
-                'vars': 'all',
-                'varsIgnorePattern': '^_',
-                'args': 'after-used',
-                'argsIgnorePattern': '^_',
-                'ignoreRestSiblings': true
-            }
+                vars: 'all',
+                varsIgnorePattern: '^_',
+                args: 'after-used',
+                argsIgnorePattern: '^_',
+                ignoreRestSiblings: true,
+            },
         ],
 
         /**
@@ -474,7 +444,7 @@ module.exports = {
                         // Installed packages
                         `^(${[
                             ...Object.keys(require('./package.json').dependencies),
-                            ...Object.keys(require('./package.json').devDependencies)
+                            ...Object.keys(require('./package.json').devDependencies),
                         ].join('|')})(/|$|\u0000)`,
                         // Internal packages
                         '^\\w/view/\\w(/.*|$)',
@@ -501,5 +471,5 @@ module.exports = {
         'unicorn/prefer-includes': ERROR,
         'unicorn/prefer-optional-catch-binding': ERROR,
         'unicorn/prefer-regexp-test': ERROR,
-    }
+    },
 };

@@ -4,10 +4,7 @@ import deepMerge from '../utilities/deepMerge';
 import type { LinkAppearances } from './link';
 import link from './link';
 
-type LinkGroupType = (options?: {
-    overrides?: Partial<ArrayField>;
-    appearances?: Array<LinkAppearances> | false;
-}) => Field;
+type LinkGroupType = (options?: { overrides?: Partial<ArrayField>; appearances?: Array<LinkAppearances> | false }) => Field;
 
 const linkGroup: LinkGroupType = ({ overrides = {}, appearances } = {}) => {
     const generatedLinkGroup: Field = {
