@@ -22,6 +22,7 @@ export const MediaBlock: Block = {
             name: 'size',
             label: 'Größe',
             type: 'radio',
+            required: true,
             defaultValue: 'normal',
             options: [
                 {
