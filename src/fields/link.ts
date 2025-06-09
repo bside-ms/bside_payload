@@ -96,10 +96,8 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     ];
 
     if (!disableLabel) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         linkTypes[0].admin.width = '50%';
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         linkTypes[1].admin.width = '50%';
 

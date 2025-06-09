@@ -1,9 +1,3 @@
-/* eslint-disable
-    @typescript-eslint/ban-types,
-    @typescript-eslint/no-unsafe-assignment,
-    @typescript-eslint/ban-ts-comment
-*/
-
 /**
  * Simple object check.
  * @param item
