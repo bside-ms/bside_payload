@@ -14,7 +14,7 @@ const formatSlug =
         }
 
         if (operation === 'create') {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
             const fallbackData = Boolean(data?.[fallback]) || originalDoc?.[fallback];
 
             if (Boolean(fallbackData) && typeof fallbackData === 'string') {

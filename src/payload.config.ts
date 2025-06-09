@@ -34,6 +34,7 @@ import type { Config } from './payload-types';
 
 declare module 'payload' {
     // @ts-expect-error The plugin config is not configured correctly.
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     export interface GeneratedTypes extends Config {}
 }
 

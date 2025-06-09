@@ -1,5 +1,5 @@
 import type { Field, GroupField } from 'payload/types';
-import deepMerge from '../utilities/deepMerge';
+import { merge } from 'lodash';
 
 export const appearanceOptions = {
     primary: {
@@ -138,7 +138,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
         });
     }
 
-    return deepMerge(linkResult, overrides);
+    return merge(linkResult, overrides);
 };
 
 export default link;

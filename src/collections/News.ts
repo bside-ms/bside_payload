@@ -182,7 +182,6 @@ const News: CollectionConfig = {
                 description: 'Dieses Feld wird automatisch verwaltet.',
             },
             hooks: {
-                // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
                 afterRead: [
                     ({ data }): string => {
                         if (!data || data.id === undefined) {

@@ -27,6 +27,7 @@ const Pages: CollectionConfig = {
 
         livePreview: {
             url: ({ data, locale }) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                 return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
             },
         },
