@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "ts-check": "tsc --noEmit --pretty",
-    "ts-check:watch": "npm run ts-check -- --watch --preserveWatchOutput",
+    "ts-check:watch": "yarn run ts-check -- --watch --preserveWatchOutput",
     "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
     "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
     "build:server": "tsc",
@@ -15,7 +15,7 @@
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "eslint": "eslint",
-    "eslint:fix": "npm run eslint -- --fix",
+    "eslint:fix": "yarn run eslint -- --fix",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write"
@@ -30,7 +30,7 @@
     "@payloadcms/richtext-slate": "^1.5.2",
     "axios": "^1.8.2",
     "dotenv": "^16.4.5",
-    "express": "^5.0.0",
+    "express": "4.21.2",
     "lodash": "^4.17.21",
     "payload": "^2.25.0",
     "payload-blurhash-plugin": "^2.0.2",
