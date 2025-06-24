@@ -34,18 +34,17 @@ import type { Config } from './payload-types';
 
 declare module 'payload' {
     // @ts-expect-error The plugin config is not configured correctly.
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     export interface GeneratedTypes extends Config {}
 }
 
 export default buildConfig({
     admin: {
         bundler: webpackBundler() as PayloadBundler,
-        webpack: config => config,
+        webpack: (config) => config,
 
         components: {
-            beforeLogin: [
-                BeforeLogin,
-            ],
+            beforeLogin: [BeforeLogin],
         },
 
         user: Users.slug,
@@ -76,7 +75,6 @@ export default buildConfig({
 
     // collections in Payload are synonymous with database tables, models or entities from other frameworks and systems
     collections: [
-
         // Collections
         Events,
         Circles,
@@ -98,13 +96,7 @@ export default buildConfig({
         ApiUsers,
     ],
 
-    globals: [
-        StartPage,
-        AboutBside,
-        EventPage,
-        EventArchive,
-        Banner,
-    ],
+    globals: [StartPage, AboutBside, EventPage, EventArchive, Banner],
 
     db: mongooseAdapter({
         url: process.env.MONGODB_URI,
@@ -145,7 +137,6 @@ export default buildConfig({
     },
 
     plugins: [
-
         redirects({
             collections: ['pages'],
             overrides: {
@@ -165,6 +156,9 @@ export default buildConfig({
                     update: isAdmin,
                     delete: isAdmin,
                 },
+                versions: {
+                    drafts: true,
+                },
             },
         }),
 
@@ -176,11 +170,7 @@ export default buildConfig({
         }),
 
         seo({
-            collections: [
-                'organisations',
-                'circles',
-                'pages',
-            ],
+            collections: ['organisations', 'circles', 'pages'],
             tabbedUI: true,
 
             // Disabled. We are using auto-generated screenshots.
@@ -188,12 +178,7 @@ export default buildConfig({
         }),
 
         addAuthorFields({
-            excludedCollections: [
-                'users',
-                'api-users',
-                'contact-forms',
-                'not-found-pages',
-            ],
+            excludedCollections: ['users', 'api-users', 'contact-forms', 'not-found-pages'],
 
             createdByLabel: { en: 'Created by', de: 'Erstellt von' },
             updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },

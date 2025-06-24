@@ -66,6 +66,7 @@ export const Content: Block = {
             },
             validate: (columns: Array<{ id: string; width: 'full' | 'half' | 'oneThird' | 'twoThirds'; richText: Array<object> }>) => {
                 // Since field is required, first column will be set
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 const widthOfFirstColumn = columns[0]!.width;
 
                 const amountOfColumns = columns.length;
@@ -119,13 +120,7 @@ export const Content: Block = {
                     {
                         label: 'Text',
                     },
-                    { elements: [
-                        'ol',
-                        'ul',
-                        'indent',
-                        'relationship',
-                        'upload',
-                    ] },
+                    { elements: ['ol', 'ul', 'indent', 'relationship', 'upload'] },
                 ),
             ],
         },

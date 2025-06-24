@@ -54,16 +54,7 @@ export const EventArchive: GlobalConfig = {
             label: 'Inhalt',
             type: 'blocks',
             localized: true,
-            blocks: [
-                HeadlineBlock,
-                Content,
-                MediaBlock,
-                MediaContent,
-                CallToAction,
-                TeaserBlock,
-                EventOverviewBlock,
-                Slider,
-            ],
+            blocks: [HeadlineBlock, Content, MediaBlock, MediaContent, CallToAction, TeaserBlock, EventOverviewBlock, Slider],
             admin: {
                 initCollapsed: true,
             },

@@ -20,4 +20,3 @@ export const isApiUser: Access<ApiUser | User> = ({ req: { user } }) => {
 
     return false;
 };
-

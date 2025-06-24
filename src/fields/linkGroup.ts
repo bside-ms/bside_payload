@@ -1,13 +1,10 @@
 import type { ArrayField } from 'payload/dist/fields/config/types';
 import type { Field } from 'payload/types';
-import deepMerge from '../utilities/deepMerge';
 import type { LinkAppearances } from './link';
 import link from './link';
+import { merge } from 'lodash';
 
-type LinkGroupType = (options?: {
-    overrides?: Partial<ArrayField>;
-    appearances?: Array<LinkAppearances> | false;
-}) => Field;
+type LinkGroupType = (options?: { overrides?: Partial<ArrayField>; appearances?: Array<LinkAppearances> | false }) => Field;
 
 const linkGroup: LinkGroupType = ({ overrides = {}, appearances } = {}) => {
     const generatedLinkGroup: Field = {
@@ -20,7 +17,7 @@ const linkGroup: LinkGroupType = ({ overrides = {}, appearances } = {}) => {
         ],
     };
 
-    return deepMerge(generatedLinkGroup, overrides);
+    return merge(generatedLinkGroup, overrides);
 };
 
 export default linkGroup;

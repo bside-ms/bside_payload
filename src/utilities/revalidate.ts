@@ -1,11 +1,6 @@
 import type { Payload } from 'payload';
 
-export const revalidate = async (args: {
-    collection: string;
-    payload: Payload;
-    slug: string;
-}): Promise<void> => {
-
+export const revalidate = async (args: { collection: string; payload: Payload; slug: string }): Promise<void> => {
     const { collection, payload, slug } = args;
 
     try {
@@ -16,16 +11,9 @@ export const revalidate = async (args: {
         if (res.ok) {
             payload.logger.info(`Revalidated page ${slug} in collection ${collection}`);
         } else {
-            payload.logger.error(
-                { res },
-                `Failed to revalidate page ${slug} in collection ${collection}`
-            );
+            payload.logger.error({ res }, `Failed to revalidate page ${slug} in collection ${collection}`);
         }
     } catch (err: unknown) {
-        payload.logger.error(
-            { err },
-            `Error hitting revalidate route for page '${slug}' in collection '${collection}'`,
-        );
+        payload.logger.error({ err }, `Error hitting revalidate route for page '${slug}' in collection '${collection}'`);
     }
-
 };

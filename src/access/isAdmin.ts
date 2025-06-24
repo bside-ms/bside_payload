@@ -14,9 +14,7 @@ export const isAdmin: Access<User> = ({ req: { user } }): boolean => {
     return false;
 };
 
-export const isAdminFieldLevel: FieldAccess<{ id: string }, User> = ({
-    req: { user },
-}) => {
+export const isAdminFieldLevel: FieldAccess<{ id: string }, User> = ({ req: { user } }) => {
     if (user === undefined) {
         return false;
     }

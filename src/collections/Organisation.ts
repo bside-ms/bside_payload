@@ -40,7 +40,6 @@ const Organisation: CollectionConfig = {
         {
             type: 'tabs',
             tabs: [
-
                 // Allgemeines
                 {
                     label: 'Allgemeines',

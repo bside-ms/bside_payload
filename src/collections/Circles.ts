@@ -65,11 +65,9 @@ const Circles: CollectionConfig = {
         {
             type: 'tabs',
             tabs: [
-
                 {
                     label: 'Allgemeines',
                     fields: [
-
                         {
                             name: 'organisation',
                             label: 'Körperschaft',
@@ -123,15 +121,7 @@ const Circles: CollectionConfig = {
                             label: 'Inhalt',
                             type: 'blocks',
                             localized: true,
-                            blocks: [
-                                HeadlineBlock,
-                                Content,
-                                MediaBlock,
-                                MediaContent,
-                                TeaserBlock,
-                                CallToAction,
-                                EventOverviewBlock,
-                            ],
+                            blocks: [HeadlineBlock, Content, MediaBlock, MediaContent, TeaserBlock, CallToAction, EventOverviewBlock],
                             admin: {
                                 initCollapsed: true,
                             },

@@ -14,9 +14,7 @@ export const isEditor: Access<User> = ({ req: { user } }): boolean => {
     return false;
 };
 
-export const isEditorFieldLevel: FieldAccess<{ id: string }, User> = ({
-    req: { user },
-}) => {
+export const isEditorFieldLevel: FieldAccess<{ id: string }, User> = ({ req: { user } }) => {
     if (user === undefined) {
         return false;
     }

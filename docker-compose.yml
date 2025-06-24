@@ -1,18 +1,17 @@
 # version: '3.8'
 
 services:
-
-  payload_mongo:
-    container_name: payload_mongo
-    image: mongo:4.4.6
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - ./db:/data/db
-    networks:
-      - payload
+    payload_mongo:
+        container_name: payload_mongo
+        image: mongo:4.4.6
+        ports:
+            - '27017:27017'
+        command:
+            - --storageEngine=wiredTiger
+        volumes:
+            - ./db:/data/db
+        networks:
+            - payload
 
 networks:
-  payload:
+    payload:

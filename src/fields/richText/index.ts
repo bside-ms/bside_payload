@@ -1,7 +1,7 @@
 import { slateEditor } from '@payloadcms/richtext-slate';
 import type { RichTextElement, RichTextLeaf } from '@payloadcms/richtext-slate/dist/types';
+import { merge } from 'lodash';
 import type { RichTextField } from 'payload/dist/fields/config/types';
-import deepMerge from '../../utilities/deepMerge';
 import elements from './elements';
 import leaves from './leaves';
 
@@ -18,16 +18,14 @@ const richText: RichText = (
     additions = {
         elements: [],
         leaves: [],
-
     },
 ) =>
-    deepMerge<RichTextField, Partial<RichTextField>>(
+    merge<RichTextField, Partial<RichTextField>>(
         {
             name: 'richText',
             type: 'richText',
             label: 'Beschreibung',
             required: true,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             editor: slateEditor({
                 admin: {
                     upload: {
@@ -38,7 +36,7 @@ const richText: RichText = (
                                         type: 'richText',
                                         name: 'caption',
                                         label: 'Caption',
-                                        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
                                         editor: slateEditor({
                                             admin: {
                                                 elements: [...elements],
@@ -98,7 +96,6 @@ const richText: RichText = (
                     },
                 },
             }),
-
         },
 
         // @ts-expect-error Undefined is not assignable to type 'Partial<RichTextField>'.

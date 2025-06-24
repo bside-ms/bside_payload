@@ -2,6 +2,7 @@ import * as process from 'process';
 import express from 'express';
 import payload from 'payload';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
 require('dotenv').config();
 
 const app = express();

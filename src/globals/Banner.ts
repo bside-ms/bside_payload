@@ -89,6 +89,5 @@ export const Banner: GlobalConfig = {
                 width: '50%',
             },
         },
-
     ],
 };

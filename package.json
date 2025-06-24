@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "ts-check": "tsc --noEmit --pretty",
-    "ts-check:watch": "npm run ts-check -- --watch --preserveWatchOutput",
+    "ts-check:watch": "yarn run ts-check -- --watch --preserveWatchOutput",
     "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
     "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
     "build:server": "tsc",
@@ -14,9 +14,11 @@
     "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
-    "eslint": "eslint --quiet \"./**/*.{ts,tsx}\"",
-    "eslint:fix": "npm run eslint -- --fix",
-    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
+    "eslint": "eslint ./src",
+    "eslint:fix": "yarn run eslint -- --fix",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "prettier": "prettier ./src --check",
+    "prettier:fix": "prettier ./src --write"
   },
   "dependencies": {
     "@boomworks/payload-plugin-author-fields": "^1.1.9",
@@ -26,9 +28,9 @@
     "@payloadcms/plugin-redirects": "^1.0.2",
     "@payloadcms/plugin-seo": "^2.3.2",
     "@payloadcms/richtext-slate": "^1.5.2",
-    "axios": "^1.7.3",
+    "axios": "^1.8.2",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "express": "4.21.2",
     "lodash": "^4.17.21",
     "payload": "^2.25.0",
     "payload-blurhash-plugin": "^2.0.2",
@@ -36,23 +38,19 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@next/eslint-plugin-next": "^15.3.3",
     "@types/express": "^4.17.21",
     "@types/react": "^18.3.3",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "eslint": "^9.8.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-unicorn": "^55.0.0",
-    "eslint-plugin-unused-imports": "^4.0.1",
-    "eslint-plugin-unused-vars": "^0.0.3",
     "nodemon": "^3.1.4",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.27.0"
   }
 }

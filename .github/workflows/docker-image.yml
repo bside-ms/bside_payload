@@ -1,0 +1,19 @@
+name: Docker Image CI
+on:
+    push:
+    workflow_dispatch:
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+            - name: Lint code
+              run: yarn run eslint
+            - name: Type check code
+              run: yarn run ts-check
+            - name: Check code style
+              run: yarn run prettier
