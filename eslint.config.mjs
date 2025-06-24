@@ -26,7 +26,16 @@ export default [
     },
 
     {
-        ignores: ['**/*.json', '**/*.js', '**/*.cjs', '**/*.mjs', '.next/**/*'],
+        ignores: [
+            'src/payload-types.ts',
+            'src/migrations/**',
+
+            '**/*.json',
+            '**/*.js',
+            '**/*.cjs',
+            '**/*.mjs',
+            '.next/**/*',
+        ],
     },
 
     {

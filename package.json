@@ -14,11 +14,11 @@
     "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
-    "eslint": "eslint",
+    "eslint": "eslint ./src",
     "eslint:fix": "yarn run eslint -- --fix",
     "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
-    "prettier": "prettier . --check",
-    "prettier:fix": "prettier . --write"
+    "prettier": "prettier ./src --check",
+    "prettier:fix": "prettier ./src --write"
   },
   "dependencies": {
     "@boomworks/payload-plugin-author-fields": "^1.1.9",

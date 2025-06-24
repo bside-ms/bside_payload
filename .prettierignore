@@ -1,3 +1,8 @@
+# ignore everything outside of source folder
+/*
+!src/
+!src/**
+
+# other
 src/migrations
-package-lock.json
-package.json
+src/payload-types.ts
