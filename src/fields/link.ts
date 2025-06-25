@@ -1,4 +1,4 @@
-import type { Field, GroupField } from 'payload/types';
+import type { Field, GroupField } from 'payload';
 import { merge } from 'lodash';
 
 export const appearanceOptions = {

@@ -1,5 +1,5 @@
 import { kebabCase } from 'lodash';
-import type { CollectionConfig } from 'payload/types';
+import type { CollectionConfig } from 'payload';
 import { hasCircleAccess } from '../access/checkCircle';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
 import { isUserOrPublished } from '../access/isUser';
@@ -27,7 +27,7 @@ const Circles: CollectionConfig = {
         livePreview: {
             url: ({ data, locale }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}kreise/${kebabCase(data.name)}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}kreise/${kebabCase(data.name)}`;
             },
         },
     },

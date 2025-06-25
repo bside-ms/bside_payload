@@ -1,4 +1,4 @@
-import type { GlobalConfig } from 'payload/types';
+import type { GlobalConfig } from 'payload';
 import { isAdmin } from '../access/isAdmin';
 
 export const Banner: GlobalConfig = {
@@ -9,7 +9,7 @@ export const Banner: GlobalConfig = {
         group: 'Statisches',
         livePreview: {
             url: ({ locale }) => {
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? 'bside' : '/en/bside'}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? 'bside' : '/en/bside'}`;
             },
         },
     },

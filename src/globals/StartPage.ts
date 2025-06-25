@@ -1,4 +1,4 @@
-import type { GlobalConfig } from 'payload/types';
+import type { GlobalConfig } from 'payload';
 import { isOrganisator } from '../access/isOrganisator';
 
 export const StartPage: GlobalConfig = {
@@ -9,7 +9,7 @@ export const StartPage: GlobalConfig = {
         group: 'Statisches',
         livePreview: {
             url: ({ locale }) => {
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}`;
             },
         },
     },

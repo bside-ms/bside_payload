@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import React from 'react';
 
-const BeforeLogin = (): ReactElement => {
+export const BeforeLogin = (): ReactElement => {
     return (
         <div>
             <h4>
@@ -14,5 +14,3 @@ const BeforeLogin = (): ReactElement => {
         </div>
     );
 };
-
-export default BeforeLogin;

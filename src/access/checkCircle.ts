@@ -1,27 +1,21 @@
-import type { Access } from 'payload/types';
+import type { Access } from 'payload';
 import type { Circle, User } from '../payload-types';
 import { checkRole } from './checkRole';
 
-export const hasCircleAccessOrPublished: Access = ({
-    req: { user },
-}):
-    | boolean
-    | {
-          or: Array<{ id: { in: Array<string> | Array<Circle> } } | { id: { exists: boolean } } | { _status: { equals: string } }>;
-      } => {
+export const hasCircleAccessOrPublished: Access<User> = ({ data: user }) => {
     if (user === undefined) {
         return false;
     }
 
-    if (checkRole(user as User, ['admin'])) {
+    if (checkRole(user, ['admin'])) {
         return true;
     }
 
-    if (checkRole(user as User, ['editor'])) {
+    if (checkRole(user, ['editor'])) {
         return true;
     }
 
-    let circles = (user as User).circles;
+    let circles = user.circles;
     if (circles === undefined || circles === null || circles.length <= 0) {
         circles = [];
     }
@@ -48,21 +42,21 @@ export const hasCircleAccessOrPublished: Access = ({
 };
 
 export const hasCircleAccess =
-    (circleIdFieldName: string = 'circle'): Access =>
-    ({ req: { user } }) => {
+    (circleIdFieldName: string = 'circle'): Access<User> =>
+    ({ data: user }) => {
         if (user === undefined) {
             return false;
         }
 
-        if (checkRole(user as User, ['admin'])) {
+        if (checkRole(user, ['admin'])) {
             return true;
         }
 
-        if (checkRole(user as User, ['editor'])) {
+        if (checkRole(user, ['editor'])) {
             return true;
         }
 
-        const circles = (user as User).circles;
+        const circles = user.circles;
         if (circles !== undefined && circles !== null && circles.length >= 0) {
             return {
                 or: [

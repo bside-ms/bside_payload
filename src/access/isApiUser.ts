@@ -1,4 +1,4 @@
-import type { Access } from 'payload/types';
+import type { Access } from 'payload';
 import type { ApiUser, User } from '../payload-types';
 import { checkRole } from './checkRole';
 
@@ -7,14 +7,13 @@ export const isApiUser: Access<ApiUser | User> = ({ req: { user } }) => {
         return false;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const collection: string = user.collection as string;
+    const collection: string = user.collection;
 
     if (collection === 'api-users') {
         return true;
     }
 
-    if (collection === 'users' && checkRole(user as User, ['admin'])) {
+    if (collection === 'users' && checkRole(user, ['admin'])) {
         return Boolean(true);
     }
 

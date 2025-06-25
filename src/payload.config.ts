@@ -1,17 +1,12 @@
 import path from 'path';
 import * as process from 'process';
-import { addAuthorFields } from '@boomworks/payload-plugin-author-fields';
-import { webpackBundler } from '@payloadcms/bundler-webpack';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
-import nestedPages from '@payloadcms/plugin-nested-docs';
-import redirects from '@payloadcms/plugin-redirects';
-import seo from '@payloadcms/plugin-seo';
+import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
+import { redirectsPlugin } from '@payloadcms/plugin-redirects';
+import { seoPlugin } from '@payloadcms/plugin-seo';
 import { slateEditor } from '@payloadcms/richtext-slate';
-import axios from 'axios';
-import { buildConfig } from 'payload/config';
-import type { PayloadBundler } from 'payload/dist/bundlers/types';
+import { buildConfig } from 'payload';
 import computeBlurhash from 'payload-blurhash-plugin';
-import { oAuthPlugin } from 'payload-plugin-oauth';
 import { isAdmin } from './access/isAdmin';
 import ContactForms from './collections/Administration/ContactForms';
 import NotFoundPages from './collections/Administration/NotFound';
@@ -23,28 +18,31 @@ import Organisation from './collections/Organisation';
 import Pages from './collections/Pages';
 import ApiUsers from './collections/Users/ApiUsers';
 import Users from './collections/Users/Users';
-import BeforeLogin from './components/BeforeLogin';
-import OAuthButton from './components/OAuthButton';
 import { AboutBside } from './globals/AboutBside';
 import { Banner } from './globals/Banner';
 import { EventArchive } from './globals/EventArchive';
 import { EventPage } from './globals/EventPage';
 import { StartPage } from './globals/StartPage';
-import type { Config } from './payload-types';
+import sharp from 'sharp';
+import { fileURLToPath } from 'url';
 
-declare module 'payload' {
-    // @ts-expect-error The plugin config is not configured correctly.
-    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-    export interface GeneratedTypes extends Config {}
-}
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 export default buildConfig({
     admin: {
-        bundler: webpackBundler() as PayloadBundler,
-        webpack: (config) => config,
+        importMap: {
+            baseDir: path.resolve(dirname),
+        },
 
         components: {
-            beforeLogin: [BeforeLogin],
+            // TODO-MIGRATE
+            // login: {
+            //     Button: {
+            //         path: '/src/components/Logout',
+            //         exportName: 'MyComponent',
+            //     },
+            // },
         },
 
         user: Users.slug,
@@ -72,6 +70,8 @@ export default buildConfig({
             ],
         },
     },
+
+    secret: process.env.PAYLOAD_SECRET,
 
     // collections in Payload are synonymous with database tables, models or entities from other frameworks and systems
     collections: [
@@ -115,29 +115,32 @@ export default buildConfig({
         fallback: true,
     },
 
-    rateLimit: {
-        trustProxy: true,
-        window: 2 * 60 * 1000, // 2 minutes
-        max: 2400, // limit each IP per windowMs
-    },
+    // TODO-MIGRATE
+    // rateLimit: {
+    //     trustProxy: true,
+    //     window: 2 * 60 * 1000, // 2 minutes
+    //     max: 2400, // limit each IP per windowMs
+    // },
 
     routes: {
         api: '/api',
         admin: '/admin',
     },
 
-    serverURL: process.env.PAYLOAD_PUBLIC_CMS_URL,
+    serverURL: process.env.NEXT_PUBLIC_CMS_URL,
     cors: '*',
 
     telemetry: false,
 
     typescript: {
-        outputFile: path.resolve(__dirname, 'payload-types.ts'),
+        outputFile: path.resolve(dirname, 'payload-types.ts'),
         declare: false,
     },
 
+    sharp,
+
     plugins: [
-        redirects({
+        redirectsPlugin({
             collections: ['pages'],
             overrides: {
                 labels: {
@@ -159,14 +162,14 @@ export default buildConfig({
             },
         }),
 
-        nestedPages({
+        nestedDocsPlugin({
             collections: ['pages'],
             generateLabel: (_, doc) => doc.title as string,
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
             generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
         }),
 
-        seo({
+        seoPlugin({
             collections: ['organisations', 'circles', 'pages'],
             tabbedUI: true,
 
@@ -174,46 +177,48 @@ export default buildConfig({
             // uploadsCollection: 'media',
         }),
 
-        addAuthorFields({
-            excludedCollections: ['users', 'api-users', 'contact-forms', 'not-found-pages'],
+        // TODO-MIGRATE
+        // addAuthorFields({
+        //     excludedCollections: ['users', 'api-users', 'contact-forms', 'not-found-pages'],
+        //
+        //     createdByLabel: { en: 'Created by', de: 'Erstellt von' },
+        //     updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
+        // }),
 
-            createdByLabel: { en: 'Created by', de: 'Erstellt von' },
-            updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
-        }),
-
-        oAuthPlugin({
-            // @ts-expect-error The plugin config is not configured correctly.
-            clientID: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            authorizationURL: `${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/auth`,
-            tokenURL: `${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/token`,
-            callbackURL: `${process.env.PAYLOAD_PUBLIC_CMS_URL}/oauth2/callback`,
-            scope: 'openid',
-            async userinfo(accessToken) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const { data: user } = await axios.get(`${process.env.PAYLOAD_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/userinfo`, {
-                    headers: { Authorization: `Bearer ${accessToken}` },
-                });
-
-                return {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                    sub: user.sub as string,
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                    email: user.email as string,
-                    roles: 'public',
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                    firstName: user.given_name as string,
-                };
-            },
-
-            subField: {
-                name: 'sub',
-            },
-
-            components: {
-                Button: () => OAuthButton(),
-            },
-        }),
+        // TODO-MIGRATE
+        // oAuthPlugin({
+        //     // @ts-expect-error The plugin config is not configured correctly.
+        //     clientID: process.env.CLIENT_ID,
+        //     clientSecret: process.env.CLIENT_SECRET,
+        //     authorizationURL: `${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/auth`,
+        //     tokenURL: `${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/token`,
+        //     callbackURL: `${process.env.NEXT_PUBLIC_CMS_URL}/oauth2/callback`,
+        //     scope: 'openid',
+        //     async userinfo(accessToken) {
+        //         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        //         const { data: user } = await axios.get(`${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/userinfo`, {
+        //             headers: { Authorization: `Bearer ${accessToken}` },
+        //         });
+        //
+        //         return {
+        //             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        //             sub: user.sub as string,
+        //             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        //             email: user.email as string,
+        //             roles: 'public',
+        //             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        //             firstName: user.given_name as string,
+        //         };
+        //     },
+        //
+        //     subField: {
+        //         name: 'sub',
+        //     },
+        //
+        //     components: {
+        //         Button: () => OAuthButton(),
+        //     },
+        // }),
 
         computeBlurhash({
             collections: ['media'],
@@ -229,9 +234,7 @@ export default buildConfig({
         {
             path: '/health',
             method: 'get',
-            handler: (req, res): void => {
-                res.status(200).json({ status: 'ok' });
-            },
+            handler: (): Response => Response.json({ status: 'ok' }),
         },
     ],
 });

@@ -1,4 +1,4 @@
-import type { Block } from 'payload/types';
+import type { Block } from 'payload';
 
 export const CallToAction: Block = {
     slug: 'callToAction',

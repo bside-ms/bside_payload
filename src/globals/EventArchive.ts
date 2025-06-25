@@ -1,4 +1,4 @@
-import type { GlobalConfig } from 'payload/types';
+import type { GlobalConfig } from 'payload';
 import { isOrganisator } from '../access/isOrganisator';
 import { CallToAction } from '../blocks/CallToAction';
 import { Content } from '../blocks/Content';
@@ -17,7 +17,7 @@ export const EventArchive: GlobalConfig = {
         group: 'Statisches',
         livePreview: {
             url: ({ locale }) => {
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '/events' : '/en/events'}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? '/events' : '/en/events'}`;
             },
         },
     },

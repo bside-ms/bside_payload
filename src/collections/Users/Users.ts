@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload/types';
+import type { CollectionConfig } from 'payload';
 import { isAdmin, isAdminFieldLevel } from '../../access/isAdmin';
 import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '../../access/isAdminOrSelf';
 
@@ -8,7 +8,7 @@ const Users: CollectionConfig = {
         tokenExpiration: 28800, // 8 hours
         disableLocalStrategy: true,
         cookies: {
-            sameSite: 'none',
+            sameSite: 'None',
             secure: true,
             domain: process.env.COOKIE_DOMAIN,
         },

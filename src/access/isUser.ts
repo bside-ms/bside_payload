@@ -1,50 +1,48 @@
-import type { Access, FieldAccess } from 'payload/types';
+import type { Access, FieldAccess } from 'payload';
 import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
 
-export const isUser: Access<User> = ({ req: { user } }) => {
+export const isUser: Access<User> = ({ data: user }) => {
     if (user === undefined) {
         return false;
     }
 
-    const currentUser: User = user as User;
-
-    if (checkRole(currentUser, ['admin'])) {
+    if (checkRole(user, ['admin'])) {
         return Boolean(true);
     }
 
-    if (checkRole(currentUser, ['editor'])) {
+    if (checkRole(user, ['editor'])) {
         return Boolean(true);
     }
 
-    if (checkRole(currentUser, ['public'])) {
+    if (checkRole(user, ['public'])) {
         return Boolean(true);
     }
 
     return false;
 };
 
-export const isUserField: FieldAccess<{ id: string }, User> = ({ req: { user } }) => {
+export const isUserField: FieldAccess<{ id: string }, User> = ({ data: user }) => {
     if (user === undefined) {
         return false;
     }
 
-    if (checkRole(user as User, ['admin'])) {
+    if (checkRole(user, ['admin'])) {
         return Boolean(true);
     }
 
-    if (checkRole(user as User, ['editor'])) {
+    if (checkRole(user, ['editor'])) {
         return Boolean(true);
     }
 
-    if (checkRole(user as User, ['public'])) {
+    if (checkRole(user, ['public'])) {
         return Boolean(true);
     }
 
     return false;
 };
 
-export const isUserOrPublished: Access<User> = ({ req: { user } }) => {
+export const isUserOrPublished: Access<User> = ({ data: user }) => {
     if (user === undefined) {
         return {
             _status: {
@@ -53,17 +51,15 @@ export const isUserOrPublished: Access<User> = ({ req: { user } }) => {
         };
     }
 
-    const currentUser: User = user as User;
-
-    if (checkRole(currentUser, ['admin'])) {
+    if (checkRole(user, ['admin'])) {
         return Boolean(true);
     }
 
-    if (checkRole(currentUser, ['editor'])) {
+    if (checkRole(user, ['editor'])) {
         return Boolean(true);
     }
 
-    if (checkRole(currentUser, ['public'])) {
+    if (checkRole(user, ['public'])) {
         return Boolean(true);
     }
 
