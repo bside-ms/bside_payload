@@ -159,6 +159,9 @@ export default buildConfig({
                     update: isAdmin,
                     delete: isAdmin,
                 },
+                versions: {
+                    drafts: true,
+                },
             },
         }),
 
