@@ -52,5 +52,8 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.27.0"
+  },
+  "resolutions": {
+    "@faceless-ui/modal": "^2.0.2"
   }
 }
