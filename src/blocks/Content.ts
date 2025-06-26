@@ -64,6 +64,7 @@ export const Content: Block = {
                 singular: 'Spalte',
                 plural: 'Spalten',
             },
+            /*
             validate: (columns: Array<{ id: string; width: 'full' | 'half' | 'oneThird' | 'twoThirds'; richText: Array<object> }>) => {
                 // Since field is required, first column will be set
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -82,6 +83,7 @@ export const Content: Block = {
                         return amountOfColumns === 2 ? true : 'Bei "Zwei Drittel" müssen exakt zwei Spalten im Layout-Element sein.';
                 }
             },
+            */
             fields: [
                 {
                     name: 'width',
