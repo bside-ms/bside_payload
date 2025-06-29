@@ -2,7 +2,7 @@ import type { Access } from 'payload';
 import type { ApiUser, User } from '../payload-types';
 import { checkRole } from './checkRole';
 
-export const isApiUser: Access<ApiUser | User> = ({ req: { user } }) => {
+export const isApiUser: Access<ApiUser | User> = ({ data: user }) => {
     if (user === undefined) {
         return false;
     }
@@ -14,7 +14,7 @@ export const isApiUser: Access<ApiUser | User> = ({ req: { user } }) => {
     }
 
     if (collection === 'users' && checkRole(user, ['admin'])) {
-        return Boolean(true);
+        return true;
     }
 
     return false;

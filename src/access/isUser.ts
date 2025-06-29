@@ -8,15 +8,15 @@ export const isUser: Access<User> = ({ data: user }) => {
     }
 
     if (checkRole(user, ['admin'])) {
-        return Boolean(true);
+        return true;
     }
 
     if (checkRole(user, ['editor'])) {
-        return Boolean(true);
+        return true;
     }
 
     if (checkRole(user, ['public'])) {
-        return Boolean(true);
+        return true;
     }
 
     return false;
@@ -28,15 +28,15 @@ export const isUserField: FieldAccess<{ id: string }, User> = ({ data: user }) =
     }
 
     if (checkRole(user, ['admin'])) {
-        return Boolean(true);
+        return true;
     }
 
     if (checkRole(user, ['editor'])) {
-        return Boolean(true);
+        return true;
     }
 
     if (checkRole(user, ['public'])) {
-        return Boolean(true);
+        return true;
     }
 
     return false;
@@ -52,15 +52,15 @@ export const isUserOrPublished: Access<User> = ({ data: user }) => {
     }
 
     if (checkRole(user, ['admin'])) {
-        return Boolean(true);
+        return true;
     }
 
     if (checkRole(user, ['editor'])) {
-        return Boolean(true);
+        return true;
     }
 
     if (checkRole(user, ['public'])) {
-        return Boolean(true);
+        return true;
     }
 
     return {

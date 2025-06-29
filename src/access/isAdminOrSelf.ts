@@ -2,13 +2,13 @@ import type { Access, FieldAccess } from 'payload';
 import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
 
-export const isAdminOrSelf: Access<User> = ({ req: { user } }) => {
+export const isAdminOrSelf: Access<User> = ({ data: user }) => {
     if (user === undefined) {
         return false;
     }
 
     if (checkRole(user, ['admin'])) {
-        return Boolean(true);
+        return true;
     }
 
     return {
@@ -18,10 +18,10 @@ export const isAdminOrSelf: Access<User> = ({ req: { user } }) => {
     };
 };
 
-export const isAdminOrSelfFieldLevel: FieldAccess<{ id: string }, unknown, User> = ({ req: { user }, id }) => {
-    if (user) {
+export const isAdminOrSelfFieldLevel: FieldAccess<{ id: string }, User> = ({ id, siblingData: user }) => {
+    if (user !== undefined) {
         if (checkRole(user, ['admin'])) {
-            return Boolean(true);
+            return true;
         }
 
         if (user.id === id) {

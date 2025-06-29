@@ -1,5 +1,5 @@
 import type { Access } from 'payload';
-import type { Circle, User } from '../payload-types';
+import type { User } from '../payload-types';
 import { checkRole } from './checkRole';
 
 export const hasCircleAccessOrPublished: Access<User> = ({ data: user }) => {
