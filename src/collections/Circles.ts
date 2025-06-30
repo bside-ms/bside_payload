@@ -1,6 +1,6 @@
 import { kebabCase } from 'lodash';
 import type { CollectionConfig } from 'payload';
-import { hasCircleAccess } from '../access/checkCircle';
+import { hasCircleAccess } from '../access/hasCircleAccess';
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
 import { isUserOrPublished } from '../access/isUser';
 import { CallToAction } from '../blocks/CallToAction';
