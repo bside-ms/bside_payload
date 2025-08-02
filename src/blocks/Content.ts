@@ -66,6 +66,7 @@ export const Content: Block = {
                 singular: 'Spalte',
                 plural: 'Spalten',
             },
+            /*
             validate: (value: unknown) => {
                 if (!isArray(value) || value.every(isObject)) {
                     return `Es ist ein unerwarteter Fehler aufgetreten (${JSON.stringify(value)})`;
@@ -88,6 +89,7 @@ export const Content: Block = {
                         return amountOfColumns === 2 ? true : 'Bei "Zwei Drittel" müssen exakt zwei Spalten im Layout-Element sein.';
                 }
             },
+            */
             fields: [
                 {
                     name: 'width',
