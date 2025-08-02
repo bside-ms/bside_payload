@@ -73,11 +73,7 @@ export const Content: Block = {
 
                 const columns = value as Array<{ id: string; width: 'full' | 'half' | 'oneThird' | 'twoThirds'; richText: Array<object> }>;
 
-                // Array<{ id: string; width: 'full' | 'half' | 'oneThird' | 'twoThirds'; richText: Array<object> }>;
-
-                // Since field is required, first column will be set
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const widthOfFirstColumn = columns[0]!.width;
+                const widthOfFirstColumn = columns[0].width;
 
                 const amountOfColumns = columns.length;
 
