@@ -6,7 +6,67 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
+  auth: {
+    users: UserAuthOperations;
+    'api-users': ApiUserAuthOperations;
+  };
+  blocks: {};
   collections: {
     events: Event;
     circles: Circle;
@@ -18,9 +78,32 @@ export interface Config {
     'contact-forms': ContactForm;
     'not-found-pages': NotFoundPage;
     'api-users': ApiUser;
+    accounts: Account;
     redirects: Redirect;
+    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
+  collectionsSelect: {
+    events: EventsSelect<false> | EventsSelect<true>;
+    circles: CirclesSelect<false> | CirclesSelect<true>;
+    organisations: OrganisationsSelect<false> | OrganisationsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    'contact-forms': ContactFormsSelect<false> | ContactFormsSelect<true>;
+    'not-found-pages': NotFoundPagesSelect<false> | NotFoundPagesSelect<true>;
+    'api-users': ApiUsersSelect<false> | ApiUsersSelect<true>;
+    accounts: AccountsSelect<false> | AccountsSelect<true>;
+    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
+  db: {
+    defaultIDType: string;
   };
   globals: {
     'start-page': StartPage;
@@ -28,6 +111,61 @@ export interface Config {
     'event-page': EventPage;
     'event-archive': EventArchive;
     banner: Banner;
+  };
+  globalsSelect: {
+    'start-page': StartPageSelect<false> | StartPageSelect<true>;
+    'about-bside': AboutBsideSelect<false> | AboutBsideSelect<true>;
+    'event-page': EventPageSelect<false> | EventPageSelect<true>;
+    'event-archive': EventArchiveSelect<false> | EventArchiveSelect<true>;
+    banner: BannerSelect<false> | BannerSelect<true>;
+  };
+  locale: 'de' | 'en';
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (ApiUser & {
+        collection: 'api-users';
+      });
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
+  };
+}
+export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface ApiUserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
   };
 }
 /**
@@ -40,11 +178,17 @@ export interface Event {
   richText: {
     [k: string]: unknown;
   }[];
-  eventImage?: string | Media | null;
+  /**
+   * Empfohlen: webp mit 1080x1080px
+   */
+  eventImage?: (string | null) | Media;
   eventLocation: string;
   eventDate: string;
   eventStart: string;
   eventEnd?: string | null;
+  /**
+   * Der angegebene Kreis wird auf der Veranstaltungsseite angezeigt. Außerdem erscheint die Veranstaltung in der Veranstaltungsübersicht des Kreises und der dazugehörigen Körperschaft.
+   */
   eventOwner?:
     | (
         | {
@@ -57,8 +201,17 @@ export interface Event {
           }
       )[]
     | null;
+  /**
+   * Dieses Feld wird nur benötigt, falls kein eindeutiger Kreis/Körperschaft für die Veranstaltung verantwortlich ist.
+   */
   eventOrganizer?: string | null;
+  /**
+   * Dieser Text wird auf der Detail-Seite über dem Ort angezeigt. Beispiel: VVK 5€ // AK 10€.
+   */
   eventExtra?: string | null;
+  /**
+   * Dieses Feld wird zum Filtern der Veranstaltungen verwendet.
+   */
   category?:
     | (
         | 'concert'
@@ -78,38 +231,31 @@ export interface Event {
   displayOnOrganisation?: boolean | null;
   displayOnCircle?: boolean | null;
   slug?: string | null;
+  /**
+   * Dieses Feld wird automatisch verwaltet.
+   */
   identifier?: string | null;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Uploads are currently set to read-only.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
   id: string;
+  /**
+   * Gib "-" ein, falls es sich um ein rein dekoratives Element handelt
+   */
   alt: string;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   blurhash?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
+  thumbnailURL?: string | null;
   filename?: string | null;
   mimeType?: string | null;
   filesize?: number | null;
@@ -146,132 +292,6 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName?: string | null;
-  roles: ('public' | 'editor' | 'organisator' | 'admin')[];
-  circles?: (string | Circle)[] | null;
-  sub?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "circles".
- */
-export interface Circle {
-  id: string;
-  name: string;
-  hiddenType?: string | null;
-  organisation: string | Organisation;
-  description?: string | null;
-  circleImage?: string | Media | null;
-  fallbackImage: string;
-  layout?:
-    | (
-        | {
-            title: string;
-            teaser?: string | null;
-            level: 'h1' | 'h2' | 'h3' | 'h4';
-            as: 'h1' | 'h2' | 'h3' | 'h4';
-            backgroundColor: 'white' | 'black';
-            anchor?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'headlineBlock';
-          }
-        | {
-            backgroundColor: 'white' | 'black';
-            backgroundWidth: 'full' | 'block';
-            columns: {
-              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-              richText: {
-                [k: string]: unknown;
-              }[];
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content';
-          }
-        | {
-            media: string | Media;
-            size: 'normal' | 'wide' | 'event';
-            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-            caption?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'mediaBlock';
-          }
-        | {
-            alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-            backgroundColor: 'white' | 'black';
-            headline?: string | null;
-            media: string | Media;
-            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'mediaContent';
-          }
-        | {
-            headlineTitle: string;
-            headlineTeaser?: string | null;
-            reversed?: boolean | null;
-            linkText: string;
-            linkHref: string;
-            image: string | Media;
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'teaser';
-          }
-        | {
-            title?: string | null;
-            text: string;
-            href: string;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'callToAction';
-          }
-        | {
-            title: string;
-            eventSide: 'textLeft' | 'textRight';
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'eventOverview';
-          }
-      )[]
-    | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "organisations".
  */
 export interface Organisation {
@@ -282,10 +302,22 @@ export interface Organisation {
     | (
         | {
             title: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             teaser?: string | null;
+            /**
+             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
+             */
             level: 'h1' | 'h2' | 'h3' | 'h4';
+            /**
+             * Dies ist die Größe, die im Browser angezeigt wird.
+             */
             as: 'h1' | 'h2' | 'h3' | 'h4';
             backgroundColor: 'white' | 'black';
+            /**
+             * Optional: Kann zur direkten Verlinkung verwendet werden.
+             */
             anchor?: string | null;
             id?: string | null;
             blockName?: string | null;
@@ -295,6 +327,13 @@ export interface Organisation {
             backgroundColor: 'white' | 'black';
             backgroundWidth: 'full' | 'block';
             columns: {
+              /**
+               *
+               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+               *                             drei Spalten sein.
+               *
+               */
               width: 'full' | 'half' | 'oneThird' | 'twoThirds';
               richText: {
                 [k: string]: unknown;
@@ -306,6 +345,9 @@ export interface Organisation {
             blockType: 'content';
           }
         | {
+            /**
+             * ToDo: Beschreibungstext einfügen.
+             */
             media: string | Media;
             size: 'normal' | 'wide' | 'event';
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
@@ -318,6 +360,9 @@ export interface Organisation {
             alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
             backgroundColor: 'white' | 'black';
             headline?: string | null;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             media: string | Media;
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
             richText: {
@@ -337,10 +382,19 @@ export interface Organisation {
           }
         | {
             headlineTitle: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             headlineTeaser?: string | null;
+            /**
+             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
+             */
             reversed?: boolean | null;
             linkText: string;
             linkHref: string;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             image: string | Media;
             richText: {
               [k: string]: unknown;
@@ -376,17 +430,170 @@ export interface Organisation {
     description?: string | null;
   };
   hiddenType?: string | null;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "circles".
+ */
+export interface Circle {
+  id: string;
+  name: string;
+  hiddenType?: string | null;
+  organisation: string | Organisation;
+  /**
+   * Diese Beschreibung wird in den Kreisübersichten in der zweiten Zeile angezeigt.
+   */
+  description?: string | null;
+  /**
+   * Empfohlen: webp mit 1280x720px
+   */
+  circleImage?: (string | null) | Media;
+  /**
+   * Name eines auf dem Server liegenden Strichmännchen-Bildes
+   */
+  fallbackImage: string;
+  layout?:
+    | (
+        | {
+            title: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
+            teaser?: string | null;
+            /**
+             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
+             */
+            level: 'h1' | 'h2' | 'h3' | 'h4';
+            /**
+             * Dies ist die Größe, die im Browser angezeigt wird.
+             */
+            as: 'h1' | 'h2' | 'h3' | 'h4';
+            backgroundColor: 'white' | 'black';
+            /**
+             * Optional: Kann zur direkten Verlinkung verwendet werden.
+             */
+            anchor?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'headlineBlock';
+          }
+        | {
+            backgroundColor: 'white' | 'black';
+            backgroundWidth: 'full' | 'block';
+            columns: {
+              /**
+               *
+               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+               *                             drei Spalten sein.
+               *
+               */
+              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+              richText: {
+                [k: string]: unknown;
+              }[];
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'content';
+          }
+        | {
+            /**
+             * ToDo: Beschreibungstext einfügen.
+             */
+            media: string | Media;
+            size: 'normal' | 'wide' | 'event';
+            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+            caption?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mediaBlock';
+          }
+        | {
+            alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+            backgroundColor: 'white' | 'black';
+            headline?: string | null;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
+            media: string | Media;
+            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+            richText: {
+              [k: string]: unknown;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mediaContent';
+          }
+        | {
+            headlineTitle: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
+            headlineTeaser?: string | null;
+            /**
+             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
+             */
+            reversed?: boolean | null;
+            linkText: string;
+            linkHref: string;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
+            image: string | Media;
+            richText: {
+              [k: string]: unknown;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'teaser';
+          }
+        | {
+            title?: string | null;
+            text: string;
+            href: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'callToAction';
+          }
+        | {
+            title: string;
+            eventSide: 'textLeft' | 'textRight';
+            richText: {
+              [k: string]: unknown;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'eventOverview';
+          }
+      )[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName?: string | null;
+  roles: ('public' | 'editor' | 'organisator' | 'admin')[];
+  circles?: (string | Circle)[] | null;
+  sub?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -410,16 +617,34 @@ export interface News {
       )[]
     | null;
   newsCategory: 'news' | 'announcements';
-  newsImage?: string | Media | null;
+  /**
+   * Quadratisches Bild!
+   */
+  newsImage?: (string | null) | Media;
+  /**
+   * Dieser Text wird auf der Übersichtsseite angezeigt. Maximal 450 Zeichen.
+   */
   excerpt: string;
   layout?:
     | (
         | {
             title: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             teaser?: string | null;
+            /**
+             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
+             */
             level: 'h1' | 'h2' | 'h3' | 'h4';
+            /**
+             * Dies ist die Größe, die im Browser angezeigt wird.
+             */
             as: 'h1' | 'h2' | 'h3' | 'h4';
             backgroundColor: 'white' | 'black';
+            /**
+             * Optional: Kann zur direkten Verlinkung verwendet werden.
+             */
             anchor?: string | null;
             id?: string | null;
             blockName?: string | null;
@@ -429,6 +654,13 @@ export interface News {
             backgroundColor: 'white' | 'black';
             backgroundWidth: 'full' | 'block';
             columns: {
+              /**
+               *
+               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+               *                             drei Spalten sein.
+               *
+               */
               width: 'full' | 'half' | 'oneThird' | 'twoThirds';
               richText: {
                 [k: string]: unknown;
@@ -440,6 +672,9 @@ export interface News {
             blockType: 'content';
           }
         | {
+            /**
+             * ToDo: Beschreibungstext einfügen.
+             */
             media: string | Media;
             size: 'normal' | 'wide' | 'event';
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
@@ -452,6 +687,9 @@ export interface News {
             alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
             backgroundColor: 'white' | 'black';
             headline?: string | null;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             media: string | Media;
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
             richText: {
@@ -471,10 +709,19 @@ export interface News {
           }
         | {
             headlineTitle: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             headlineTeaser?: string | null;
+            /**
+             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
+             */
             reversed?: boolean | null;
             linkText: string;
             linkHref: string;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             image: string | Media;
             richText: {
               [k: string]: unknown;
@@ -508,15 +755,10 @@ export interface News {
           }
       )[]
     | null;
+  /**
+   * Dieses Feld wird automatisch verwaltet.
+   */
   identifier?: string | null;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -533,10 +775,22 @@ export interface Page {
     | (
         | {
             title: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             teaser?: string | null;
+            /**
+             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
+             */
             level: 'h1' | 'h2' | 'h3' | 'h4';
+            /**
+             * Dies ist die Größe, die im Browser angezeigt wird.
+             */
             as: 'h1' | 'h2' | 'h3' | 'h4';
             backgroundColor: 'white' | 'black';
+            /**
+             * Optional: Kann zur direkten Verlinkung verwendet werden.
+             */
             anchor?: string | null;
             id?: string | null;
             blockName?: string | null;
@@ -546,6 +800,13 @@ export interface Page {
             backgroundColor: 'white' | 'black';
             backgroundWidth: 'full' | 'block';
             columns: {
+              /**
+               *
+               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+               *                             drei Spalten sein.
+               *
+               */
               width: 'full' | 'half' | 'oneThird' | 'twoThirds';
               richText: {
                 [k: string]: unknown;
@@ -557,6 +818,9 @@ export interface Page {
             blockType: 'content';
           }
         | {
+            /**
+             * ToDo: Beschreibungstext einfügen.
+             */
             media: string | Media;
             size: 'normal' | 'wide' | 'event';
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
@@ -569,6 +833,9 @@ export interface Page {
             alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
             backgroundColor: 'white' | 'black';
             headline?: string | null;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             media: string | Media;
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
             richText: {
@@ -588,10 +855,19 @@ export interface Page {
           }
         | {
             headlineTitle: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             headlineTeaser?: string | null;
+            /**
+             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
+             */
             reversed?: boolean | null;
             linkText: string;
             linkHref: string;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             image: string | Media;
             richText: {
               [k: string]: unknown;
@@ -638,14 +914,6 @@ export interface Page {
     title?: string | null;
     description?: string | null;
   };
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -690,6 +958,48 @@ export interface ApiUser {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accounts".
+ */
+export interface Account {
+  id: string;
+  name?: string | null;
+  picture?: string | null;
+  user: string | User;
+  issuerName: string;
+  scope?: string | null;
+  sub: string;
+  access_token?: string | null;
+  passkey?: {
+    credentialId: string;
+    publicKey:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    counter: number;
+    transports:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    deviceType: string;
+    backedUp: boolean;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -703,17 +1013,77 @@ export interface Redirect {
     } | null;
     url?: string | null;
   };
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents".
+ */
+export interface PayloadLockedDocument {
+  id: string;
+  document?:
+    | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'circles';
+        value: string | Circle;
+      } | null)
+    | ({
+        relationTo: 'organisations';
+        value: string | Organisation;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: string | News;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'contact-forms';
+        value: string | ContactForm;
+      } | null)
+    | ({
+        relationTo: 'not-found-pages';
+        value: string | NotFoundPage;
+      } | null)
+    | ({
+        relationTo: 'api-users';
+        value: string | ApiUser;
+      } | null)
+    | ({
+        relationTo: 'accounts';
+        value: string | Account;
+      } | null)
+    | ({
+        relationTo: 'redirects';
+        value: string | Redirect;
+      } | null);
+  globalSlug?: string | null;
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'api-users';
+        value: string | ApiUser;
+      };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -756,6 +1126,663 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  richText?: T;
+  eventImage?: T;
+  eventLocation?: T;
+  eventDate?: T;
+  eventStart?: T;
+  eventEnd?: T;
+  eventOwner?: T;
+  eventOrganizer?: T;
+  eventExtra?: T;
+  category?: T;
+  displayOnHome?: T;
+  displayOnOverview?: T;
+  displayOnOrganisation?: T;
+  displayOnCircle?: T;
+  slug?: T;
+  identifier?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "circles_select".
+ */
+export interface CirclesSelect<T extends boolean = true> {
+  name?: T;
+  hiddenType?: T;
+  organisation?: T;
+  description?: T;
+  circleImage?: T;
+  fallbackImage?: T;
+  layout?:
+    | T
+    | {
+        headlineBlock?:
+          | T
+          | {
+              title?: T;
+              teaser?: T;
+              level?: T;
+              as?: T;
+              backgroundColor?: T;
+              anchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              backgroundColor?: T;
+              backgroundWidth?: T;
+              columns?:
+                | T
+                | {
+                    width?: T;
+                    richText?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              media?: T;
+              size?: T;
+              effects?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              alignment?: T;
+              backgroundColor?: T;
+              headline?: T;
+              media?: T;
+              effects?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teaser?:
+          | T
+          | {
+              headlineTitle?: T;
+              headlineTeaser?: T;
+              reversed?: T;
+              linkText?: T;
+              linkHref?: T;
+              image?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        callToAction?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+              blockName?: T;
+            };
+        eventOverview?:
+          | T
+          | {
+              title?: T;
+              eventSide?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "organisations_select".
+ */
+export interface OrganisationsSelect<T extends boolean = true> {
+  name?: T;
+  shortName?: T;
+  layout?:
+    | T
+    | {
+        headlineBlock?:
+          | T
+          | {
+              title?: T;
+              teaser?: T;
+              level?: T;
+              as?: T;
+              backgroundColor?: T;
+              anchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              backgroundColor?: T;
+              backgroundWidth?: T;
+              columns?:
+                | T
+                | {
+                    width?: T;
+                    richText?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              media?: T;
+              size?: T;
+              effects?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              alignment?: T;
+              backgroundColor?: T;
+              headline?: T;
+              media?: T;
+              effects?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        callToAction?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teaser?:
+          | T
+          | {
+              headlineTitle?: T;
+              headlineTeaser?: T;
+              reversed?: T;
+              linkText?: T;
+              linkHref?: T;
+              image?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        eventOverview?:
+          | T
+          | {
+              title?: T;
+              eventSide?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        circleOverview?:
+          | T
+          | {
+              title?: T;
+              circleSide?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  hiddenType?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  blurhash?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        event?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        wide?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  roles?: T;
+  circles?: T;
+  sub?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  newsDate?: T;
+  slug?: T;
+  newsAuthor?: T;
+  newsCategory?: T;
+  newsImage?: T;
+  excerpt?: T;
+  layout?:
+    | T
+    | {
+        headlineBlock?:
+          | T
+          | {
+              title?: T;
+              teaser?: T;
+              level?: T;
+              as?: T;
+              backgroundColor?: T;
+              anchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              backgroundColor?: T;
+              backgroundWidth?: T;
+              columns?:
+                | T
+                | {
+                    width?: T;
+                    richText?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              media?: T;
+              size?: T;
+              effects?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              alignment?: T;
+              backgroundColor?: T;
+              headline?: T;
+              media?: T;
+              effects?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        callToAction?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teaser?:
+          | T
+          | {
+              headlineTitle?: T;
+              headlineTeaser?: T;
+              reversed?: T;
+              linkText?: T;
+              linkHref?: T;
+              image?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        eventOverview?:
+          | T
+          | {
+              title?: T;
+              eventSide?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              sliderType?: T;
+              imageSlides?:
+                | T
+                | {
+                    image?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  identifier?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        headlineBlock?:
+          | T
+          | {
+              title?: T;
+              teaser?: T;
+              level?: T;
+              as?: T;
+              backgroundColor?: T;
+              anchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              backgroundColor?: T;
+              backgroundWidth?: T;
+              columns?:
+                | T
+                | {
+                    width?: T;
+                    richText?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              media?: T;
+              size?: T;
+              effects?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              alignment?: T;
+              backgroundColor?: T;
+              headline?: T;
+              media?: T;
+              effects?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        callToAction?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teaser?:
+          | T
+          | {
+              headlineTitle?: T;
+              headlineTeaser?: T;
+              reversed?: T;
+              linkText?: T;
+              linkHref?: T;
+              image?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        eventOverview?:
+          | T
+          | {
+              title?: T;
+              eventSide?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              sliderType?: T;
+              imageSlides?:
+                | T
+                | {
+                    image?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-forms_select".
+ */
+export interface ContactFormsSelect<T extends boolean = true> {
+  fullName?: T;
+  mailAddress?: T;
+  message?: T;
+  sendCopyToSender?: T;
+  recipient?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "not-found-pages_select".
+ */
+export interface NotFoundPagesSelect<T extends boolean = true> {
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "api-users_select".
+ */
+export interface ApiUsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accounts_select".
+ */
+export interface AccountsSelect<T extends boolean = true> {
+  name?: T;
+  picture?: T;
+  user?: T;
+  issuerName?: T;
+  scope?: T;
+  sub?: T;
+  access_token?: T;
+  passkey?:
+    | T
+    | {
+        credentialId?: T;
+        publicKey?: T;
+        counter?: T;
+        transports?: T;
+        deviceType?: T;
+        backedUp?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects_select".
+ */
+export interface RedirectsSelect<T extends boolean = true> {
+  from?: T;
+  to?:
+    | T
+    | {
+        type?: T;
+        reference?: T;
+        url?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-locked-documents_select".
+ */
+export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences_select".
+ */
+export interface PayloadPreferencesSelect<T extends boolean = true> {
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations_select".
+ */
+export interface PayloadMigrationsSelect<T extends boolean = true> {
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "start-page".
  */
 export interface StartPage {
@@ -763,14 +1790,6 @@ export interface StartPage {
   title: string;
   textBody: string;
   buttonText: string;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -798,14 +1817,6 @@ export interface AboutBside {
     title: string;
     description: string;
   };
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -820,10 +1831,22 @@ export interface EventPage {
     | (
         | {
             title: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             teaser?: string | null;
+            /**
+             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
+             */
             level: 'h1' | 'h2' | 'h3' | 'h4';
+            /**
+             * Dies ist die Größe, die im Browser angezeigt wird.
+             */
             as: 'h1' | 'h2' | 'h3' | 'h4';
             backgroundColor: 'white' | 'black';
+            /**
+             * Optional: Kann zur direkten Verlinkung verwendet werden.
+             */
             anchor?: string | null;
             id?: string | null;
             blockName?: string | null;
@@ -833,6 +1856,13 @@ export interface EventPage {
             backgroundColor: 'white' | 'black';
             backgroundWidth: 'full' | 'block';
             columns: {
+              /**
+               *
+               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+               *                             drei Spalten sein.
+               *
+               */
               width: 'full' | 'half' | 'oneThird' | 'twoThirds';
               richText: {
                 [k: string]: unknown;
@@ -844,6 +1874,9 @@ export interface EventPage {
             blockType: 'content';
           }
         | {
+            /**
+             * ToDo: Beschreibungstext einfügen.
+             */
             media: string | Media;
             size: 'normal' | 'wide' | 'event';
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
@@ -856,6 +1889,9 @@ export interface EventPage {
             alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
             backgroundColor: 'white' | 'black';
             headline?: string | null;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             media: string | Media;
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
             richText: {
@@ -875,10 +1911,19 @@ export interface EventPage {
           }
         | {
             headlineTitle: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             headlineTeaser?: string | null;
+            /**
+             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
+             */
             reversed?: boolean | null;
             linkText: string;
             linkHref: string;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             image: string | Media;
             richText: {
               [k: string]: unknown;
@@ -912,14 +1957,6 @@ export interface EventPage {
           }
       )[]
     | null;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -930,15 +1967,30 @@ export interface EventPage {
 export interface EventArchive {
   id: string;
   title: string;
-  headerImage?: string | Media | null;
+  /**
+   * Wird über dem Archiv angezeigt. Empfohlen: webp mit 1120x288 px.
+   */
+  headerImage?: (string | null) | Media;
   layout?:
     | (
         | {
             title: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             teaser?: string | null;
+            /**
+             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
+             */
             level: 'h1' | 'h2' | 'h3' | 'h4';
+            /**
+             * Dies ist die Größe, die im Browser angezeigt wird.
+             */
             as: 'h1' | 'h2' | 'h3' | 'h4';
             backgroundColor: 'white' | 'black';
+            /**
+             * Optional: Kann zur direkten Verlinkung verwendet werden.
+             */
             anchor?: string | null;
             id?: string | null;
             blockName?: string | null;
@@ -948,6 +2000,13 @@ export interface EventArchive {
             backgroundColor: 'white' | 'black';
             backgroundWidth: 'full' | 'block';
             columns: {
+              /**
+               *
+               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+               *                             drei Spalten sein.
+               *
+               */
               width: 'full' | 'half' | 'oneThird' | 'twoThirds';
               richText: {
                 [k: string]: unknown;
@@ -959,6 +2018,9 @@ export interface EventArchive {
             blockType: 'content';
           }
         | {
+            /**
+             * ToDo: Beschreibungstext einfügen.
+             */
             media: string | Media;
             size: 'normal' | 'wide' | 'event';
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
@@ -971,6 +2033,9 @@ export interface EventArchive {
             alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
             backgroundColor: 'white' | 'black';
             headline?: string | null;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             media: string | Media;
             effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
             richText: {
@@ -990,10 +2055,19 @@ export interface EventArchive {
           }
         | {
             headlineTitle: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
             headlineTeaser?: string | null;
+            /**
+             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
+             */
             reversed?: boolean | null;
             linkText: string;
             linkHref: string;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
             image: string | Media;
             richText: {
               [k: string]: unknown;
@@ -1027,14 +2101,6 @@ export interface EventArchive {
           }
       )[]
     | null;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1044,20 +2110,316 @@ export interface EventArchive {
  */
 export interface Banner {
   id: string;
+  /**
+   * Das Banner wird überall angezeigt, wenn diese Checkbox aktiviert ist.
+   */
   isActive: boolean;
+  /**
+   * Für jedes Banner muss diese Nummer um +1 erhöht werden.
+   */
   bannerId: number;
+  /**
+   * Der Text, der innerhab des Banners sichtbar ist.
+   */
   bannerText: string;
+  /**
+   * Der Link, der aufgerufen wird, wenn auf das Banner geklickt wird. Falls leer, ist das Banner nicht klickbar.
+   */
   bannerLink?: string | null;
+  /**
+   * Die Hintergrundfarbe des Banner.
+   */
   backgroundColor: string;
+  /**
+   * Die Textfarbe des Banner.
+   */
   textColor: string;
-  createdBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
-  updatedBy?: {
-    relationTo: 'users';
-    value: string | User;
-  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "start-page_select".
+ */
+export interface StartPageSelect<T extends boolean = true> {
+  title?: T;
+  textBody?: T;
+  buttonText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-bside_select".
+ */
+export interface AboutBsideSelect<T extends boolean = true> {
+  title?: T;
+  textBody?: T;
+  firstSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  secondSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  thirdSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  fourthSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-page_select".
+ */
+export interface EventPageSelect<T extends boolean = true> {
+  title?: T;
+  layout?:
+    | T
+    | {
+        headlineBlock?:
+          | T
+          | {
+              title?: T;
+              teaser?: T;
+              level?: T;
+              as?: T;
+              backgroundColor?: T;
+              anchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              backgroundColor?: T;
+              backgroundWidth?: T;
+              columns?:
+                | T
+                | {
+                    width?: T;
+                    richText?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              media?: T;
+              size?: T;
+              effects?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              alignment?: T;
+              backgroundColor?: T;
+              headline?: T;
+              media?: T;
+              effects?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        callToAction?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teaser?:
+          | T
+          | {
+              headlineTitle?: T;
+              headlineTeaser?: T;
+              reversed?: T;
+              linkText?: T;
+              linkHref?: T;
+              image?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        eventOverview?:
+          | T
+          | {
+              title?: T;
+              eventSide?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              sliderType?: T;
+              imageSlides?:
+                | T
+                | {
+                    image?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-archive_select".
+ */
+export interface EventArchiveSelect<T extends boolean = true> {
+  title?: T;
+  headerImage?: T;
+  layout?:
+    | T
+    | {
+        headlineBlock?:
+          | T
+          | {
+              title?: T;
+              teaser?: T;
+              level?: T;
+              as?: T;
+              backgroundColor?: T;
+              anchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              backgroundColor?: T;
+              backgroundWidth?: T;
+              columns?:
+                | T
+                | {
+                    width?: T;
+                    richText?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        mediaBlock?:
+          | T
+          | {
+              media?: T;
+              size?: T;
+              effects?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        mediaContent?:
+          | T
+          | {
+              alignment?: T;
+              backgroundColor?: T;
+              headline?: T;
+              media?: T;
+              effects?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        callToAction?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teaser?:
+          | T
+          | {
+              headlineTitle?: T;
+              headlineTeaser?: T;
+              reversed?: T;
+              linkText?: T;
+              linkHref?: T;
+              image?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        eventOverview?:
+          | T
+          | {
+              title?: T;
+              eventSide?: T;
+              richText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        slider?:
+          | T
+          | {
+              sliderType?: T;
+              imageSlides?:
+                | T
+                | {
+                    image?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "banner_select".
+ */
+export interface BannerSelect<T extends boolean = true> {
+  isActive?: T;
+  bannerId?: T;
+  bannerText?: T;
+  bannerLink?: T;
+  backgroundColor?: T;
+  textColor?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auth".
+ */
+export interface Auth {
+  [k: string]: unknown;
 }

@@ -25,6 +25,9 @@ import { EventPage } from './globals/EventPage';
 import { StartPage } from './globals/StartPage';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
+import { authPlugin } from 'payload-auth-plugin';
+import { KeyCloakAuthProvider } from 'payload-auth-plugin/providers';
+import Accounts from '@/collections/Users/Accounts';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -36,13 +39,7 @@ export default buildConfig({
         },
 
         components: {
-            // TODO-MIGRATE
-            // login: {
-            //     Button: {
-            //         path: '/src/components/Logout',
-            //         exportName: 'MyComponent',
-            //     },
-            // },
+            afterLogin: ['@/components/AfterLogin/index#AdminLogin'],
         },
 
         user: Users.slug,
@@ -94,6 +91,7 @@ export default buildConfig({
 
         // Authentication
         ApiUsers,
+        Accounts,
     ],
 
     globals: [StartPage, AboutBside, EventPage, EventArchive, Banner],
@@ -187,6 +185,25 @@ export default buildConfig({
         //     createdByLabel: { en: 'Created by', de: 'Erstellt von' },
         //     updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
         // }),
+
+        authPlugin({
+            name: 'oidc-auth',
+            allowOAuthAutoSignUp: true,
+            usersCollectionSlug: Users.slug,
+            accountsCollectionSlug: Accounts.slug,
+            successRedirectPath: '/admin/collections',
+            errorRedirectPath: '/admin/auth/signin',
+            providers: [
+                KeyCloakAuthProvider({
+                    realm: 'bside',
+                    domain: 'login.b-side.ms/auth',
+                    identifier: 'keycloak',
+                    name: 'keycloak',
+                    client_id: process.env.CLIENT_ID,
+                    client_secret: process.env.CLIENT_SECRET,
+                }),
+            ],
+        }),
 
         // TODO-MIGRATE
         // oAuthPlugin({
