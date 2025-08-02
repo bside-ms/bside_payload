@@ -1,5 +1,5 @@
-import { kebabCase } from 'lodash';
-import isNotEmptyString from './isNotEmptyString';
+import kebabCase from 'lodash-es/kebabCase';
+import isNotEmptyString from '@/utilities/isNotEmptyString';
 
 const createEventSlug = (slug: string, title: string, id: string): string => {
     if (isNotEmptyString(slug)) {

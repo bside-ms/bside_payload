@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { isAdmin } from '../../access/isAdmin';
+import { isAdmin } from '@/access/isAdmin';
 
 const NotFoundPages: CollectionConfig = {
     slug: 'not-found-pages',

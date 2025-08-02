@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload';
-import { isAdmin, isAdminFieldLevel } from '../../access/isAdmin';
-import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '../../access/isAdminOrSelf';
+import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
+import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '@/access/isAdminOrSelf';
 
 const Users: CollectionConfig = {
     slug: 'users',

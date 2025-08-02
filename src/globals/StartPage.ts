@@ -1,5 +1,5 @@
 import type { GlobalConfig } from 'payload';
-import { isOrganisator } from '../access/isOrganisator';
+import { isOrganisator } from '@/access/isOrganisator';
 
 export const StartPage: GlobalConfig = {
     slug: 'start-page',

@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload';
-import { isAdmin } from '../access/isAdmin';
-import { isEditor, isEditorFieldLevel } from '../access/isEditor';
-import { isUser, isUserOrPublished } from '../access/isUser';
-import richText from '../fields/richText';
-import { slugField } from '../fields/slug';
-import createEventSlug from '../utilities/createEventSlug';
+import { isAdmin } from '@/access/isAdmin';
+import { isEditor, isEditorFieldLevel } from '@/access/isEditor';
+import { isUser, isUserOrPublished } from '@/access/isUser';
+import richText from '@/fields/richText';
+import { slugField } from '@/fields/slug';
+import createEventSlug from '@/utilities/createEventSlug';
 
 const Events: CollectionConfig = {
     slug: 'events',

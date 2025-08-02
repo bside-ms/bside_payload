@@ -1,7 +1,11 @@
 import path from 'path';
 import type { CollectionConfig } from 'payload';
-import { isAdmin } from '../access/isAdmin';
-import { isUser } from '../access/isUser';
+import { isAdmin } from '@/access/isAdmin';
+import { isUser } from '@/access/isUser';
+import { fileURLToPath } from 'url';
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const Media: CollectionConfig = {
     slug: 'media',
@@ -28,7 +32,7 @@ const Media: CollectionConfig = {
         // from the imageSizes below, the admin UI will show this size for previewing
         adminThumbnail: 'thumbnail',
 
-        staticDir: path.resolve(__dirname, '../../media'),
+        staticDir: path.resolve(dirname, '../../media'),
 
         // limit the types of files allowed and request validation
         mimeTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/avif'],

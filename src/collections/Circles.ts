@@ -1,15 +1,15 @@
-import { kebabCase } from 'lodash';
 import type { CollectionConfig } from 'payload';
-import { hasCircleAccess } from '../access/hasCircleAccess';
-import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { isUserOrPublished } from '../access/isUser';
-import { CallToAction } from '../blocks/CallToAction';
-import { Content } from '../blocks/Content';
-import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
-import { HeadlineBlock } from '../blocks/Headline';
-import { MediaBlock } from '../blocks/MediaBlock';
-import { MediaContent } from '../blocks/MediaContent';
-import { TeaserBlock } from '../blocks/Teaser';
+import { hasCircleAccess } from '@/access/hasCircleAccess';
+import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
+import { isUserOrPublished } from '@/access/isUser';
+import { CallToAction } from '@/blocks/CallToAction';
+import { Content } from '@/blocks/Content';
+import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
+import { HeadlineBlock } from '@/blocks/Headline';
+import { MediaBlock } from '@/blocks/MediaBlock';
+import { MediaContent } from '@/blocks/MediaContent';
+import { TeaserBlock } from '@/blocks/Teaser';
+import kebabCase from 'lodash-es/kebabCase';
 
 const Circles: CollectionConfig = {
     slug: 'circles',

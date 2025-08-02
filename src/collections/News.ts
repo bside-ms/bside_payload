@@ -1,16 +1,16 @@
 import type { CollectionConfig } from 'payload';
-import { isAdmin } from '../access/isAdmin';
-import { isUser, isUserField, isUserOrPublished } from '../access/isUser';
-import { CallToAction } from '../blocks/CallToAction';
-import { Content } from '../blocks/Content';
-import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
-import { HeadlineBlock } from '../blocks/Headline';
-import { MediaBlock } from '../blocks/MediaBlock';
-import { MediaContent } from '../blocks/MediaContent';
-import { Slider } from '../blocks/Slider';
-import { TeaserBlock } from '../blocks/Teaser';
-import { createNewsSlug } from '../utilities/createNewsSlug';
-import formatSlug from '../utilities/formatSlug';
+import { isAdmin } from '@/access/isAdmin';
+import { isUser, isUserField, isUserOrPublished } from '@/access/isUser';
+import { CallToAction } from '@/blocks/CallToAction';
+import { Content } from '@/blocks/Content';
+import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
+import { HeadlineBlock } from '@/blocks/Headline';
+import { MediaBlock } from '@/blocks/MediaBlock';
+import { MediaContent } from '@/blocks/MediaContent';
+import { Slider } from '@/blocks/Slider';
+import { TeaserBlock } from '@/blocks/Teaser';
+import { createNewsSlug } from '@/utilities/createNewsSlug';
+import formatSlug from '@/utilities/formatSlug';
 
 const News: CollectionConfig = {
     slug: 'news',
