@@ -587,11 +587,18 @@ export interface Circle {
 export interface User {
   id: string;
   email: string;
-  firstName: string;
+  firstName?: string | null;
   lastName?: string | null;
   roles: ('public' | 'editor' | 'organisator' | 'admin')[];
   circles?: (string | Circle)[] | null;
   sub?: string | null;
+  hashedPassword?: string | null;
+  hashSalt?: string | null;
+  hashIterations?: number | null;
+  verificationCode?: string | null;
+  verificationHash?: string | null;
+  verificationTokenExpire?: number | null;
+  verificationKind?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1430,6 +1437,13 @@ export interface UsersSelect<T extends boolean = true> {
   roles?: T;
   circles?: T;
   sub?: T;
+  hashedPassword?: T;
+  hashSalt?: T;
+  hashIterations?: T;
+  verificationCode?: T;
+  verificationHash?: T;
+  verificationTokenExpire?: T;
+  verificationKind?: T;
   updatedAt?: T;
   createdAt?: T;
 }

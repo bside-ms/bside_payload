@@ -188,6 +188,7 @@ export default buildConfig({
 
         authPlugin({
             name: 'oidc-auth',
+            useAdmin: true,
             allowOAuthAutoSignUp: true,
             usersCollectionSlug: Users.slug,
             accountsCollectionSlug: Accounts.slug,

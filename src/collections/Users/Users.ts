@@ -1,8 +1,9 @@
 import type { CollectionConfig } from 'payload';
 import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
 import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '@/access/isAdminOrSelf';
+import { withUsersCollection } from 'payload-auth-plugin/collection';
 
-const Users: CollectionConfig = {
+const Users: CollectionConfig = withUsersCollection({
     slug: 'users',
     auth: {
         tokenExpiration: 28800, // 8 hours
@@ -51,7 +52,7 @@ const Users: CollectionConfig = {
                     name: 'firstName',
                     label: 'Vorname',
                     type: 'text',
-                    required: true,
+                    required: false,
                     access: {
                         read: isAdminOrSelfFieldLevel,
                         create: isAdminFieldLevel,
@@ -129,6 +130,6 @@ const Users: CollectionConfig = {
             },
         },
     ],
-};
+});
 
 export default Users;
