@@ -25,8 +25,6 @@ import { EventPage } from '@/globals/EventPage';
 import { StartPage } from '@/globals/StartPage';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
-import { authPlugin } from 'payload-auth-plugin';
-import { KeyCloakAuthProvider } from 'payload-auth-plugin/providers';
 import Accounts from '@/collections/Users/Accounts';
 
 const filename = fileURLToPath(import.meta.url);
@@ -186,25 +184,25 @@ export default buildConfig({
         //     updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
         // }),
 
-        authPlugin({
-            name: 'oidc-auth',
-            useAdmin: true,
-            allowOAuthAutoSignUp: true,
-            usersCollectionSlug: Users.slug,
-            accountsCollectionSlug: Accounts.slug,
-            successRedirectPath: '/admin/collections',
-            errorRedirectPath: '/admin/auth/signin',
-            providers: [
-                KeyCloakAuthProvider({
-                    realm: 'bside',
-                    domain: 'login.b-side.ms/auth',
-                    identifier: 'keycloak',
-                    name: 'keycloak',
-                    client_id: process.env.CLIENT_ID,
-                    client_secret: process.env.CLIENT_SECRET,
-                }),
-            ],
-        }),
+        // authPlugin({
+        //     name: 'oidc-auth',
+        //     useAdmin: true,
+        //     allowOAuthAutoSignUp: true,
+        //     usersCollectionSlug: Users.slug,
+        //     accountsCollectionSlug: Accounts.slug,
+        //     successRedirectPath: '/admin/collections',
+        //     errorRedirectPath: '/admin/auth/signin',
+        //     providers: [
+        //         KeyCloakAuthProvider({
+        //             realm: 'bside',
+        //             domain: 'login.b-side.ms/auth',
+        //             identifier: 'keycloak',
+        //             name: 'keycloak',
+        //             client_id: process.env.CLIENT_ID,
+        //             client_secret: process.env.CLIENT_SECRET,
+        //         }),
+        //     ],
+        // }),
 
         // TODO-MIGRATE
         // oAuthPlugin({
