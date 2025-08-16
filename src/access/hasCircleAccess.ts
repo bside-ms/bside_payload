@@ -1,11 +1,11 @@
 import type { Access } from 'payload';
-import type { User } from '@/payload-types';
 import { checkRole } from '@/access/checkRole';
+import isUserObjectWithRoles from '@/access/isUserObjectWithRoles';
 
 export const hasCircleAccess =
-    (circleIdFieldName: string = 'circle'): Access<User> =>
-    ({ data: user }) => {
-        if (user === undefined) {
+    (circleIdFieldName: string = 'circle'): Access =>
+    ({ req: { user } }) => {
+        if (!isUserObjectWithRoles(user)) {
             return false;
         }
 

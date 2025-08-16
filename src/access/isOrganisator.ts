@@ -1,9 +1,9 @@
 import type { Access } from 'payload';
-import type { User } from '@/payload-types';
 import { checkRole } from '@/access/checkRole';
+import isUserObjectWithRoles from '@/access/isUserObjectWithRoles';
 
-export const isOrganisator: Access<User> = ({ data: user }): boolean => {
-    if (user === undefined) {
+export const isOrganisator: Access = ({ req: { user } }): boolean => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 

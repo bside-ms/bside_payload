@@ -1,9 +1,9 @@
 import type { Access, FieldAccess } from 'payload';
-import type { User } from '@/payload-types';
 import { checkRole } from '@/access/checkRole';
+import isUserObjectWithRoles from '@/access/isUserObjectWithRoles';
 
-export const isEditor: Access<User> = ({ data: user }): boolean => {
-    if (user === undefined) {
+export const isEditor: Access = ({ req: { user } }): boolean => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 
@@ -14,8 +14,8 @@ export const isEditor: Access<User> = ({ data: user }): boolean => {
     return false;
 };
 
-export const isEditorFieldLevel: FieldAccess<{ id: string }, User> = ({ data: user }) => {
-    if (user === undefined) {
+export const isEditorFieldLevel: FieldAccess = ({ req: { user } }) => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 

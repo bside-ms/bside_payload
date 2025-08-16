@@ -1,9 +1,10 @@
 import type { Access, FieldAccess } from 'payload';
 import type { User } from '@/payload-types';
 import { checkRole } from '@/access/checkRole';
+import isUserObjectWithRoles from '@/access/isUserObjectWithRoles';
 
-export const isUser: Access<User> = ({ data: user }) => {
-    if (user === undefined) {
+export const isUser: Access = ({ req: { user } }) => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 
@@ -22,8 +23,8 @@ export const isUser: Access<User> = ({ data: user }) => {
     return false;
 };
 
-export const isUserField: FieldAccess<{ id: string }, User> = ({ data: user }) => {
-    if (user === undefined) {
+export const isUserFieldLevel: FieldAccess = ({ req: { user } }) => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 
@@ -42,8 +43,8 @@ export const isUserField: FieldAccess<{ id: string }, User> = ({ data: user }) =
     return false;
 };
 
-export const isUserOrPublished: Access<User> = ({ data: user }) => {
-    if (user === undefined) {
+export const isUserOrPublished: Access<User> = ({ req: { user } }) => {
+    if (!isUserObjectWithRoles(user)) {
         return {
             _status: {
                 equals: 'published',

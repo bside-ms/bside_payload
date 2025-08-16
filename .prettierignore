@@ -3,6 +3,9 @@
 !src/
 !src/**
 
+# ignore auto-generated files
+src/app/(payload)
+
 # other
 src/migrations
 src/payload-types.ts

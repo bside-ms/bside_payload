@@ -1,11 +1,15 @@
 import path from 'path';
 import * as process from 'process';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
+import { de } from '@payloadcms/translations/languages/de';
+import { en } from '@payloadcms/translations/languages/en';
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { redirectsPlugin } from '@payloadcms/plugin-redirects';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 import { slateEditor } from '@payloadcms/richtext-slate';
 import { buildConfig } from 'payload';
+import axios from 'axios';
+import { OAuth2Plugin } from 'payload-oauth2';
 import computeBlurhash from 'payload-blurhash-plugin';
 import { isAdmin } from '@/access/isAdmin';
 import ContactForms from '@/collections/Administration/ContactForms';
@@ -25,7 +29,6 @@ import { EventPage } from '@/globals/EventPage';
 import { StartPage } from '@/globals/StartPage';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
-import Accounts from '@/collections/Users/Accounts';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -89,7 +92,6 @@ export default buildConfig({
 
         // Authentication
         ApiUsers,
-        Accounts,
     ],
 
     globals: [StartPage, AboutBside, EventPage, EventArchive, Banner],
@@ -111,7 +113,12 @@ export default buildConfig({
         fallback: true,
     },
 
-    // TODO-MIGRATE
+    i18n: {
+        supportedLanguages: { en, de },
+        fallbackLanguage: 'de',
+    },
+
+    // Payload v3 does not support rate limiting anymore, I leave this here for documentation reasons ✌️
     // rateLimit: {
     //     trustProxy: true,
     //     window: 2 * 60 * 1000, // 2 minutes
@@ -163,9 +170,9 @@ export default buildConfig({
 
         nestedDocsPlugin({
             collections: ['pages'],
-            generateLabel: (_, doc) => doc.title as string,
+            generateLabel: (_: unknown, doc: { title?: string }) => String(doc.title ?? ''),
 
-            generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
+            generateURL: (docs: Array<{ slug?: string }>) => docs.reduce<string>((url, doc) => `${url}/${doc.slug ?? ''}`, ''),
         }),
 
         seoPlugin({
@@ -176,68 +183,51 @@ export default buildConfig({
             // uploadsCollection: 'media',
         }),
 
-        // TODO-MIGRATE
-        // addAuthorFields({
-        //     excludedCollections: ['users', 'api-users', 'contact-forms', 'not-found-pages'],
-        //
-        //     createdByLabel: { en: 'Created by', de: 'Erstellt von' },
-        //     updatedByLabel: { en: 'Updated by', es: 'Bearbeitet von' },
-        // }),
+        OAuth2Plugin({
+            enabled: true,
+            strategyName: 'keycloak',
+            serverURL: process.env.NEXT_PUBLIC_CMS_URL,
+            authCollection: Users.slug,
+            useEmailAsIdentity: true,
+            subFieldName: 'sub',
+            providerAuthorizationUrl: `${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/auth`,
+            tokenEndpoint: `${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/token`,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            scopes: ['openid', 'profile', 'email'],
 
-        // authPlugin({
-        //     name: 'oidc-auth',
-        //     useAdmin: true,
-        //     allowOAuthAutoSignUp: true,
-        //     usersCollectionSlug: Users.slug,
-        //     accountsCollectionSlug: Accounts.slug,
-        //     successRedirectPath: '/admin/collections',
-        //     errorRedirectPath: '/admin/auth/signin',
-        //     providers: [
-        //         KeyCloakAuthProvider({
-        //             realm: 'bside',
-        //             domain: 'login.b-side.ms/auth',
-        //             identifier: 'keycloak',
-        //             name: 'keycloak',
-        //             client_id: process.env.CLIENT_ID,
-        //             client_secret: process.env.CLIENT_SECRET,
-        //         }),
-        //     ],
-        // }),
+            async getUserInfo(accessToken) {
+                interface KeycloakUserInfo {
+                    sub: string;
+                    email: string;
+                    email_verified?: boolean;
+                    members?: Array<string>;
+                    name?: string;
+                    preferred_username?: string;
+                    given_name?: string;
+                    family_name?: string;
+                    locale?: string;
+                }
 
-        // TODO-MIGRATE
-        // oAuthPlugin({
-        //     // @ts-expect-error The plugin config is not configured correctly.
-        //     clientID: process.env.CLIENT_ID,
-        //     clientSecret: process.env.CLIENT_SECRET,
-        //     authorizationURL: `${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/auth`,
-        //     tokenURL: `${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/token`,
-        //     callbackURL: `${process.env.NEXT_PUBLIC_CMS_URL}/oauth2/callback`,
-        //     scope: 'openid',
-        //     async userinfo(accessToken) {
-        //         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        //         const { data: user } = await axios.get(`${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/userinfo`, {
-        //             headers: { Authorization: `Bearer ${accessToken}` },
-        //         });
-        //
-        //         return {
-        //             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        //             sub: user.sub as string,
-        //             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        //             email: user.email as string,
-        //             roles: 'public',
-        //             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        //             firstName: user.given_name as string,
-        //         };
-        //     },
-        //
-        //     subField: {
-        //         name: 'sub',
-        //     },
-        //
-        //     components: {
-        //         Button: () => OAuthButton(),
-        //     },
-        // }),
+                const { data: user } = await axios.get<KeycloakUserInfo>(
+                    `${process.env.NEXT_PUBLIC_OAUTH_SERVER}/protocol/openid-connect/userinfo`,
+                    {
+                        headers: { Authorization: `Bearer ${accessToken}` },
+                    },
+                );
+
+                return {
+                    sub: user.sub,
+                    email: user.email,
+                    firstName: user.given_name ?? '',
+                    lastName: user.family_name ?? '',
+                    roles: ['public'],
+                };
+            },
+
+            successRedirect: () => '/admin',
+            failureRedirect: () => '/admin/auth/signin',
+        }),
 
         computeBlurhash({
             collections: ['media'],

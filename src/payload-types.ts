@@ -63,8 +63,8 @@ export type SupportedTimezones =
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
     'api-users': ApiUserAuthOperations;
+    users: UserAuthOperations;
   };
   blocks: {};
   collections: {
@@ -72,14 +72,13 @@ export interface Config {
     circles: Circle;
     organisations: Organisation;
     media: Media;
-    users: User;
     news: News;
     pages: Page;
     'contact-forms': ContactForm;
     'not-found-pages': NotFoundPage;
     'api-users': ApiUser;
-    accounts: Account;
     redirects: Redirect;
+    users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -90,14 +89,13 @@ export interface Config {
     circles: CirclesSelect<false> | CirclesSelect<true>;
     organisations: OrganisationsSelect<false> | OrganisationsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    users: UsersSelect<false> | UsersSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'contact-forms': ContactFormsSelect<false> | ContactFormsSelect<true>;
     'not-found-pages': NotFoundPagesSelect<false> | NotFoundPagesSelect<true>;
     'api-users': ApiUsersSelect<false> | ApiUsersSelect<true>;
-    accounts: AccountsSelect<false> | AccountsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -121,18 +119,18 @@ export interface Config {
   };
   locale: 'de' | 'en';
   user:
-    | (User & {
-        collection: 'users';
-      })
     | (ApiUser & {
         collection: 'api-users';
+      })
+    | (User & {
+        collection: 'users';
       });
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
-export interface UserAuthOperations {
+export interface ApiUserAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -150,7 +148,7 @@ export interface UserAuthOperations {
     password: string;
   };
 }
-export interface ApiUserAuthOperations {
+export interface UserAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -582,28 +580,6 @@ export interface Circle {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: string;
-  email: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  roles: ('public' | 'editor' | 'organisator' | 'admin')[];
-  circles?: (string | Circle)[] | null;
-  sub?: string | null;
-  hashedPassword?: string | null;
-  hashSalt?: string | null;
-  hashIterations?: number | null;
-  verificationCode?: string | null;
-  verificationHash?: string | null;
-  verificationTokenExpire?: number | null;
-  verificationKind?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news".
  */
 export interface News {
@@ -964,46 +940,6 @@ export interface ApiUser {
   apiKeyIndex?: string | null;
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "accounts".
- */
-export interface Account {
-  id: string;
-  name?: string | null;
-  picture?: string | null;
-  user: string | User;
-  issuerName: string;
-  scope?: string | null;
-  sub: string;
-  access_token?: string | null;
-  passkey?: {
-    credentialId: string;
-    publicKey:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
-    counter: number;
-    transports:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
-    deviceType: string;
-    backedUp: boolean;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1023,6 +959,21 @@ export interface Redirect {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  roles: ('public' | 'editor' | 'organisator' | 'admin')[];
+  circles?: (string | Circle)[] | null;
+  sub?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1048,10 +999,6 @@ export interface PayloadLockedDocument {
         value: string | Media;
       } | null)
     | ({
-        relationTo: 'users';
-        value: string | User;
-      } | null)
-    | ({
         relationTo: 'news';
         value: string | News;
       } | null)
@@ -1072,22 +1019,22 @@ export interface PayloadLockedDocument {
         value: string | ApiUser;
       } | null)
     | ({
-        relationTo: 'accounts';
-        value: string | Account;
-      } | null)
-    | ({
         relationTo: 'redirects';
         value: string | Redirect;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: string | User;
       } | null);
   globalSlug?: string | null;
   user:
     | {
-        relationTo: 'users';
-        value: string | User;
-      }
-    | {
         relationTo: 'api-users';
         value: string | ApiUser;
+      }
+    | {
+        relationTo: 'users';
+        value: string | User;
       };
   updatedAt: string;
   createdAt: string;
@@ -1100,12 +1047,12 @@ export interface PayloadPreference {
   id: string;
   user:
     | {
-        relationTo: 'users';
-        value: string | User;
-      }
-    | {
         relationTo: 'api-users';
         value: string | ApiUser;
+      }
+    | {
+        relationTo: 'users';
+        value: string | User;
       };
   key?: string | null;
   value?:
@@ -1428,27 +1375,6 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
- */
-export interface UsersSelect<T extends boolean = true> {
-  email?: T;
-  firstName?: T;
-  lastName?: T;
-  roles?: T;
-  circles?: T;
-  sub?: T;
-  hashedPassword?: T;
-  hashSalt?: T;
-  hashIterations?: T;
-  verificationCode?: T;
-  verificationHash?: T;
-  verificationTokenExpire?: T;
-  verificationKind?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news_select".
  */
 export interface NewsSelect<T extends boolean = true> {
@@ -1723,31 +1649,6 @@ export interface ApiUsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "accounts_select".
- */
-export interface AccountsSelect<T extends boolean = true> {
-  name?: T;
-  picture?: T;
-  user?: T;
-  issuerName?: T;
-  scope?: T;
-  sub?: T;
-  access_token?: T;
-  passkey?:
-    | T
-    | {
-        credentialId?: T;
-        publicKey?: T;
-        counter?: T;
-        transports?: T;
-        deviceType?: T;
-        backedUp?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -1762,6 +1663,20 @@ export interface RedirectsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  roles?: T;
+  circles?: T;
+  sub?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

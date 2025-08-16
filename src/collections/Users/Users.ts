@@ -1,9 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
 import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '@/access/isAdminOrSelf';
-import { withUsersCollection } from 'payload-auth-plugin/collection';
-
-const Users: CollectionConfig = withUsersCollection({
+const Users: CollectionConfig = {
     slug: 'users',
     auth: {
         tokenExpiration: 28800, // 8 hours
@@ -27,7 +25,8 @@ const Users: CollectionConfig = withUsersCollection({
     },
 
     access: {
-        create: isAdmin,
+        // Allow OAuth callback to create users
+        create: () => true,
         read: isAdminOrSelf,
         update: isAdmin,
         delete: isAdmin,
@@ -39,9 +38,12 @@ const Users: CollectionConfig = withUsersCollection({
             name: 'email',
             type: 'email',
             required: true,
+            unique: true,
+            index: true,
             access: {
                 read: isAdminOrSelfFieldLevel,
-                create: isAdminFieldLevel,
+                // Must be writable during OAuth callback (no logged-in user yet)
+                create: () => true,
                 update: isAdminFieldLevel,
             },
         },
@@ -123,13 +125,16 @@ const Users: CollectionConfig = withUsersCollection({
             name: 'sub',
             label: 'Keycloak-ID',
             type: 'text',
+            index: true,
+            saveToJWT: true,
             access: {
                 read: isAdminOrSelfFieldLevel,
-                create: isAdminFieldLevel,
+                // Must be writable during OAuth callback (no logged-in user yet)
+                create: () => true,
                 update: isAdminFieldLevel,
             },
         },
     ],
-});
+};
 
 export default Users;

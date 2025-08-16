@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { isAdmin } from '@/access/isAdmin';
-import { isUser, isUserField, isUserOrPublished } from '@/access/isUser';
+import { isUser, isUserFieldLevel, isUserOrPublished } from '@/access/isUser';
 import { CallToAction } from '@/blocks/CallToAction';
 import { Content } from '@/blocks/Content';
 import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
@@ -54,7 +54,7 @@ const News: CollectionConfig = {
             localized: true,
             required: true,
             access: {
-                update: isUserField,
+                update: isUserFieldLevel,
             },
         },
 
