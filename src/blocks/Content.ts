@@ -1,7 +1,5 @@
 import type { Block } from 'payload';
 import richText from '@/fields/richText';
-import isArray from 'lodash-es/isArray';
-import isObject from 'lodash-es/isObject';
 
 export const Content: Block = {
     slug: 'content',
