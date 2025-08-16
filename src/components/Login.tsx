@@ -4,7 +4,7 @@ import React from 'react';
 import { Button } from '@payloadcms/ui';
 import Link from 'next/link';
 
-export const AdminLogin = () => {
+const Login = () => {
     return (
         <div>
             <div>
@@ -14,7 +14,11 @@ export const AdminLogin = () => {
 
                 <p>
                     Falls dir beim Login eine Fehlermeldung angezeigt wird, fehlen dir die notwendigen Rechte für den Zugriff auf das
-                    Backend unserer Webseite. Wende dich in dem Fall bitte bei Mattermost an das IT-Team.
+                    Backend unserer Webseite. Wende dich in dem Fall bitte{' '}
+                    <Link href="https://chat.b-side.ms/bside/channels/it_allgemeines" target="_blank">
+                        über Mattermost an das IT-Team
+                    </Link>
+                    .
                 </p>
 
                 <center style={{ transform: 'scale(1.2)' }}>
@@ -26,3 +30,5 @@ export const AdminLogin = () => {
         </div>
     );
 };
+
+export default Login;

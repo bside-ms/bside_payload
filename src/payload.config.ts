@@ -40,7 +40,9 @@ export default buildConfig({
         },
 
         components: {
-            afterLogin: ['@/components/AfterLogin/index#AdminLogin'],
+            // Will be shown on login page after login form (except
+            // there will be no login form due to our OAuth plugin).
+            afterLogin: ['@/components/Login'],
         },
 
         user: Users.slug,
