@@ -89,7 +89,11 @@ The project provides several npm scripts for development and maintenance:
 
 - **`yarn ts-check`** - Runs TypeScript type checking without emitting files. This is useful for catching type errors during development without triggering a full build.
 
+- **`yarn ts-check:watch`** - Runs TypeScript type checking in watch mode, automatically rechecking files when they change.
+
 - **`yarn lint`** - Runs ESLint to check code quality and catch potential errors. This helps maintain consistent code style across the project.
+
+- **`yarn lint:fix`** - Automatically fixes ESLint errors that can be auto-fixed. This command modifies files in place to resolve linting issues.
 
 - **`yarn prettier`** - Checks if the code formatting matches Prettier's configuration. This command only reports issues without fixing them.
 
@@ -98,6 +102,10 @@ The project provides several npm scripts for development and maintenance:
 - **`yarn generate:types`** - Generates TypeScript type definitions from the Payload CMS configuration. This creates the `payload-types.ts` file with all collection and global types.
 
 - **`yarn generate:importmap`** - Generates the import map required by Payload CMS for the admin interface. This must be run after adding or modifying custom components.
+
+- **`yarn payload`** - Runs the Payload CLI command. Use this to access Payload's command-line tools and utilities.
+
+- **`yarn copyfiles`** - Copies static files (HTML, CSS, fonts, images) to the dist directory. This is used during the build process.
 
 ## 🗄 Database Migrations
 
