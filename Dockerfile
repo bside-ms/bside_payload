@@ -1,23 +1,24 @@
-FROM node:20.10-alpine as base
+FROM node:20.10-alpine AS base
 
-FROM base as builder
+RUN corepack enable && corepack prepare yarn@4.9.2 --activate
 
 WORKDIR /home/node
-COPY package.json yarn.lock ./
 
-ARG NEXT_PUBLIC_CMS_URL
-ENV NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}
+FROM base AS builder
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn .yarn
 
 COPY . .
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable --immutable-cache --mode=skip-build
 RUN yarn build
 
-FROM base as runtime
+FROM base AS runtime
 
 WORKDIR /home/node
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn .yarn
 
-RUN yarn install --production --frozen-lockfile
+RUN yarn install --immutable --immutable-cache --mode=skip-build
 COPY --from=builder /home/node/dist ./dist
 COPY --from=builder /home/node/build ./build
 
