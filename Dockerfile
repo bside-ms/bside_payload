@@ -13,15 +13,12 @@ RUN yarn install --immutable --mode=skip-build
 RUN yarn build
 
 FROM base AS runtime
-
+ENV NODE_ENV=production
 WORKDIR /home/node
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn .yarn
-
-RUN yarn install --immutable --mode=skip-build
-COPY --from=builder /home/node/dist ./dist
-COPY --from=builder /home/node/build ./build
+COPY --from=builder /home/node/.next ./.next
+COPY --from=builder /home/node/node_modules ./node_modules
 
 EXPOSE 3000
-
-CMD ["node", "dist/server.js"]
+CMD ["yarn", "start", "-p", "3000"]
