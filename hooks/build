@@ -1,16 +1,20 @@
 #!/bin/bash
+set -euo pipefail
 
-if [ $SOURCE_BRANCH = "main" ]
-then
-  NEXT_PUBLIC_CMS_URL=$NEXT_PUBLIC_CMS_URL_PROD
+if [ "${SOURCE_BRANCH}" = "main" ]; then
+  NEXT_PUBLIC_CMS_URL="${NEXT_PUBLIC_CMS_URL_PROD}"
 else
-  NEXT_PUBLIC_CMS_URL=$NEXT_PUBLIC_CMS_URL_DEV
+  NEXT_PUBLIC_CMS_URL="${NEXT_PUBLIC_CMS_URL_DEV}"
 fi
 
+echo "BUILD for ${SOURCE_BRANCH}"
+echo "NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}"
+
 docker build \
-  -t $IMAGE_NAME \
-  --build-arg NEXT_PUBLIC_CMS_URL=$NEXT_PUBLIC_CMS_URL \
+  -t "${IMAGE_NAME}" \
+  --build-arg NEXT_PUBLIC_CMS_URL="${NEXT_PUBLIC_CMS_URL}" \
   .
 
-docker tag $IMAGE_NAME $DOCKER_REPO:$SOURCE_COMMIT
-docker push $DOCKER_REPO:$SOURCE_COMMIT
+docker tag "${IMAGE_NAME}" "${DOCKER_REPO}:${SOURCE_COMMIT}"
+
+docker push "${DOCKER_REPO}:${SOURCE_COMMIT}"
