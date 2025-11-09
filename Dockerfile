@@ -9,7 +9,7 @@ COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn .yarn
 
 COPY . .
-RUN yarn install --immutable --immutable-cache --mode=skip-build
+RUN yarn install --immutable --mode=skip-build
 RUN yarn build
 
 FROM base AS runtime
@@ -18,7 +18,7 @@ WORKDIR /home/node
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn .yarn
 
-RUN yarn install --immutable --immutable-cache --mode=skip-build
+RUN yarn install --immutable --mode=skip-build
 COPY --from=builder /home/node/dist ./dist
 COPY --from=builder /home/node/build ./build
 
