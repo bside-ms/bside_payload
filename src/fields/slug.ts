@@ -1,6 +1,6 @@
-import type { Field } from 'payload/types';
-import formatSlug from '../utilities/formatSlug';
-import { merge } from 'lodash';
+import type { Field } from 'payload';
+import formatSlug from '@/utilities/formatSlug';
+import merge from 'lodash-es/merge';
 
 type Slug = (fieldToUse?: string, overrides?: Partial<Field>) => Field;
 

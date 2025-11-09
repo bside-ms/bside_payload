@@ -1,5 +1,5 @@
-import type { Block } from 'payload/types';
-import richText from '../fields/richText';
+import type { Block } from 'payload';
+import richText from '@/fields/richText';
 
 export const TeaserBlock: Block = {
     slug: 'teaser',

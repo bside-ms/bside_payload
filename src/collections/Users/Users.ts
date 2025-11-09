@@ -1,14 +1,13 @@
-import type { CollectionConfig } from 'payload/types';
-import { isAdmin, isAdminFieldLevel } from '../../access/isAdmin';
-import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '../../access/isAdminOrSelf';
-
+import type { CollectionConfig } from 'payload';
+import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
+import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '@/access/isAdminOrSelf';
 const Users: CollectionConfig = {
     slug: 'users',
     auth: {
         tokenExpiration: 28800, // 8 hours
         disableLocalStrategy: true,
         cookies: {
-            sameSite: 'none',
+            sameSite: 'None',
             secure: true,
             domain: process.env.COOKIE_DOMAIN,
         },
@@ -26,7 +25,8 @@ const Users: CollectionConfig = {
     },
 
     access: {
-        create: isAdmin,
+        // Allow OAuth callback to create users
+        create: () => true,
         read: isAdminOrSelf,
         update: isAdmin,
         delete: isAdmin,
@@ -38,9 +38,12 @@ const Users: CollectionConfig = {
             name: 'email',
             type: 'email',
             required: true,
+            unique: true,
+            index: true,
             access: {
                 read: isAdminOrSelfFieldLevel,
-                create: isAdminFieldLevel,
+                // Must be writable during OAuth callback (no logged-in user yet)
+                create: () => true,
                 update: isAdminFieldLevel,
             },
         },
@@ -51,7 +54,7 @@ const Users: CollectionConfig = {
                     name: 'firstName',
                     label: 'Vorname',
                     type: 'text',
-                    required: true,
+                    required: false,
                     access: {
                         read: isAdminOrSelfFieldLevel,
                         create: isAdminFieldLevel,
@@ -122,9 +125,12 @@ const Users: CollectionConfig = {
             name: 'sub',
             label: 'Keycloak-ID',
             type: 'text',
+            index: true,
+            saveToJWT: true,
             access: {
                 read: isAdminOrSelfFieldLevel,
-                create: isAdminFieldLevel,
+                // Must be writable during OAuth callback (no logged-in user yet)
+                create: () => true,
                 update: isAdminFieldLevel,
             },
         },

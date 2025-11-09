@@ -1,4 +1,4 @@
-import type { RichTextLeaf } from '@payloadcms/richtext-slate/dist/types';
+import type { RichTextLeaf } from '@payloadcms/richtext-slate';
 
 const defaultLeaves: Array<RichTextLeaf> = ['bold', 'italic', 'strikethrough'];
 

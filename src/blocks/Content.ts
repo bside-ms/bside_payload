@@ -1,5 +1,5 @@
-import type { Block } from 'payload/types';
-import richText from '../fields/richText';
+import type { Block } from 'payload';
+import richText from '@/fields/richText';
 
 export const Content: Block = {
     slug: 'content',
@@ -65,10 +65,14 @@ export const Content: Block = {
                 plural: 'Spalten',
             },
             /*
-            validate: (columns: Array<{ id: string; width: 'full' | 'half' | 'oneThird' | 'twoThirds'; richText: Array<object> }>) => {
-                // Since field is required, first column will be set
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const widthOfFirstColumn = columns[0]!.width;
+            validate: (value: unknown) => {
+                if (!isArray(value) || value.every(isObject)) {
+                    return `Es ist ein unerwarteter Fehler aufgetreten (${JSON.stringify(value)})`;
+                }
+
+                const columns = value as Array<{ id: string; width: 'full' | 'half' | 'oneThird' | 'twoThirds'; richText: Array<object> }>;
+
+                const widthOfFirstColumn = columns[0].width;
 
                 const amountOfColumns = columns.length;
 

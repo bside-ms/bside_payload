@@ -1,5 +1,5 @@
-import type { Block } from 'payload/types';
-import { isEditorFieldLevel } from '../access/isEditor';
+import type { Block } from 'payload';
+import { isEditorFieldLevel } from '@/access/isEditor';
 
 export const Slider: Block = {
     slug: 'slider',

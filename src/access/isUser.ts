@@ -1,51 +1,50 @@
-import type { Access, FieldAccess } from 'payload/types';
-import type { User } from '../payload-types';
-import { checkRole } from './checkRole';
+import type { Access, FieldAccess } from 'payload';
+import type { User } from '@/payload-types';
+import { checkRole } from '@/access/checkRole';
+import isUserObjectWithRoles from '@/access/isUserObjectWithRoles';
 
-export const isUser: Access<User> = ({ req: { user } }) => {
-    if (user === undefined) {
+export const isUser: Access = ({ req: { user } }) => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 
-    const currentUser: User = user as User;
-
-    if (checkRole(currentUser, ['admin'])) {
-        return Boolean(true);
+    if (checkRole(user, ['admin'])) {
+        return true;
     }
 
-    if (checkRole(currentUser, ['editor'])) {
-        return Boolean(true);
+    if (checkRole(user, ['editor'])) {
+        return true;
     }
 
-    if (checkRole(currentUser, ['public'])) {
-        return Boolean(true);
+    if (checkRole(user, ['public'])) {
+        return true;
     }
 
     return false;
 };
 
-export const isUserField: FieldAccess<{ id: string }, User> = ({ req: { user } }) => {
-    if (user === undefined) {
+export const isUserFieldLevel: FieldAccess = ({ req: { user } }) => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 
-    if (checkRole(user as User, ['admin'])) {
-        return Boolean(true);
+    if (checkRole(user, ['admin'])) {
+        return true;
     }
 
-    if (checkRole(user as User, ['editor'])) {
-        return Boolean(true);
+    if (checkRole(user, ['editor'])) {
+        return true;
     }
 
-    if (checkRole(user as User, ['public'])) {
-        return Boolean(true);
+    if (checkRole(user, ['public'])) {
+        return true;
     }
 
     return false;
 };
 
 export const isUserOrPublished: Access<User> = ({ req: { user } }) => {
-    if (user === undefined) {
+    if (!isUserObjectWithRoles(user)) {
         return {
             _status: {
                 equals: 'published',
@@ -53,18 +52,16 @@ export const isUserOrPublished: Access<User> = ({ req: { user } }) => {
         };
     }
 
-    const currentUser: User = user as User;
-
-    if (checkRole(currentUser, ['admin'])) {
-        return Boolean(true);
+    if (checkRole(user, ['admin'])) {
+        return true;
     }
 
-    if (checkRole(currentUser, ['editor'])) {
-        return Boolean(true);
+    if (checkRole(user, ['editor'])) {
+        return true;
     }
 
-    if (checkRole(currentUser, ['public'])) {
-        return Boolean(true);
+    if (checkRole(user, ['public'])) {
+        return true;
     }
 
     return {

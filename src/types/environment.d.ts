@@ -6,13 +6,13 @@ declare namespace NodeJS {
         MONGODB_URI: string;
 
         COOKIE_DOMAIN: string;
-        PAYLOAD_PUBLIC_CMS_URL: string;
-        PAYLOAD_PUBLIC_SITE_URL: string;
+        NEXT_PUBLIC_CMS_URL: string;
+        NEXT_PUBLIC_SITE_URL: string;
 
         REVALIDATION_KEY: string;
 
         CLIENT_ID: string;
         CLIENT_SECRET: string;
-        PAYLOAD_PUBLIC_OAUTH_SERVER: string;
+        NEXT_PUBLIC_OAUTH_SERVER: string;
     }
 }

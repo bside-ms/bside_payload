@@ -1,10 +1,10 @@
-import type { CollectionConfig } from 'payload/types';
-import { isAdmin } from '../access/isAdmin';
-import { isEditor, isEditorFieldLevel } from '../access/isEditor';
-import { isUser, isUserOrPublished } from '../access/isUser';
-import richText from '../fields/richText';
-import { slugField } from '../fields/slug';
-import createEventSlug from '../utilities/createEventSlug';
+import type { CollectionConfig } from 'payload';
+import { isAdmin } from '@/access/isAdmin';
+import { isEditor, isEditorFieldLevel } from '@/access/isEditor';
+import { isUser, isUserOrPublished } from '@/access/isUser';
+import richText from '@/fields/richText';
+import { slugField } from '@/fields/slug';
+import createEventSlug from '@/utilities/createEventSlug';
 
 const Events: CollectionConfig = {
     slug: 'events',
@@ -22,7 +22,7 @@ const Events: CollectionConfig = {
         livePreview: {
             url: ({ data, locale }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}events/${createEventSlug(data.slug, data.title, data.id)}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}events/${createEventSlug(data.slug, data.title, data.id)}`;
             },
         },
     },

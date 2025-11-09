@@ -1,9 +1,9 @@
+import { RichTextField } from 'payload';
 import { slateEditor } from '@payloadcms/richtext-slate';
-import type { RichTextElement, RichTextLeaf } from '@payloadcms/richtext-slate/dist/types';
-import { merge } from 'lodash';
-import type { RichTextField } from 'payload/dist/fields/config/types';
-import elements from './elements';
-import leaves from './leaves';
+import type { RichTextElement, RichTextLeaf } from '@payloadcms/richtext-slate';
+import merge from 'lodash-es/merge';
+import elements from '@/fields/richText/elements';
+import leaves from '@/fields/richText/leaves';
 
 type RichText = (
     overrides?: Partial<RichTextField>,

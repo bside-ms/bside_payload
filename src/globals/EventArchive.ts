@@ -1,13 +1,13 @@
-import type { GlobalConfig } from 'payload/types';
-import { isOrganisator } from '../access/isOrganisator';
-import { CallToAction } from '../blocks/CallToAction';
-import { Content } from '../blocks/Content';
-import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
-import { HeadlineBlock } from '../blocks/Headline';
-import { MediaBlock } from '../blocks/MediaBlock';
-import { MediaContent } from '../blocks/MediaContent';
-import { Slider } from '../blocks/Slider';
-import { TeaserBlock } from '../blocks/Teaser';
+import type { GlobalConfig } from 'payload';
+import { isOrganisator } from '@/access/isOrganisator';
+import { HeadlineBlock } from '@/blocks/Headline';
+import { Content } from '@/blocks/Content';
+import { MediaBlock } from '@/blocks/MediaBlock';
+import { MediaContent } from '@/blocks/MediaContent';
+import { CallToAction } from '@/blocks/CallToAction';
+import { TeaserBlock } from '@/blocks/Teaser';
+import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
+import { Slider } from '@/blocks/Slider';
 
 export const EventArchive: GlobalConfig = {
     slug: 'event-archive',
@@ -17,7 +17,7 @@ export const EventArchive: GlobalConfig = {
         group: 'Statisches',
         livePreview: {
             url: ({ locale }) => {
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '/events' : '/en/events'}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? '/events' : '/en/events'}`;
             },
         },
     },

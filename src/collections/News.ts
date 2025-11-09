@@ -1,16 +1,16 @@
-import type { CollectionConfig } from 'payload/types';
-import { isAdmin } from '../access/isAdmin';
-import { isUser, isUserField, isUserOrPublished } from '../access/isUser';
-import { CallToAction } from '../blocks/CallToAction';
-import { Content } from '../blocks/Content';
-import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
-import { HeadlineBlock } from '../blocks/Headline';
-import { MediaBlock } from '../blocks/MediaBlock';
-import { MediaContent } from '../blocks/MediaContent';
-import { Slider } from '../blocks/Slider';
-import { TeaserBlock } from '../blocks/Teaser';
-import { createNewsSlug } from '../utilities/createNewsSlug';
-import formatSlug from '../utilities/formatSlug';
+import type { CollectionConfig } from 'payload';
+import { isAdmin } from '@/access/isAdmin';
+import { isUser, isUserFieldLevel, isUserOrPublished } from '@/access/isUser';
+import { CallToAction } from '@/blocks/CallToAction';
+import { Content } from '@/blocks/Content';
+import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
+import { HeadlineBlock } from '@/blocks/Headline';
+import { MediaBlock } from '@/blocks/MediaBlock';
+import { MediaContent } from '@/blocks/MediaContent';
+import { Slider } from '@/blocks/Slider';
+import { TeaserBlock } from '@/blocks/Teaser';
+import { createNewsSlug } from '@/utilities/createNewsSlug';
+import formatSlug from '@/utilities/formatSlug';
 
 const News: CollectionConfig = {
     slug: 'news',
@@ -27,7 +27,7 @@ const News: CollectionConfig = {
         livePreview: {
             url: ({ data, locale }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}news/${createNewsSlug(data.slug, data.id, data.title)}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}news/${createNewsSlug(data.slug, data.id, data.title)}`;
             },
         },
     },
@@ -54,7 +54,7 @@ const News: CollectionConfig = {
             localized: true,
             required: true,
             access: {
-                update: isUserField,
+                update: isUserFieldLevel,
             },
         },
 

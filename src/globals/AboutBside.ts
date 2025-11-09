@@ -1,5 +1,5 @@
-import type { GlobalConfig } from 'payload/types';
-import { isOrganisator } from '../access/isOrganisator';
+import type { GlobalConfig } from 'payload';
+import { isOrganisator } from '@/access/isOrganisator';
 
 export const AboutBside: GlobalConfig = {
     slug: 'about-bside',
@@ -9,7 +9,7 @@ export const AboutBside: GlobalConfig = {
         group: 'Statisches',
         livePreview: {
             url: ({ locale }) => {
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? 'bside' : '/en/bside'}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? 'bside' : '/en/bside'}`;
             },
         },
     },

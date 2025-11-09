@@ -1,13 +1,18 @@
+import next from "eslint-config-next";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 import eslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
 
 export default [
+    ...next,
+    ...nextCoreWebVitals,
+    ...nextTypescript,
     eslint.configs.recommended,
     tsEslint.configs.eslintRecommended,
     ...tsEslint.configs.recommended,
     ...tsEslint.configs.recommendedTypeChecked,
-
     {
         languageOptions: {
             parser: tsParser,
@@ -24,7 +29,6 @@ export default [
             },
         },
     },
-
     {
         ignores: [
             'src/payload-types.ts',
@@ -37,7 +41,6 @@ export default [
             '.next/**/*',
         ],
     },
-
     {
         rules: {
             '@typescript-eslint/ban-ts-comment': 'off',
@@ -49,11 +52,10 @@ export default [
             '@typescript-eslint/no-unnecessary-condition': 'warn',
         },
     },
-
     {
         files: ['components/ui/**/*.*'],
         rules: {
             'react/prop-types': 'off',
         },
-    },
+    }
 ];

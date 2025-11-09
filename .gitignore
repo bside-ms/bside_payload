@@ -286,3 +286,6 @@ media/
 #
 /build
 /db
+
+# Ignoring package-lock since we're using yarn
+package-lock.json

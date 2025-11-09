@@ -1,27 +1,27 @@
-import type { Access, FieldAccess } from 'payload/types';
-import type { User } from '../payload-types';
-import { checkRole } from './checkRole';
+import type { Access, FieldAccess } from 'payload';
+import { checkRole } from '@/access/checkRole';
+import isUserObjectWithRoles from '@/access/isUserObjectWithRoles';
 
-export const isAdminOrSelf: Access<User> = ({ req: { user } }) => {
-    if (user === undefined) {
+export const isAdminOrSelf: Access = ({ req: { user } }) => {
+    if (!isUserObjectWithRoles(user)) {
         return false;
     }
 
-    if (checkRole(user as User, ['admin'])) {
-        return Boolean(true);
+    if (checkRole(user, ['admin'])) {
+        return true;
     }
 
     return {
         id: {
-            equals: (user as User).id,
+            equals: user.id,
         },
     };
 };
 
-export const isAdminOrSelfFieldLevel: FieldAccess<{ id: string }, unknown, User> = ({ req: { user }, id }) => {
-    if (user) {
-        if (checkRole(user as User, ['admin'])) {
-            return Boolean(true);
+export const isAdminOrSelfFieldLevel: FieldAccess<{ id: string }> = ({ id, req: { user } }) => {
+    if (isUserObjectWithRoles(user)) {
+        if (checkRole(user, ['admin'])) {
+            return true;
         }
 
         if (user.id === id) {

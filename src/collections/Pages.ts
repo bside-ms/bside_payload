@@ -1,16 +1,16 @@
-import type { CollectionConfig } from 'payload/types';
-import { isAdmin, isAdminFieldLevel } from '../access/isAdmin';
-import { isEditor } from '../access/isEditor';
-import { isUserOrPublished } from '../access/isUser';
-import { CallToAction } from '../blocks/CallToAction';
-import { Content } from '../blocks/Content';
-import { EventOverviewBlock } from '../blocks/EventOverviewBlock';
-import { HeadlineBlock } from '../blocks/Headline';
-import { MediaBlock } from '../blocks/MediaBlock';
-import { MediaContent } from '../blocks/MediaContent';
-import { Slider } from '../blocks/Slider';
-import { TeaserBlock } from '../blocks/Teaser';
-import { slugField } from '../fields/slug';
+import type { CollectionConfig } from 'payload';
+import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
+import { isEditor } from '@/access/isEditor';
+import { isUserOrPublished } from '@/access/isUser';
+import { CallToAction } from '@/blocks/CallToAction';
+import { Content } from '@/blocks/Content';
+import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
+import { HeadlineBlock } from '@/blocks/Headline';
+import { MediaBlock } from '@/blocks/MediaBlock';
+import { MediaContent } from '@/blocks/MediaContent';
+import { Slider } from '@/blocks/Slider';
+import { TeaserBlock } from '@/blocks/Teaser';
+import { slugField } from '@/fields/slug';
 
 const Pages: CollectionConfig = {
     slug: 'pages',
@@ -28,7 +28,7 @@ const Pages: CollectionConfig = {
         livePreview: {
             url: ({ data, locale }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                return `${process.env.PAYLOAD_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? '' : '/en'}${data.breadcrumbs[data.breadcrumbs.length - 1].url}`;
             },
         },
     },
