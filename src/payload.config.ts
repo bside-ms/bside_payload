@@ -223,7 +223,6 @@ export default buildConfig({
                     email: user.email,
                     firstName: user.given_name ?? '',
                     lastName: user.family_name ?? '',
-                    roles: ['public'],
                 };
             },
 
