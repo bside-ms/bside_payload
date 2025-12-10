@@ -1325,10 +1325,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/env@npm:15.5.6"
-  checksum: 10c0/d75e12391c9ce4789fe458a4c08f150eb4b31cdb1e3f4b75c41f7e2cb7f0ee879a155f5ea2d677d23b486bf3b5f4545fcdee00c80dca0e080b5e3de79d053bc2
+"@next/env@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/env@npm:15.5.7"
+  checksum: 10c0/f92d99e5fa3516c6b7699abafd9bd813f5c1889dd257ab098f1b71f93137f5e4f49792e22f6dddf8a59efcb134e8e84277c983ff88607b2a42aac651bfde78ea
   languageName: node
   linkType: hard
 
@@ -1348,58 +1348,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-darwin-arm64@npm:15.5.6"
+"@next/swc-darwin-arm64@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-darwin-arm64@npm:15.5.7"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-darwin-x64@npm:15.5.6"
+"@next/swc-darwin-x64@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-darwin-x64@npm:15.5.7"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-linux-arm64-gnu@npm:15.5.6"
+"@next/swc-linux-arm64-gnu@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-linux-arm64-gnu@npm:15.5.7"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-linux-arm64-musl@npm:15.5.6"
+"@next/swc-linux-arm64-musl@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-linux-arm64-musl@npm:15.5.7"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-linux-x64-gnu@npm:15.5.6"
+"@next/swc-linux-x64-gnu@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-linux-x64-gnu@npm:15.5.7"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-linux-x64-musl@npm:15.5.6"
+"@next/swc-linux-x64-musl@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-linux-x64-musl@npm:15.5.7"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-win32-arm64-msvc@npm:15.5.6"
+"@next/swc-win32-arm64-msvc@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-win32-arm64-msvc@npm:15.5.7"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:15.5.6":
-  version: 15.5.6
-  resolution: "@next/swc-win32-x64-msvc@npm:15.5.6"
+"@next/swc-win32-x64-msvc@npm:15.5.7":
+  version: 15.5.7
+  resolution: "@next/swc-win32-x64-msvc@npm:15.5.7"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1460,23 +1460,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@payloadcms/db-mongodb@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/db-mongodb@npm:3.63.0"
+"@payloadcms/db-mongodb@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/db-mongodb@npm:3.68.1"
   dependencies:
     mongoose: "npm:8.15.1"
     mongoose-paginate-v2: "npm:1.8.5"
     prompts: "npm:2.4.2"
     uuid: "npm:10.0.0"
   peerDependencies:
-    payload: 3.63.0
-  checksum: 10c0/420f52bb13d896c7b3b91471c741499a22438b4533d9c5f95d9f0481d27d1a36ac2568a4f9759c4966024faf15522c44d9f76aad5e0650f3726548967141a10c
+    payload: 3.68.1
+  checksum: 10c0/ac75593dcc8771c61f02e737703f19d3b5f03e9fe1b80be113cb4f2237a509aff8593daf9b3ef6990fe784f1afb7db9752400cc4b3c65a56a86440b106bdccd0
   languageName: node
   linkType: hard
 
-"@payloadcms/graphql@npm:3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/graphql@npm:3.63.0"
+"@payloadcms/graphql@npm:3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/graphql@npm:3.68.1"
   dependencies:
     graphql-scalars: "npm:1.22.2"
     pluralize: "npm:8.0.0"
@@ -1484,21 +1484,21 @@ __metadata:
     tsx: "npm:4.20.6"
   peerDependencies:
     graphql: ^16.8.1
-    payload: 3.63.0
+    payload: 3.68.1
   bin:
     payload-graphql: bin.js
-  checksum: 10c0/0312611bf31fc4c6dabb7884b9dc545150eeefa9232114baacc35027018ca57d96f061912511c500d327500c649edd0d7d9cb74111ff8c604654e8c24d34b383
+  checksum: 10c0/1ece5b09271f5b5f23d4cf1c66a33885e5702d3477445b866c585e19e67dccf55514aae159212f55599982dd63bf8de286ea389f15432a6b3a4efe68073a0a6d
   languageName: node
   linkType: hard
 
-"@payloadcms/next@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/next@npm:3.63.0"
+"@payloadcms/next@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/next@npm:3.68.1"
   dependencies:
     "@dnd-kit/core": "npm:6.0.8"
-    "@payloadcms/graphql": "npm:3.63.0"
-    "@payloadcms/translations": "npm:3.63.0"
-    "@payloadcms/ui": "npm:3.63.0"
+    "@payloadcms/graphql": "npm:3.68.1"
+    "@payloadcms/translations": "npm:3.68.1"
+    "@payloadcms/ui": "npm:3.68.1"
     busboy: "npm:^1.6.0"
     dequal: "npm:2.0.3"
     file-type: "npm:19.3.0"
@@ -1511,74 +1511,78 @@ __metadata:
     uuid: "npm:10.0.0"
   peerDependencies:
     graphql: ^16.8.1
-    next: ^15.2.3
-    payload: 3.63.0
-  checksum: 10c0/3877bcad0959a6ed0c65403e6389c8d0cde18093ad680fad19f041dd4b3327c7cd46e70896129c67bc0aeb02a93cf3e6a01a2a2f3e5a6bcfb665d6217cac7d1e
+    next: ^15.4.8
+    payload: 3.68.1
+  checksum: 10c0/12ad8e6f00ba139d8ff2129542a1a9547b74107d85c3c528af199441012c2f77b5ee43c38ce6be3ea2fefd232e1fc39cd68e4d14dee37e7f235cf84f19acf179
   languageName: node
   linkType: hard
 
-"@payloadcms/plugin-nested-docs@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/plugin-nested-docs@npm:3.63.0"
+"@payloadcms/plugin-nested-docs@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/plugin-nested-docs@npm:3.68.1"
   peerDependencies:
-    payload: 3.63.0
-  checksum: 10c0/5cdf90894fe63cc3b4a1d0863de2ad8678fe946478ae7435bcb82b3357eb7adbb1db460395038960adf0a96701091275f7d7fa6003653c2b83a90fdfe9e321d2
+    payload: 3.68.1
+  checksum: 10c0/c0d79058c94e394b7be804b15e0a44e2fcb572d8fb01eacbe50cfd715311b2cd06bf6427280c6996d97f789ef457db4451c406f3288b7e23443185ec70e8f133
   languageName: node
   linkType: hard
 
-"@payloadcms/plugin-redirects@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/plugin-redirects@npm:3.63.0"
-  peerDependencies:
-    payload: 3.63.0
-  checksum: 10c0/3b73fad7e7e5c015eecb68562a43a0f6354c5126c2cb87896800a8a81f940910a52ad3af9f8ede316825a7dbdf9c1a97fdcb4c2fd5f3f601ca35d3d0b85efda8
-  languageName: node
-  linkType: hard
-
-"@payloadcms/plugin-seo@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/plugin-seo@npm:3.63.0"
+"@payloadcms/plugin-redirects@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/plugin-redirects@npm:3.68.1"
   dependencies:
-    "@payloadcms/translations": "npm:3.63.0"
-    "@payloadcms/ui": "npm:3.63.0"
+    "@payloadcms/translations": "npm:3.68.1"
+    payload: "npm:3.68.1"
   peerDependencies:
-    payload: 3.63.0
-    react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-    react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-  checksum: 10c0/aef929e679a255a8d264973418c57333e7038ae1d0675ea7ebb8be88a9e08832410a98804e7c2e36c288baa04f5bc64a801f9ead2c9414a648dea87830890680
+    payload: 3.68.1
+  checksum: 10c0/810e862e03317176d8688643e522bfd81043a24165c95d9a8296083323fbed6e900e799bbfd9e39aa26f58a8b53b8505b6617593d0707b0485c3dc007c7bdfc2
   languageName: node
   linkType: hard
 
-"@payloadcms/richtext-slate@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/richtext-slate@npm:3.63.0"
+"@payloadcms/plugin-seo@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/plugin-seo@npm:3.68.1"
   dependencies:
-    "@payloadcms/translations": "npm:3.63.0"
-    "@payloadcms/ui": "npm:3.63.0"
+    "@payloadcms/translations": "npm:3.68.1"
+    "@payloadcms/ui": "npm:3.68.1"
+  peerDependencies:
+    payload: 3.68.1
+    react: ^19.0.1 || ^19.1.2 || ^19.2.1
+    react-dom: ^19.0.1 || ^19.1.2 || ^19.2.1
+  checksum: 10c0/1135e03ee1993fefd6f26417624b979f4a5f2fe212fb126de6be4a44e7a7ff6ac5c251086587acaae9e5fb34d352efcb7aa5f08f9383ae2969c7b35221131b73
+  languageName: node
+  linkType: hard
+
+"@payloadcms/richtext-slate@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/richtext-slate@npm:3.68.1"
+  dependencies:
+    "@payloadcms/translations": "npm:3.68.1"
+    "@payloadcms/ui": "npm:3.68.1"
     is-hotkey: "npm:0.2.0"
     slate: "npm:0.91.4"
     slate-history: "npm:0.86.0"
     slate-hyperscript: "npm:0.81.3"
     slate-react: "npm:0.92.0"
   peerDependencies:
-    payload: 3.63.0
-    react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-  checksum: 10c0/fc12080307fb4469a666218044e46e2ca9ef78aafa5aa16ac78172ca66583969c3fe477f3f4fc8e489561077d7ea0f93b40776356bb35baa7f1748acf14d011d
+    payload: 3.68.1
+    react: ^19.0.1 || ^19.1.2 || ^19.2.1
+    react-dom: ^19.0.1 || ^19.1.2 || ^19.2.1
+  checksum: 10c0/0400b1a5cab653fc5a0f45da853e8f298c835ba00edc3bcac6a4ec8cc8c09e22ae7bbcf2cc1dd56086f8046d3fb24d11e41950a1c77fa6bd19bbd116e75669a3
   languageName: node
   linkType: hard
 
-"@payloadcms/translations@npm:3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/translations@npm:3.63.0"
+"@payloadcms/translations@npm:3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/translations@npm:3.68.1"
   dependencies:
     date-fns: "npm:4.1.0"
-  checksum: 10c0/9500c84d2e8055d2cdd1a8ce85c44f00f0610cc128a238730a8ffbc8c29e8b8c4ae088a927286bdd6d9e47b17ba63c3b782e6ad016c5b8de25e72916a8bf65d7
+  checksum: 10c0/391ebd703ffa16365d1deb66acec265a63325e27429e059a579436dbf75d307ccd6697b3d50d465a814e13d0da4225b086b22f6e93cb3d9705f028a76d5a7dd6
   languageName: node
   linkType: hard
 
-"@payloadcms/ui@npm:3.63.0, @payloadcms/ui@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "@payloadcms/ui@npm:3.63.0"
+"@payloadcms/ui@npm:3.68.1, @payloadcms/ui@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "@payloadcms/ui@npm:3.68.1"
   dependencies:
     "@date-fns/tz": "npm:1.2.0"
     "@dnd-kit/core": "npm:6.0.8"
@@ -1588,7 +1592,7 @@ __metadata:
     "@faceless-ui/scroll-info": "npm:2.0.0"
     "@faceless-ui/window-info": "npm:3.0.1"
     "@monaco-editor/react": "npm:4.7.0"
-    "@payloadcms/translations": "npm:3.63.0"
+    "@payloadcms/translations": "npm:3.68.1"
     bson-objectid: "npm:2.0.4"
     date-fns: "npm:4.1.0"
     dequal: "npm:2.0.3"
@@ -1604,11 +1608,11 @@ __metadata:
     use-context-selector: "npm:2.0.0"
     uuid: "npm:10.0.0"
   peerDependencies:
-    next: ^15.2.3
-    payload: 3.63.0
-    react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-    react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-  checksum: 10c0/5360eb8c7642f04938e1496e6ac22acd1a76e1361db294f7bc9d8aaaeebe99bd321a3ad394c756190c26fb3412ba9214647e88d001c0bc11575963afd06ab085
+    next: ^15.2.6 || ^15.3.6 || ^15.4.8 || ^15.5.7
+    payload: 3.68.1
+    react: ^19.0.1 || ^19.1.2 || ^19.2.1
+    react-dom: ^19.0.1 || ^19.1.2 || ^19.2.1
+  checksum: 10c0/56470d07cbf7638f367d820c2ab19ffb32f751990ed1902d8be7c7c30d491fd19179cb1926168a1f1ee141aaae736423858de650bad83669b633bc96cbd609e2
   languageName: node
   linkType: hard
 
@@ -2609,13 +2613,13 @@ __metadata:
   resolution: "bside-payload@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.39.1"
-    "@payloadcms/db-mongodb": "npm:^3.63.0"
-    "@payloadcms/next": "npm:^3.63.0"
-    "@payloadcms/plugin-nested-docs": "npm:^3.63.0"
-    "@payloadcms/plugin-redirects": "npm:^3.63.0"
-    "@payloadcms/plugin-seo": "npm:^3.63.0"
-    "@payloadcms/richtext-slate": "npm:^3.63.0"
-    "@payloadcms/ui": "npm:^3.63.0"
+    "@payloadcms/db-mongodb": "npm:^3.68.1"
+    "@payloadcms/next": "npm:^3.68.1"
+    "@payloadcms/plugin-nested-docs": "npm:^3.68.1"
+    "@payloadcms/plugin-redirects": "npm:^3.68.1"
+    "@payloadcms/plugin-seo": "npm:^3.68.1"
+    "@payloadcms/richtext-slate": "npm:^3.68.1"
+    "@payloadcms/ui": "npm:^3.68.1"
     "@types/lodash-es": "npm:^4.17.12"
     "@types/node": "npm:^24.10.0"
     "@types/passport": "npm:^1.0.17"
@@ -2632,9 +2636,9 @@ __metadata:
     eslint-config-next: "npm:16.0.1"
     graphql: "npm:^16.12.0"
     lodash-es: "npm:^4.17.21"
-    next: "npm:15.5.6"
+    next: "npm:^15.4.8"
     passport: "npm:^0.7.0"
-    payload: "npm:^3.63.0"
+    payload: "npm:^3.68.1"
     payload-blurhash-plugin: "npm:^3.1.0"
     payload-oauth2: "npm:^1.0.19"
     prettier: "npm:^3.6.2"
@@ -2644,7 +2648,7 @@ __metadata:
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.46.3"
-    yarn: "npm:^1.22.22"
+    yarn: "npm:2.0.0-rc.24"
   languageName: unknown
   linkType: soft
 
@@ -5591,19 +5595,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:15.5.6":
-  version: 15.5.6
-  resolution: "next@npm:15.5.6"
+"next@npm:^15.4.8":
+  version: 15.5.7
+  resolution: "next@npm:15.5.7"
   dependencies:
-    "@next/env": "npm:15.5.6"
-    "@next/swc-darwin-arm64": "npm:15.5.6"
-    "@next/swc-darwin-x64": "npm:15.5.6"
-    "@next/swc-linux-arm64-gnu": "npm:15.5.6"
-    "@next/swc-linux-arm64-musl": "npm:15.5.6"
-    "@next/swc-linux-x64-gnu": "npm:15.5.6"
-    "@next/swc-linux-x64-musl": "npm:15.5.6"
-    "@next/swc-win32-arm64-msvc": "npm:15.5.6"
-    "@next/swc-win32-x64-msvc": "npm:15.5.6"
+    "@next/env": "npm:15.5.7"
+    "@next/swc-darwin-arm64": "npm:15.5.7"
+    "@next/swc-darwin-x64": "npm:15.5.7"
+    "@next/swc-linux-arm64-gnu": "npm:15.5.7"
+    "@next/swc-linux-arm64-musl": "npm:15.5.7"
+    "@next/swc-linux-x64-gnu": "npm:15.5.7"
+    "@next/swc-linux-x64-musl": "npm:15.5.7"
+    "@next/swc-win32-arm64-msvc": "npm:15.5.7"
+    "@next/swc-win32-x64-msvc": "npm:15.5.7"
     "@swc/helpers": "npm:0.5.15"
     caniuse-lite: "npm:^1.0.30001579"
     postcss: "npm:8.4.31"
@@ -5646,7 +5650,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 10c0/17d08dda8e0503aff9f2de27ea77bde193fd5f9f3faaaefa9dfb0f8957880c49f47cb1ebb6c3a014664890dee2aafa1da31e3093e7fd8c205caf956d25781704
+  checksum: 10c0/baf5b9f42416c478702b3894479b3d7862bc4abf18afe0e43b7fc7ed35567b8dc6cb76cd94906505bab9013cb8d0f3370cdc0451c01ec15ae5a638d37b5ba7c7
   languageName: node
   linkType: hard
 
@@ -5989,12 +5993,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"payload@npm:^3.63.0":
-  version: 3.63.0
-  resolution: "payload@npm:3.63.0"
+"payload@npm:3.68.1, payload@npm:^3.68.1":
+  version: 3.68.1
+  resolution: "payload@npm:3.68.1"
   dependencies:
     "@next/env": "npm:^15.1.5"
-    "@payloadcms/translations": "npm:3.63.0"
+    "@payloadcms/translations": "npm:3.68.1"
     "@types/busboy": "npm:1.5.4"
     ajv: "npm:8.17.1"
     bson-objectid: "npm:2.0.4"
@@ -6028,7 +6032,7 @@ __metadata:
     graphql: ^16.8.1
   bin:
     payload: bin.js
-  checksum: 10c0/57e41c4a75b65e71276e0d3504936ab051b325174b196b8d7a36597c421a6c0c86c88d29c6be0f75efefdcbf401fea3783f912a4b26e6d07ae027f509a9cf2a9
+  checksum: 10c0/c39d666c60738c6975a399a3520a672fcc91fdec5897d3c11b9c91b7fd2cd20b78cbb465ce5e9d557dc6bf2523fdd121035a2058918e939d458dda7e9cb3cc96
   languageName: node
   linkType: hard
 
@@ -8079,13 +8083,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn@npm:^1.22.22":
-  version: 1.22.22
-  resolution: "yarn@npm:1.22.22"
+"yarn@npm:2.0.0-rc.24":
+  version: 2.0.0-rc.24
+  resolution: "yarn@npm:2.0.0-rc.24"
   bin:
-    yarn: bin/yarn.js
-    yarnpkg: bin/yarn.js
-  checksum: 10c0/8c77198c93d7542e7f4e131c63b66de357b7076ecfbcfe709ec0d674115c2dd9edaa45196e5510e6e9366d368707a802579e3402071002e1c9d9a99d491478de
+    yarn: ./bin/yarn.js
+    yarnpkg: ./bin/yarn.js
+  checksum: 10c0/6a099af500cb638036b04b95acc5f192d970d78a3b9097d19fd4dd0a9c8f4daf2494bc7b51c0404629aaef356a51538cde1fd6075afa734616f9141f219a932d
   languageName: node
   linkType: hard
 
