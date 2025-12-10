@@ -25,10 +25,8 @@ const News: CollectionConfig = {
         group: 'Seiten',
 
         livePreview: {
-            url: ({ data, locale }) => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.NEXT_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}news/${createNewsSlug(data.slug, data.id, data.title)}`;
-            },
+            url: ({ data, locale }) =>
+                `${process.env.NEXT_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}news/${createNewsSlug(data.slug, data.id, data.title)}`,
         },
     },
 

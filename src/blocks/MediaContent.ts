@@ -62,7 +62,7 @@ export const MediaContent: Block = {
                     type: 'text',
                     required: false,
                     admin: {
-                        // @ts-expect-error
+                        // @ts-expect-error - Payload CMS typing issue: first parameter is always undefined but required by type definition
                         condition: (_: undefined, siblingData: { alignment: string }): boolean => {
                             return siblingData.alignment === 'contentOnBottom';
                         },
