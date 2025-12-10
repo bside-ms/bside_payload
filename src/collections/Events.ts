@@ -20,10 +20,8 @@ const Events: CollectionConfig = {
         defaultColumns: ['title', 'eventDate', 'eventStart', 'updatedAt', '_status'],
 
         livePreview: {
-            url: ({ data, locale }) => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                return `${process.env.NEXT_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}events/${createEventSlug(data.slug, data.title, data.id)}`;
-            },
+            url: ({ data, locale }) =>
+                `${process.env.NEXT_PUBLIC_SITE_URL}/${locale.code === 'de' ? '' : 'en/'}events/${createEventSlug(data.slug, data.title, data.id)}`,
         },
     },
 
