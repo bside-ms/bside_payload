@@ -132,7 +132,6 @@ export default buildConfig({
         admin: '/admin',
     },
 
-    serverURL: process.env.NEXT_PUBLIC_CMS_URL,
     cors: '*',
 
     telemetry: false,
