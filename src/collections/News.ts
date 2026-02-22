@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { isAdmin } from '@/access/isAdmin';
 import { isUser, isUserFieldLevel, isUserOrPublished } from '@/access/isUser';
 import { CallToAction } from '@/blocks/CallToAction';
+import { authorFields, authorFieldsBeforeChangeHook } from '@/fields/authorFields';
 import { Content } from '@/blocks/Content';
 import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
 import { HeadlineBlock } from '@/blocks/Headline';
@@ -39,6 +40,10 @@ const News: CollectionConfig = {
         read: isUserOrPublished,
         update: isUser,
         delete: isAdmin,
+    },
+
+    hooks: {
+        beforeChange: [authorFieldsBeforeChangeHook],
     },
 
     fields: [
@@ -192,6 +197,8 @@ const News: CollectionConfig = {
                 ],
             },
         },
+
+        ...authorFields,
     ],
 };
 

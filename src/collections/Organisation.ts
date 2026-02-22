@@ -3,6 +3,7 @@ import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
 import { isEditor } from '@/access/isEditor';
 import { isUserOrPublished } from '@/access/isUser';
 import { CallToAction } from '@/blocks/CallToAction';
+import { authorFields, authorFieldsBeforeChangeHook } from '@/fields/authorFields';
 import { CircleOverviewBlock } from '@/blocks/CircleOverviewBlock';
 import { Content } from '@/blocks/Content';
 import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
@@ -34,6 +35,10 @@ const Organisation: CollectionConfig = {
         read: isUserOrPublished,
         update: isEditor,
         delete: isAdmin,
+    },
+
+    hooks: {
+        beforeChange: [authorFieldsBeforeChangeHook],
     },
 
     fields: [
@@ -97,6 +102,8 @@ const Organisation: CollectionConfig = {
             hidden: true,
             defaultValue: 'organisation',
         },
+
+        ...authorFields,
     ],
 };
 

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { isAdmin } from '@/access/isAdmin';
+import { authorFields, authorFieldsBeforeChangeHook } from '@/fields/authorFields';
 
 const NotFoundPages: CollectionConfig = {
     slug: 'not-found-pages',
@@ -24,12 +25,18 @@ const NotFoundPages: CollectionConfig = {
         delete: isAdmin,
     },
 
+    hooks: {
+        beforeChange: [authorFieldsBeforeChangeHook],
+    },
+
     fields: [
         {
             name: 'slug',
             type: 'text',
             required: true,
         },
+
+        ...authorFields,
     ],
 };
 

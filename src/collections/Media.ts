@@ -2,6 +2,7 @@ import path from 'path';
 import type { CollectionConfig } from 'payload';
 import { isAdmin } from '@/access/isAdmin';
 import { isUser } from '@/access/isUser';
+import { authorFields, authorFieldsBeforeChangeHook } from '@/fields/authorFields';
 import { fileURLToPath } from 'url';
 
 const filename = fileURLToPath(import.meta.url);
@@ -26,6 +27,10 @@ const Media: CollectionConfig = {
         useAsTitle: 'filename',
         description: 'Uploads are currently set to read-only.',
         group: 'Medien',
+    },
+
+    hooks: {
+        beforeChange: [authorFieldsBeforeChangeHook],
     },
 
     upload: {
@@ -67,6 +72,8 @@ const Media: CollectionConfig = {
                 description: 'Gib "-" ein, falls es sich um ein rein dekoratives Element handelt',
             },
         },
+
+        ...authorFields,
     ],
 };
 
