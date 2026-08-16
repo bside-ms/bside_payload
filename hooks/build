@@ -1,4 +1,6 @@
 #!/bin/bash
+# Leftover Docker Hub Automated Build hook. Production images are built by
+# GitHub Actions and pushed to bsidems/bside-cms. Do not rely on this file.
 set -euo pipefail
 
 if [ "${SOURCE_BRANCH}" = "main" ]; then

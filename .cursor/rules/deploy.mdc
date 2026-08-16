@@ -1,0 +1,24 @@
+---
+description: CMS Docker Hub build, Mongo, media volume, and server runtime
+globs: Dockerfile, hooks/**, .github/**, docker-compose.yml, .env.skel, src/migrations/**/*.ts
+alwaysApply: false
+---
+
+# CMS deploy
+
+`.github/workflows/docker-image.yml` lints, typechecks, and checks Prettier on every push. On `main` it builds and pushes `bsidems/bside-cms:latest` plus `bsidems/bside-cms:<sha>`.
+
+The only Docker build-arg is `CMS_URL` (GitHub variable, maps to `NEXT_PUBLIC_CMS_URL`). Production value is `https://cms.b-side.ms`. Do not bake secrets.
+
+`hooks/build` is leftover from Docker Hub Automated Builds and is not used anymore.
+
+Production: `/srv/docker/b-side.ms/cms/`, image `bsidems/bside-cms:latest`, `.env`, Mongo volume `./data`, media volume `./media:/home/node/media`, Traefik host `cms.b-side.ms`, port 3000. Networks `bside_payload` + `bside_payload_internal`.
+
+Deploy: `docker compose up -d --pull always payload`. Do not `down` the whole stack. Never `down -v`.
+
+- Local compose starts Mongo only, not the CMS app.
+- `PAYLOAD_CONFIG_PATH` on the server compose is a Payload v2 leftover. Ignore it.
+- Media is excluded from the image. Never treat the container filesystem as the media store.
+- Mongo is 4.4.6 with a long-lived volume. Do not bump the image casually.
+- In-repo migrations are `src/migrations/`. The server `migrations/` folder is leftover.
+- `NEXT_PUBLIC_CMS_URL` must be a build-arg. OAuth callbacks depend on it.

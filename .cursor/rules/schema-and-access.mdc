@@ -1,0 +1,19 @@
+---
+description: Payload collections, globals, blocks, and access control
+globs: src/collections/**/*.ts, src/globals/**/*.ts, src/blocks/**/*.ts, src/access/**/*.ts, src/payload.config.ts, src/fields/**/*.ts
+alwaysApply: false
+---
+
+# Schema and access
+
+`src/payload.config.ts` is the registry. Add both sides of every new collection/global there.
+
+Roles: `public` < `editor` / `organisator` < `admin`. Circle updates also use `hasCircleAccess`. `organisator` is for selected globals, not collections.
+
+- Keep drafts + `isUserOrPublished` on public content. Locking published `read` breaks the website.
+- New blocks need a slug that the website `ReusableBlocks.tsx` already handles, or a matching website change in the same effort.
+- `pages` uses nested-docs breadcrumbs. Do not remove `parent` / breadcrumbs without updating `pages/[...slug].tsx`.
+- Event/news website URLs are `{id.slice(-4)}-{kebab}`. `identifier` is afterRead-only; do not query it as a stored field.
+- `users.create` must stay open for Keycloak first login. Restrict with field-level access.
+- Do not put secrets or mail credentials on public-create collections.
+- Production org ids the website hardcodes: Kollektiv `647e605b7054a955522b2471`, Kultur `647e60a67054a955522b24ad`, GmbH `647e60bd7054a955522b24cb`.
