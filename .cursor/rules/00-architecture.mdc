@@ -1,0 +1,19 @@
+---
+description: Core architecture and decision rules for the B-Side Payload CMS
+alwaysApply: true
+---
+
+# B-Side CMS
+
+This repo is Payload 3 on Next.js 15 App Router. It is the backend for [bside-ms/bside_website](https://github.com/bside-ms/bside_website). Read `AGENTS.md` here and in the website repo before changing schema, access, env, or deploy.
+
+- REST only. GraphQL is disabled. Rich text is Slate, not Lexical.
+- Package manager is Yarn 4. Never commit `package-lock.json`.
+- After collection/global/block/admin-component changes: `yarn generate:types` and if needed `yarn generate:importmap`. Manually copy types to the website if it consumes the change. That copy is the official workflow.
+- Published docs must stay anonymously readable (`isUserOrPublished`). The website fetches without a real API key except for drafts.
+- Public `create` on `contact-forms` and `not-found-pages` is intentional.
+- Human login is Keycloak. Do not re-enable local passwords without a migration plan.
+- GitHub Actions on `main` pushes `bsidems/bside-cms`. Deploy with `docker compose up -d --pull always payload` so Mongo stays up. No live staging stack.
+- `REVALIDATION_KEY` is dead. Do not wire features to it.
+- Website organisation landings hardcode Mongo ids for Kollektiv, Kultur, GmbH. Do not delete those docs.
+- CMS redirect edits go live only after a website rebuild.

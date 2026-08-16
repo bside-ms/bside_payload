@@ -4,11 +4,13 @@ Backend system for the B-Side website, built with Payload CMS v3 and Next.js.
 
 **Repository**: [https://github.com/bside-ms/bside_payload](https://github.com/bside-ms/bside_payload)
 
+Agents: read [AGENTS.md](./AGENTS.md) before changing collections, access, env, or deploy. The public site lives in [bside-ms/bside_website](https://github.com/bside-ms/bside_website).
+
 ## 🎯 Overview
 
 This project is the Content Management System (CMS) for the B-Side website. It enables the management of events, circles, organizations, news, pages, and media content. The system supports multilingual content (German/English) and provides a role-based permission system.
 
-## 📦 Prerequisites
+## 📦 Prerequisitesx
 
 - Node.js
 - Yarn

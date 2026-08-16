@@ -4,8 +4,8 @@ RUN corepack enable && corepack prepare yarn@4.9.2 --activate
 
 WORKDIR /home/node
 
-ARG NEXT_PUBLIC_CMS_URL
-ENV NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}
+ARG CMS_URL
+ENV NEXT_PUBLIC_CMS_URL=${CMS_URL}
 
 FROM base AS builder
 COPY package.json yarn.lock .yarnrc.yml ./
@@ -22,8 +22,8 @@ WORKDIR /home/node
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn .yarn
 
-ARG NEXT_PUBLIC_CMS_URL
-ENV NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}
+ARG CMS_URL
+ENV NEXT_PUBLIC_CMS_URL=${CMS_URL}
 
 COPY --from=builder /home/node/.next ./.next
 COPY --from=builder /home/node/node_modules ./node_modules
