@@ -10,6 +10,7 @@ import { HeadlineBlock } from '@/blocks/Headline';
 import { MediaBlock } from '@/blocks/MediaBlock';
 import { MediaContent } from '@/blocks/MediaContent';
 import { TeaserBlock } from '@/blocks/Teaser';
+import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 
 const Organisation: CollectionConfig = {
     slug: 'organisations',
@@ -34,6 +35,11 @@ const Organisation: CollectionConfig = {
         read: isUserOrPublished,
         update: isEditor,
         delete: isAdmin,
+    },
+
+    hooks: {
+        afterChange: [revalidateAfterChange],
+        afterDelete: [revalidateAfterDelete],
     },
 
     fields: [

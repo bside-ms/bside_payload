@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload';
 import { isAdmin } from '@/access/isAdmin';
+import { revalidateGlobal } from '@/utilities/revalidateWebsite';
 
 export const Banner: GlobalConfig = {
     slug: 'banner',
@@ -17,6 +18,10 @@ export const Banner: GlobalConfig = {
     access: {
         read: () => true,
         update: isAdmin,
+    },
+
+    hooks: {
+        afterChange: [revalidateGlobal],
     },
 
     fields: [

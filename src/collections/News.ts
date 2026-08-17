@@ -11,6 +11,7 @@ import { Slider } from '@/blocks/Slider';
 import { TeaserBlock } from '@/blocks/Teaser';
 import { createNewsSlug } from '@/utilities/createNewsSlug';
 import formatSlug from '@/utilities/formatSlug';
+import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 
 const News: CollectionConfig = {
     slug: 'news',
@@ -39,6 +40,11 @@ const News: CollectionConfig = {
         read: isUserOrPublished,
         update: isUser,
         delete: isAdmin,
+    },
+
+    hooks: {
+        afterChange: [revalidateAfterChange],
+        afterDelete: [revalidateAfterDelete],
     },
 
     fields: [

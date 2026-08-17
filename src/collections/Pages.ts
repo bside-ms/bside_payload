@@ -11,6 +11,7 @@ import { MediaContent } from '@/blocks/MediaContent';
 import { Slider } from '@/blocks/Slider';
 import { TeaserBlock } from '@/blocks/Teaser';
 import { slugField } from '@/fields/slug';
+import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 
 const Pages: CollectionConfig = {
     slug: 'pages',
@@ -40,6 +41,11 @@ const Pages: CollectionConfig = {
         read: isUserOrPublished,
         update: isEditor,
         delete: isAdmin,
+    },
+
+    hooks: {
+        afterChange: [revalidateAfterChange],
+        afterDelete: [revalidateAfterDelete],
     },
 
     fields: [

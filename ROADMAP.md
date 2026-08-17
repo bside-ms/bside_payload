@@ -44,18 +44,21 @@ In [bside_website](https://github.com/bside-ms/bside_website):
 
 ### A2. CMS calls the website after publish
 
-- [ ] Add `src/utilities/revalidateWebsite.ts`: `POST ${NEXT_PUBLIC_SITE_URL}/api/revalidate` with `REVALIDATION_KEY`.
+Implemented on `a2-revalidate-after-publish` (CMS + website). Check the boxes when both PRs are merged and live.
+
+- [ ] Add `src/utilities/revalidateWebsite.ts`: `POST ${NEXT_PUBLIC_SITE_URL}/api/revalidate` with header `x-revalidation-key` = `REVALIDATION_KEY` and body `{ paths?: string[] }`.
 - [ ] Log failures. Never fail the Payload save if the website is down.
 - [ ] Skip draft-only saves. Run when `doc._status === 'published'` or the previous doc was published (unpublish / delete).
 - [ ] Globals have no drafts: revalidate on every update.
 - [ ] `afterChange` / `afterDelete` on `pages`, `events`, `news`, `circles`, `organisations`, `redirects`.
 - [ ] Same on globals `start-page`, `about-bside`, `event-page`, `event-archive`, `banner`.
-- [ ] Send extra paths when known (page breadcrumb, event/news slug, circle kebab name, org landings). Always include the core set.
+- [ ] Send extra paths when known (page breadcrumb, event/news slug, circle kebab name, org landings). Website always includes the core set and expands `/en`.
+- [ ] Website: accept extra `paths` from the body and revalidate them in addition to the core set.
 
 ### A3. Server after A1 + A2
 
 - [ ] Confirm CMS `.env` has a real `REVALIDATION_KEY`.
-- [ ] Set the same value on `website.env` as `NEXT_PRIVATE_REVALIDATION_KEY`.
+- [ ] Set the same value on `website.env` as `REVALIDATION_KEY`.
 - [ ] Deploy website, then CMS: `docker compose up -d --pull always` / `... payload`.
 - [ ] Test: publish a page, hard-reload within a few seconds.
 - [ ] If a page is still stuck from before this work: restart the website container (ISR cache in `./cache`).
@@ -339,8 +342,8 @@ Canonical detail lives in the [website ROADMAP G6](https://github.com/bside-ms/b
 ## Suggested PR order
 
 1. A1 website revalidate API (done, live)
-2. **G0 CMS Hub cutover** (next; playbook above). Own PR. No A2 in that PR.
-3. A2 CMS hooks, then A3 server env
+2. **G0 CMS Hub cutover** (done on `main`; playbook above).
+3. A2 CMS hooks + website extra paths, then A3 server env
 4. B1 preview slugs (can ride with A2)
 5. B2 runtime redirects
 6. B3 + C + D1

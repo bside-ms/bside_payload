@@ -10,6 +10,7 @@ import { MediaBlock } from '@/blocks/MediaBlock';
 import { MediaContent } from '@/blocks/MediaContent';
 import { TeaserBlock } from '@/blocks/Teaser';
 import kebabCase from 'lodash-es/kebabCase';
+import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 
 const Circles: CollectionConfig = {
     slug: 'circles',
@@ -39,6 +40,11 @@ const Circles: CollectionConfig = {
         read: isUserOrPublished,
         update: hasCircleAccess('id'),
         delete: isAdmin,
+    },
+
+    hooks: {
+        afterChange: [revalidateAfterChange],
+        afterDelete: [revalidateAfterDelete],
     },
 
     fields: [
