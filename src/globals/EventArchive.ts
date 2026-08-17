@@ -8,6 +8,7 @@ import { CallToAction } from '@/blocks/CallToAction';
 import { TeaserBlock } from '@/blocks/Teaser';
 import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
 import { Slider } from '@/blocks/Slider';
+import { revalidateGlobal } from '@/utilities/revalidateWebsite';
 
 export const EventArchive: GlobalConfig = {
     slug: 'event-archive',
@@ -25,6 +26,10 @@ export const EventArchive: GlobalConfig = {
     access: {
         read: () => true,
         update: isOrganisator,
+    },
+
+    hooks: {
+        afterChange: [revalidateGlobal],
     },
 
     fields: [

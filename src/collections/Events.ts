@@ -5,6 +5,7 @@ import { isUser, isUserOrPublished } from '@/access/isUser';
 import richText from '@/fields/richText';
 import { slugField } from '@/fields/slug';
 import createEventSlug from '@/utilities/createEventSlug';
+import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 
 const Events: CollectionConfig = {
     slug: 'events',
@@ -34,6 +35,11 @@ const Events: CollectionConfig = {
         read: isUserOrPublished,
         update: isEditor,
         delete: isAdmin,
+    },
+
+    hooks: {
+        afterChange: [revalidateAfterChange],
+        afterDelete: [revalidateAfterDelete],
     },
 
     fields: [

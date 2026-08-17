@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload';
 import { isOrganisator } from '@/access/isOrganisator';
+import { revalidateGlobal } from '@/utilities/revalidateWebsite';
 
 export const StartPage: GlobalConfig = {
     slug: 'start-page',
@@ -17,6 +18,10 @@ export const StartPage: GlobalConfig = {
     access: {
         read: () => true,
         update: isOrganisator,
+    },
+
+    hooks: {
+        afterChange: [revalidateGlobal],
     },
 
     fields: [

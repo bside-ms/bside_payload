@@ -8,6 +8,7 @@ import { CallToAction } from '@/blocks/CallToAction';
 import { TeaserBlock } from '@/blocks/Teaser';
 import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
 import { Slider } from '@/blocks/Slider';
+import { revalidateGlobal } from '@/utilities/revalidateWebsite';
 
 export const EventPage: GlobalConfig = {
     slug: 'event-page',
@@ -25,6 +26,10 @@ export const EventPage: GlobalConfig = {
     access: {
         read: () => true,
         update: isOrganisator,
+    },
+
+    hooks: {
+        afterChange: [revalidateGlobal],
     },
 
     fields: [
