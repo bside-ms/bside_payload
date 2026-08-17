@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { isAdmin } from '@/access/isAdmin';
 import { isEditor, isEditorFieldLevel } from '@/access/isEditor';
 import { isUser, isUserOrPublished } from '@/access/isUser';
+import { authorFields, authorFieldsBeforeChangeHook } from '@/fields/authorFields';
 import richText from '@/fields/richText';
 import { slugField } from '@/fields/slug';
 import createEventSlug from '@/utilities/createEventSlug';
@@ -34,6 +35,10 @@ const Events: CollectionConfig = {
         read: isUserOrPublished,
         update: isEditor,
         delete: isAdmin,
+    },
+
+    hooks: {
+        beforeChange: [authorFieldsBeforeChangeHook],
     },
 
     fields: [
@@ -258,6 +263,8 @@ const Events: CollectionConfig = {
                 ],
             },
         },
+
+        ...authorFields,
     ],
 };
 

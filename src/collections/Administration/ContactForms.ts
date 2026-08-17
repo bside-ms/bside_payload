@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { isAdmin } from '@/access/isAdmin';
+import { authorFields, authorFieldsBeforeChangeHook } from '@/fields/authorFields';
 
 const ContactForms: CollectionConfig = {
     slug: 'contact-forms',
@@ -22,6 +23,10 @@ const ContactForms: CollectionConfig = {
         read: isAdmin,
         update: isAdmin,
         delete: isAdmin,
+    },
+
+    hooks: {
+        beforeChange: [authorFieldsBeforeChangeHook],
     },
 
     fields: [
@@ -50,6 +55,8 @@ const ContactForms: CollectionConfig = {
             type: 'text',
             required: true,
         },
+
+        ...authorFields,
     ],
 };
 

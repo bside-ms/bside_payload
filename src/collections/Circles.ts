@@ -3,6 +3,7 @@ import { hasCircleAccess } from '@/access/hasCircleAccess';
 import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin';
 import { isUserOrPublished } from '@/access/isUser';
 import { CallToAction } from '@/blocks/CallToAction';
+import { authorFields, authorFieldsBeforeChangeHook } from '@/fields/authorFields';
 import { Content } from '@/blocks/Content';
 import { EventOverviewBlock } from '@/blocks/EventOverviewBlock';
 import { HeadlineBlock } from '@/blocks/Headline';
@@ -39,6 +40,10 @@ const Circles: CollectionConfig = {
         read: isUserOrPublished,
         update: hasCircleAccess('id'),
         delete: isAdmin,
+    },
+
+    hooks: {
+        beforeChange: [authorFieldsBeforeChangeHook],
     },
 
     fields: [
@@ -128,6 +133,8 @@ const Circles: CollectionConfig = {
                 },
             ],
         },
+
+        ...authorFields,
     ],
 };
 

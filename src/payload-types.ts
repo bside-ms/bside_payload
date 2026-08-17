@@ -236,6 +236,14 @@ export interface Event {
    * Dieses Feld wird automatisch verwaltet.
    */
   identifier?: string | null;
+  /**
+   * Wird automatisch beim Erstellen gesetzt.
+   */
+  createdBy?: (string | null) | User;
+  /**
+   * Wird automatisch beim Speichern gesetzt.
+   */
+  updatedBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -252,6 +260,14 @@ export interface Media {
    * Gib "-" ein, falls es sich um ein rein dekoratives Element handelt
    */
   alt: string;
+  /**
+   * Wird automatisch beim Erstellen gesetzt.
+   */
+  createdBy?: (string | null) | User;
+  /**
+   * Wird automatisch beim Speichern gesetzt.
+   */
+  updatedBy?: (string | null) | User;
   blurhash?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -290,6 +306,175 @@ export interface Media {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  roles: ('public' | 'editor' | 'organisator' | 'admin')[];
+  circles?: (string | Circle)[] | null;
+  sub?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "circles".
+ */
+export interface Circle {
+  id: string;
+  name: string;
+  hiddenType?: string | null;
+  organisation: string | Organisation;
+  /**
+   * Diese Beschreibung wird in den Kreisübersichten in der zweiten Zeile angezeigt.
+   */
+  description?: string | null;
+  /**
+   * Empfohlen: webp mit 1280x720px
+   */
+  circleImage?: (string | null) | Media;
+  /**
+   * Name eines auf dem Server liegenden Strichmännchen-Bildes
+   */
+  fallbackImage: string;
+  layout?:
+    | (
+        | {
+            title: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
+            teaser?: string | null;
+            /**
+             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
+             */
+            level: 'h1' | 'h2' | 'h3' | 'h4';
+            /**
+             * Dies ist die Größe, die im Browser angezeigt wird.
+             */
+            as: 'h1' | 'h2' | 'h3' | 'h4';
+            backgroundColor: 'white' | 'black';
+            /**
+             * Optional: Kann zur direkten Verlinkung verwendet werden.
+             */
+            anchor?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'headlineBlock';
+          }
+        | {
+            backgroundColor: 'white' | 'black';
+            backgroundWidth: 'full' | 'block';
+            columns: {
+              /**
+               *
+               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
+               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
+               *                             drei Spalten sein.
+               *
+               */
+              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
+              richText: {
+                [k: string]: unknown;
+              }[];
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'content';
+          }
+        | {
+            /**
+             * ToDo: Beschreibungstext einfügen.
+             */
+            media: string | Media;
+            size: 'normal' | 'wide' | 'event';
+            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+            caption?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mediaBlock';
+          }
+        | {
+            alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
+            backgroundColor: 'white' | 'black';
+            headline?: string | null;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
+            media: string | Media;
+            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
+            richText: {
+              [k: string]: unknown;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mediaContent';
+          }
+        | {
+            headlineTitle: string;
+            /**
+             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
+             */
+            headlineTeaser?: string | null;
+            /**
+             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
+             */
+            reversed?: boolean | null;
+            linkText: string;
+            linkHref: string;
+            /**
+             * ToDo: Beschreibung einfügen.
+             */
+            image: string | Media;
+            richText: {
+              [k: string]: unknown;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'teaser';
+          }
+        | {
+            title?: string | null;
+            text: string;
+            href: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'callToAction';
+          }
+        | {
+            title: string;
+            eventSide: 'textLeft' | 'textRight';
+            richText: {
+              [k: string]: unknown;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'eventOverview';
+          }
+      )[]
+    | null;
+  /**
+   * Wird automatisch beim Erstellen gesetzt.
+   */
+  createdBy?: (string | null) | User;
+  /**
+   * Wird automatisch beim Speichern gesetzt.
+   */
+  updatedBy?: (string | null) | User;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -431,152 +616,14 @@ export interface Organisation {
     description?: string | null;
   };
   hiddenType?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "circles".
- */
-export interface Circle {
-  id: string;
-  name: string;
-  hiddenType?: string | null;
-  organisation: string | Organisation;
   /**
-   * Diese Beschreibung wird in den Kreisübersichten in der zweiten Zeile angezeigt.
+   * Wird automatisch beim Erstellen gesetzt.
    */
-  description?: string | null;
+  createdBy?: (string | null) | User;
   /**
-   * Empfohlen: webp mit 1280x720px
+   * Wird automatisch beim Speichern gesetzt.
    */
-  circleImage?: (string | null) | Media;
-  /**
-   * Name eines auf dem Server liegenden Strichmännchen-Bildes
-   */
-  fallbackImage: string;
-  layout?:
-    | (
-        | {
-            title: string;
-            /**
-             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
-             */
-            teaser?: string | null;
-            /**
-             * Achtung: Es darf maximal eine Überschrift der Größe H1 geben!
-             */
-            level: 'h1' | 'h2' | 'h3' | 'h4';
-            /**
-             * Dies ist die Größe, die im Browser angezeigt wird.
-             */
-            as: 'h1' | 'h2' | 'h3' | 'h4';
-            backgroundColor: 'white' | 'black';
-            /**
-             * Optional: Kann zur direkten Verlinkung verwendet werden.
-             */
-            anchor?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'headlineBlock';
-          }
-        | {
-            backgroundColor: 'white' | 'black';
-            backgroundWidth: 'full' | 'block';
-            columns: {
-              /**
-               *
-               *                             Nur bei erster Spalte in jeweiligem Layout-Element relevant. Bei "Ganze Breite" ist nur eine Spalte
-               *                             im Element zulässig. Bei "Halbe Seite" und "Zwei Drittel" müssen es zwei, bei "Ein Drittel"
-               *                             drei Spalten sein.
-               *
-               */
-              width: 'full' | 'half' | 'oneThird' | 'twoThirds';
-              richText: {
-                [k: string]: unknown;
-              }[];
-              id?: string | null;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'content';
-          }
-        | {
-            /**
-             * ToDo: Beschreibungstext einfügen.
-             */
-            media: string | Media;
-            size: 'normal' | 'wide' | 'event';
-            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-            caption?: string | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'mediaBlock';
-          }
-        | {
-            alignment: 'contentOnLeft' | 'contentOnRight' | 'contentOnBottom';
-            backgroundColor: 'white' | 'black';
-            headline?: string | null;
-            /**
-             * ToDo: Beschreibung einfügen.
-             */
-            media: string | Media;
-            effects?: ('blur' | 'grayscale' | 'desaturated' | 'darker')[] | null;
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'mediaContent';
-          }
-        | {
-            headlineTitle: string;
-            /**
-             * Optional: Der Teaser wird als kleiner Text oberhalb der Überschrift angezeigt.
-             */
-            headlineTeaser?: string | null;
-            /**
-             * Wird dieser Haken gesetzt, wird das Bild auf der linken Seite angezeigt
-             */
-            reversed?: boolean | null;
-            linkText: string;
-            linkHref: string;
-            /**
-             * ToDo: Beschreibung einfügen.
-             */
-            image: string | Media;
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'teaser';
-          }
-        | {
-            title?: string | null;
-            text: string;
-            href: string;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'callToAction';
-          }
-        | {
-            title: string;
-            eventSide: 'textLeft' | 'textRight';
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'eventOverview';
-          }
-      )[]
-    | null;
-  meta?: {
-    title?: string | null;
-    description?: string | null;
-  };
+  updatedBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -745,6 +792,14 @@ export interface News {
    * Dieses Feld wird automatisch verwaltet.
    */
   identifier?: string | null;
+  /**
+   * Wird automatisch beim Erstellen gesetzt.
+   */
+  createdBy?: (string | null) | User;
+  /**
+   * Wird automatisch beim Speichern gesetzt.
+   */
+  updatedBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -887,6 +942,14 @@ export interface Page {
           }
       )[]
     | null;
+  /**
+   * Wird automatisch beim Erstellen gesetzt.
+   */
+  createdBy?: (string | null) | User;
+  /**
+   * Wird automatisch beim Speichern gesetzt.
+   */
+  updatedBy?: (string | null) | User;
   parent?: (string | null) | Page;
   breadcrumbs?:
     | {
@@ -915,6 +978,14 @@ export interface ContactForm {
   message: string;
   sendCopyToSender?: string | null;
   recipient: string;
+  /**
+   * Wird automatisch beim Erstellen gesetzt.
+   */
+  createdBy?: (string | null) | User;
+  /**
+   * Wird automatisch beim Speichern gesetzt.
+   */
+  updatedBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -926,6 +997,14 @@ export interface ContactForm {
 export interface NotFoundPage {
   id: string;
   slug: string;
+  /**
+   * Wird automatisch beim Erstellen gesetzt.
+   */
+  createdBy?: (string | null) | User;
+  /**
+   * Wird automatisch beim Speichern gesetzt.
+   */
+  updatedBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -962,21 +1041,6 @@ export interface Redirect {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: string;
-  email: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  roles: ('public' | 'editor' | 'organisator' | 'admin')[];
-  circles?: (string | Circle)[] | null;
-  sub?: string | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1120,6 +1184,8 @@ export interface EventsSelect<T extends boolean = true> {
   displayOnCircle?: T;
   slug?: T;
   identifier?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1219,6 +1285,8 @@ export interface CirclesSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
+  createdBy?: T;
+  updatedBy?: T;
   meta?:
     | T
     | {
@@ -1336,6 +1404,8 @@ export interface OrganisationsSelect<T extends boolean = true> {
         description?: T;
       };
   hiddenType?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1346,6 +1416,8 @@ export interface OrganisationsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  createdBy?: T;
+  updatedBy?: T;
   blurhash?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1504,6 +1576,8 @@ export interface NewsSelect<T extends boolean = true> {
             };
       };
   identifier?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1613,6 +1687,8 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
+  createdBy?: T;
+  updatedBy?: T;
   parent?: T;
   breadcrumbs?:
     | T
@@ -1642,6 +1718,8 @@ export interface ContactFormsSelect<T extends boolean = true> {
   message?: T;
   sendCopyToSender?: T;
   recipient?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1652,6 +1730,8 @@ export interface ContactFormsSelect<T extends boolean = true> {
  */
 export interface NotFoundPagesSelect<T extends boolean = true> {
   slug?: T;
+  createdBy?: T;
+  updatedBy?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
