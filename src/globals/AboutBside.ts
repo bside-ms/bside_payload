@@ -10,7 +10,7 @@ export const AboutBside: GlobalConfig = {
         group: 'Statisches',
         livePreview: {
             url: ({ locale }) => {
-                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? 'bside' : '/en/bside'}`;
+                return `${process.env.NEXT_PUBLIC_SITE_URL}${locale.code === 'de' ? '/bside' : '/en/bside'}`;
             },
         },
     },
