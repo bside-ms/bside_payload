@@ -5,7 +5,7 @@ import createEventSlug from '@/utilities/createEventSlug';
 
 export const revalidateWebsite = async (paths: Array<string> = []): Promise<void> => {
     try {
-        await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/revalidate`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -13,6 +13,10 @@ export const revalidateWebsite = async (paths: Array<string> = []): Promise<void
             },
             body: JSON.stringify({ paths }),
         });
+
+        if (!response.ok) {
+            console.error(`[revalidateWebsite] ${response.status} ${response.statusText} for paths: ${paths.join(', ') || '(core only)'}`);
+        }
     } catch (error) {
         console.error('[revalidateWebsite]', error);
     }
