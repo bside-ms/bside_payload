@@ -45,8 +45,11 @@ import { OverviewComponent as OverviewComponent_a8a977ebc872c5d5ea7ee689724c0860
 import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { default as default_3f049abc9c95326deb8583b6bffd9552 } from '@/components/RedirectStatus'
 import { default as default_a9233773ec0c47f8a9b57e1defb2aeaa } from '@/components/Login'
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
+/** @type import('payload').ImportMap */
 export const importMap = {
   "@payloadcms/richtext-slate/rsc#RscEntrySlateCell": RscEntrySlateCell_0e78253914a550fdacd75626f1dabe17,
   "@payloadcms/richtext-slate/rsc#RscEntrySlateField": RscEntrySlateField_0e78253914a550fdacd75626f1dabe17,
@@ -95,5 +98,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
-  "@/components/Login#default": default_a9233773ec0c47f8a9b57e1defb2aeaa
+  "@/components/RedirectStatus#default": default_3f049abc9c95326deb8583b6bffd9552,
+  "@/components/Login#default": default_a9233773ec0c47f8a9b57e1defb2aeaa,
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

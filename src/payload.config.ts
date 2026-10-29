@@ -27,6 +27,8 @@ import { Banner } from '@/globals/Banner';
 import { EventArchive } from '@/globals/EventArchive';
 import { EventPage } from '@/globals/EventPage';
 import { StartPage } from '@/globals/StartPage';
+import type { Redirect } from '@/payload-types';
+import { checkRedirect } from '@/utilities/checkRedirect';
 import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
@@ -157,7 +159,8 @@ export default buildConfig({
                     group: 'Seiten',
                     useAsTitle: 'from',
                     defaultColumns: ['from', 'updatedAt'],
-                    description: 'Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.',
+                    description:
+                        'Änderungen an Weiterleitungen sind nach dem Veröffentlichen innerhalb von 60 Sekunden live. Der Status wird unten angezeigt.',
                 },
                 access: {
                     read: () => true,
@@ -172,6 +175,38 @@ export default buildConfig({
                     afterChange: [revalidateAfterChange],
                     afterDelete: [revalidateAfterDelete],
                 },
+                endpoints: [
+                    {
+                        path: '/:id/check',
+                        method: 'get',
+                        handler: async (req): Promise<Response> => {
+                            if (!req.user) {
+                                return Response.json({ message: 'Unauthorized' }, { status: 401 });
+                            }
+
+                            const redirect = await req.payload.findByID({
+                                collection: 'redirects',
+                                id: String(req.routeParams?.id),
+                                depth: 1,
+                                req,
+                            });
+
+                            return Response.json(await checkRedirect(redirect as unknown as Redirect, process.env.NEXT_PUBLIC_SITE_URL));
+                        },
+                    },
+                ],
+                fields: ({ defaultFields }) => [
+                    ...defaultFields,
+                    {
+                        type: 'ui',
+                        name: 'liveStatus',
+                        admin: {
+                            components: {
+                                Field: '@/components/RedirectStatus',
+                            },
+                        },
+                    },
+                ],
             },
         }),
 
