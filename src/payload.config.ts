@@ -157,7 +157,7 @@ export default buildConfig({
                     group: 'Seiten',
                     useAsTitle: 'from',
                     defaultColumns: ['from', 'updatedAt'],
-                    description: 'Änderungen an den Redirects werden erst nach einem Neustart des Frontends sichtbar.',
+                    description: 'Änderungen an Weiterleitungen sind nach dem Veröffentlichen innerhalb von 60 Sekunden live.',
                 },
                 access: {
                     read: () => true,
