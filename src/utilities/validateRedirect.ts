@@ -1,6 +1,7 @@
 import type { CollectionBeforeValidateHook } from 'payload';
 import { ValidationError } from 'payload';
 import type { Redirect } from '@/payload-types';
+import { resolveReferencePath } from '@/utilities/resolveReferencePath';
 
 export interface RedirectInput {
     id?: string;
@@ -75,7 +76,7 @@ export const findRedirectProblem = (
     }
 
     if (destination === undefined || destination === '') {
-        return 'Das Weiterleitungsziel fehlt. Bei einer Seite muss sie veröffentlicht sein.';
+        return 'Das Weiterleitungsziel fehlt oder ist nicht veröffentlicht.';
     }
 
     const isInternal = destination.startsWith('/') && !destination.startsWith('//');
@@ -111,6 +112,14 @@ export const validateRedirect: CollectionBeforeValidateHook = async ({ data, ori
         input.from = normalizeFrom(input.from, siteUrl);
     }
 
+    if (input.to?.type === 'reference' && input.to.reference?.relationTo) {
+        const path = await resolveReferencePath(req, input.to.reference.relationTo, input.to.reference.value);
+
+        if (path) {
+            input.to = { type: 'custom', url: path, reference: null };
+        }
+    }
+
     if (input.to?.type === 'custom' && typeof input.to.url === 'string' && input.to.url !== '') {
         input.to.url = normalizeDestinationUrl(input.to.url);
     }
@@ -122,24 +131,8 @@ export const validateRedirect: CollectionBeforeValidateHook = async ({ data, ori
 
     const id = originalDoc?.id !== undefined ? String(originalDoc.id) : undefined;
 
-    let destination: string | undefined;
-    const { type, url, reference } = input.to ?? {};
-
-    if (type === 'custom' && url) {
-        destination = resolveDestination(url, siteUrl);
-    }
-
-    if (type === 'reference' && reference?.relationTo === 'pages' && reference.value) {
-        const value = reference.value;
-        const pageId = typeof value === 'object' && value !== null ? (value as { id?: string }).id : String(value);
-        const page = pageId
-            ? await req.payload.findByID({ collection: 'pages', id: pageId, depth: 0, req }).catch(() => undefined)
-            : undefined;
-
-        if (page && (page as { _status?: string })._status === 'published') {
-            destination = `/${(page as { slug?: string }).slug}`;
-        }
-    }
+    const { type, url } = input.to ?? {};
+    const destination = type === 'custom' && url ? resolveDestination(url, siteUrl) : undefined;
 
     const { docs } = await req.payload.find({
         collection: 'redirects',
