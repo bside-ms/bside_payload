@@ -28,6 +28,7 @@ import { EventArchive } from '@/globals/EventArchive';
 import { EventPage } from '@/globals/EventPage';
 import { StartPage } from '@/globals/StartPage';
 import { validateRedirect } from '@/utilities/validateRedirect';
+import { REDIRECT_TARGET_COLLECTIONS } from '@/utilities/resolveReferencePath';
 import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
@@ -120,6 +121,18 @@ export default buildConfig({
     i18n: {
         supportedLanguages: { en, de },
         fallbackLanguage: 'de',
+        translations: {
+            de: {
+                'plugin-redirects': {
+                    fromUrl: 'Von (Pfad auf b-side.ms, z. B. /ausstellungen)',
+                    toUrlType: 'Ziel-Art',
+                    internalLink: 'Seite aus dem CMS',
+                    customUrl: 'Eigene URL oder Pfad',
+                    documentToRedirect: 'Ziel-Seite',
+                    redirectType: 'Weiterleitungs-Typ',
+                },
+            },
+        },
     },
 
     // Payload v3 does not support rate limiting anymore, I leave this here for documentation reasons ✌️
@@ -148,7 +161,7 @@ export default buildConfig({
 
     plugins: [
         redirectsPlugin({
-            collections: ['pages'],
+            collections: REDIRECT_TARGET_COLLECTIONS,
             overrides: {
                 labels: {
                     singular: 'Weiterleitung',
