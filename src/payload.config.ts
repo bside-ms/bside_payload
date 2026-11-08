@@ -27,6 +27,7 @@ import { Banner } from '@/globals/Banner';
 import { EventArchive } from '@/globals/EventArchive';
 import { EventPage } from '@/globals/EventPage';
 import { StartPage } from '@/globals/StartPage';
+import { validateRedirect } from '@/utilities/validateRedirect';
 import { revalidateAfterChange, revalidateAfterDelete } from '@/utilities/revalidateWebsite';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
@@ -169,6 +170,7 @@ export default buildConfig({
                     drafts: true,
                 },
                 hooks: {
+                    beforeValidate: [validateRedirect],
                     afterChange: [revalidateAfterChange],
                     afterDelete: [revalidateAfterDelete],
                 },
